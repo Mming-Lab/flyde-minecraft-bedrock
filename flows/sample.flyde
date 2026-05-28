@@ -16,8 +16,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 142.70824813842773
-        y: 20.844970703125
+        x: 127.16799545288086
+        y: -12.668121337890625
       id: chat-receive
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -30,8 +30,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 325.6486282348633
-        y: -27.972573280334473
+        x: 309.1366958618164
+        y: -65.10157108306885
       id: create-ctx
       inputConfig:
         ワールド:
@@ -49,8 +49,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 242.84626960754395
-        y: 120.25080871582031
+        x: 240.91597175598145
+        y: 67.74589538574219
       id: val-time
       inputConfig: {}
       nodeId: InlineValue
@@ -65,8 +65,8 @@ node:
       style:
         color: "#C07800"
     - pos:
-        x: 483.2690887451172
-        y: 100.61768245697021
+        x: 469.8599853515625
+        y: 41.813239097595215
       id: set-time
       inputConfig:
         時刻:
@@ -87,8 +87,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 391.2393264770508
-        y: 231.81199598312378
+        x: 375.79708099365234
+        y: 180.3117060661316
       id: val-weather
       inputConfig: {}
       nodeId: InlineValue
@@ -103,8 +103,8 @@ node:
       style:
         color: "#C07800"
     - pos:
-        x: 642.4675109386444
-        y: 209.10425186157227
+        x: 620.8883788585663
+        y: 158.6671028137207
       id: set-weather
       inputConfig:
         天気:
@@ -125,8 +125,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 591.3077430725098
-        y: 306.10053539276123
+        x: 538.5947456359863
+        y: 280.27891063690186
       id: val-msg
       inputConfig: {}
       nodeId: InlineValue
@@ -141,8 +141,8 @@ node:
       style:
         color: "#C07800"
     - pos:
-        x: 824.266111433506
-        y: 280.48474884033203
+        x: 780.0708141922951
+        y: 254.87335968017578
       id: send-msg
       inputConfig:
         メッセージ:
@@ -163,8 +163,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1020.3058185577393
-        y: 279.7391595840454
+        x: 958.4614734649658
+        y: 254.36557865142822
       id: split
       inputConfig: {}
       nodeId: SplitResult
@@ -177,8 +177,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1123.6572694778442
-        y: -92.70893669128418
+        x: 1120.8960695266724
+        y: -127.52596855163574
       id: send-err
       inputConfig:
         ワールド:
