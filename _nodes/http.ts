@@ -1,9 +1,12 @@
 import { CodeNode } from '@flyde/core'
 import { Ok, Err } from './types/common'
 
+const STYLE = { color: '#008080' } // http
+
 export const HTTPGet: CodeNode = {
   id: 'HttpGet',
   displayName: 'HTTP GET',
+  defaultStyle: STYLE,
   inputs: {
     URL: { description: 'リクエスト先のURL' },
   },
@@ -24,6 +27,7 @@ export const HTTPGet: CodeNode = {
 export const HTTPPost: CodeNode = {
   id: 'HttpPost',
   displayName: 'HTTP POST',
+  defaultStyle: STYLE,
   inputs: {
     URL: { description: 'リクエスト先のURL' },
     ボディ: { description: '送信するJSONデータ（オブジェクト）' },

@@ -1,9 +1,12 @@
 import { CodeNode } from '@flyde/core'
 import { ServerEvent, type World } from 'socket-be'
 
+const STYLE = { color: '#25567D' } // events
+
 export const チャット受信: CodeNode = {
   id: 'OnPlayerChat',
   displayName: 'チャット受信',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },
@@ -23,6 +26,7 @@ export const チャット受信: CodeNode = {
 export const プレイヤー参加: CodeNode = {
   id: 'OnPlayerJoin',
   displayName: 'プレイヤー参加',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },
@@ -40,6 +44,7 @@ export const プレイヤー参加: CodeNode = {
 export const プレイヤー退出: CodeNode = {
   id: 'OnPlayerLeave',
   displayName: 'プレイヤー退出',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },
@@ -57,6 +62,7 @@ export const プレイヤー退出: CodeNode = {
 export const ブロック破壊: CodeNode = {
   id: 'OnBlockBroken',
   displayName: 'ブロック破壊',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },

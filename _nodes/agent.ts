@@ -1,9 +1,12 @@
 import { CodeNode } from '@flyde/core'
 import { Ok, Err } from './types/common'
 
+const STYLE = { color: '#D83B01' } // agent
+
 export const エージェント前進: CodeNode = {
   id: 'AgentMoveForward',
   displayName: 'エージェント前進',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     歩数: { description: '前進する歩数（デフォルト: 1）' },
@@ -27,6 +30,7 @@ export const エージェント前進: CodeNode = {
 export const エージェント回転: CodeNode = {
   id: 'AgentTurn',
   displayName: 'エージェント回転',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     方向: { description: '回転方向（left / right）' },
@@ -47,6 +51,7 @@ export const エージェント回転: CodeNode = {
 export const エージェントコマンド: CodeNode = {
   id: 'AgentCommand',
   displayName: 'エージェントコマンド',
+  defaultStyle: STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     コマンド: { description: 'agentコマンド本体（例: move forward / place 1）' },

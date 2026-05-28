@@ -1,9 +1,13 @@
 import { CodeNode } from '@flyde/core'
 import { Ok, Err } from './types/common'
 
+const PLAYER_STYLE = { color: '#0078D7' }   // player
+const GAMEPLAY_STYLE = { color: '#8F6D40' } // gameplay
+
 export const コマンド実行: CodeNode = {
   id: 'RunCommand',
   displayName: 'コマンド実行',
+  defaultStyle: GAMEPLAY_STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     コマンド: { description: '実行するコマンド（/ は不要）' },
@@ -24,6 +28,7 @@ export const コマンド実行: CodeNode = {
 export const メッセージ送信: CodeNode = {
   id: 'SendMessage',
   displayName: 'メッセージ送信',
+  defaultStyle: PLAYER_STYLE,
   inputs: {
     プレイヤー: { description: '送信先プレイヤー' },
     メッセージ: { description: '送信するテキスト' },
@@ -44,6 +49,7 @@ export const メッセージ送信: CodeNode = {
 export const テレポート: CodeNode = {
   id: 'TeleportPlayer',
   displayName: 'テレポート',
+  defaultStyle: PLAYER_STYLE,
   inputs: {
     プレイヤー: { description: 'テレポートするプレイヤー' },
     x座標: { description: 'X座標' },
@@ -66,6 +72,7 @@ export const テレポート: CodeNode = {
 export const 時刻変更: CodeNode = {
   id: 'SetTime',
   displayName: '時刻変更',
+  defaultStyle: GAMEPLAY_STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     時刻: { description: '0=夜明け / 6000=正午 / 12000=夕方 / 18000=深夜' },
@@ -86,6 +93,7 @@ export const 時刻変更: CodeNode = {
 export const 天気変更: CodeNode = {
   id: 'ChangeWeather',
   displayName: '天気変更',
+  defaultStyle: GAMEPLAY_STYLE,
   inputs: {
     ワールド: { description: 'Minecraftワールド' },
     天気: { description: '天気（clear / rain / thunder）' },

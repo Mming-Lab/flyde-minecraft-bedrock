@@ -1,9 +1,12 @@
 import { CodeNode } from '@flyde/core'
 import { Ok, Err, type MicroBitHandle } from './types/common'
 
+const STYLE = { color: '#00BCD4' } // microbit
+
 export const MicroBit受信: CodeNode = {
   id: 'MicroBitReceive',
   displayName: 'micro:bit受信',
+  defaultStyle: STYLE,
   inputs: {
     ハンドル: { description: 'micro:bit接続ノードの接続完了出力' },
   },
@@ -21,6 +24,7 @@ export const MicroBit受信: CodeNode = {
 export const MicroBit送信: CodeNode = {
   id: 'MicroBitSend',
   displayName: 'micro:bit送信',
+  defaultStyle: STYLE,
   inputs: {
     ハンドル: { description: 'micro:bit接続ノードの接続完了出力' },
     テキスト: { description: '送信するテキスト' },

@@ -5,9 +5,12 @@ import { ReadlineParser } from '@serialport/parser-readline'
 import { getServer } from './socketbe-instance'
 import type { MicroBitHandle } from './types/common'
 
+const STYLE = { color: '#5C5C5C' } // connection
+
 export const Minecraft接続: CodeNode = {
   id: 'MinecraftConnect',
   displayName: 'Minecraft接続',
+  defaultStyle: STYLE,
   inputs: {
     ポート: { description: 'WebSocketポート番号（デフォルト: 8080）', mode: 'optional' },
   },
@@ -30,6 +33,7 @@ export const Minecraft接続: CodeNode = {
 export const MicroBit接続: CodeNode = {
   id: 'MicroBitConnect',
   displayName: 'micro:bit接続',
+  defaultStyle: STYLE,
   inputs: {
     COMポート: { description: 'COMポート（例: COM3）' },
     ボーレート: { description: 'ボーレート（デフォルト: 115200）' },
