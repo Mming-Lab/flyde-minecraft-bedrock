@@ -1,0 +1,25 @@
+{
+  "name": "mc-flow-template",
+  "version": "0.1.0",
+  "description": "Minecraft Education Edition × micro:bit フロープログラミング教室用テンプレート",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@flyde/core": "*",
+    "@minecraft/vanilla-data": "*",
+    "@serialport/parser-readline": "*",
+    "express": "^4.18.0",
+    "serialport": "*",
+    "socket-be": "*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "allowScripts": {
+    "@serialport/bindings-cpp@13.0.0": true
+  }
+}

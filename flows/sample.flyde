@@ -1,0 +1,15 @@
+{
+  "imports": {},
+  "node": {
+    "id": "SampleFlow",
+    "displayName": "サンプルフロー",
+    "description": "ここにフローを作成してください",
+    "inputs": {},
+    "outputs": {},
+    "instances": [],
+    "connections": [],
+    "completionOutputs": [],
+    "inputsPosition": {},
+    "outputsPosition": {}
+  }
+}

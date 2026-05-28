@@ -1,0 +1,56 @@
+import { CodeNode } from '@flyde/core'
+import type { Result } from './types/common'
+
+export const 結果で分岐: CodeNode = {
+  id: 'SplitResult',
+  displayName: '結果で分岐',
+  inputs: {
+    Result: { description: 'Result型の値' },
+  },
+  outputs: {
+    成功: {},
+    失敗: {},
+  },
+  run: ({ Result: raw }, { 成功, 失敗 }) => {
+    const r = raw as Result
+    if (r.ok) {
+      成功.next(r.value)
+    } else {
+      失敗.next(r.error)
+    }
+  },
+}
+
+export const 成功を取り出す: CodeNode = {
+  id: 'UnwrapOk',
+  displayName: '成功を取り出す',
+  inputs: {
+    Result: { description: 'Ok型のResult' },
+  },
+  outputs: {
+    値: {},
+  },
+  run: ({ Result: raw }, { 値 }) => {
+    const r = raw as Result
+    if (r.ok) {
+      値.next(r.value)
+    }
+  },
+}
+
+export const エラーを取り出す: CodeNode = {
+  id: 'UnwrapErr',
+  displayName: 'エラーを取り出す',
+  inputs: {
+    Result: { description: 'Err型のResult' },
+  },
+  outputs: {
+    エラー: {},
+  },
+  run: ({ Result: raw }, { エラー }) => {
+    const r = raw as Result
+    if (!r.ok) {
+      エラー.next(r.error)
+    }
+  },
+}
