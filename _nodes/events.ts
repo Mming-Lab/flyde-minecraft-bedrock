@@ -90,3 +90,27 @@ export const ブロック破壊: CodeNode = {
     adv.onCleanup(() => world.server.remove(ServerEvent.BlockBroken, handler))
   },
 }
+
+export const ブロック設置: CodeNode = {
+  id: 'OnBlockPlaced',
+  displayName: 'ブロック設置',
+  menuDisplayName: 'ﾌﾞﾛｯｸ設置',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー: {},
+    ブロック種別: {},
+  },
+  run: ({ ワールド }, { プレイヤー, ブロック種別 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      プレイヤー.next(ev.player)
+      ブロック種別.next(ev.placedBlockType)
+    }
+    world.server.on(ServerEvent.BlockPlaced, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.BlockPlaced, handler))
+  },
+}

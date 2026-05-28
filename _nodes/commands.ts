@@ -158,6 +158,33 @@ export const 時刻変更: CodeNode = {
   },
 }
 
+export const エンティティ召喚: CodeNode = {
+  id: 'SummonEntity',
+  displayName: 'エンティティ召喚',
+  menuDisplayName: 'ｴﾝﾃｨﾃｨ召喚',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
+    エンティティ名: { description: 'エンティティID（例: creeper / fireworks_rocket）' },
+    x座標: { description: 'X座標' },
+    y座標: { description: 'Y座標' },
+    z座標: { description: 'Z座標' },
+  },
+  outputs: {
+    Result: {},
+  },
+  run: async ({ コンテキスト, エンティティ名, x座標, y座標, z座標 }, { Result: result }) => {
+    const u = unwrapCtx(コンテキスト)
+    if (!u.ok) { result.next(u.err); return }
+    try {
+      await u.ctx.world.runCommand(`summon ${エンティティ名} ${x座標} ${y座標} ${z座標}`)
+      result.next(Ok(u.ctx))
+    } catch (e) {
+      result.next(Err(String(e)))
+    }
+  },
+}
+
 export const 天気変更: CodeNode = {
   id: 'ChangeWeather',
   displayName: '天気変更',

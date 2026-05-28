@@ -84,3 +84,76 @@ export const エージェントコマンド: CodeNode = {
     }
   },
 }
+
+export const エージェントがブロック設置: CodeNode = {
+  id: 'AgentPlace',
+  displayName: 'エージェントがブロック設置',
+  menuDisplayName: 'Agent設置',
+  defaultStyle: STYLE,
+  inputs: {
+    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
+    方向: { description: '設置方向（forward / back / left / right / up / down）' },
+  },
+  outputs: {
+    Result: {},
+  },
+  run: async ({ コンテキスト, 方向 }, { Result: result }) => {
+    const u = unwrapCtx(コンテキスト)
+    if (!u.ok) { result.next(u.err); return }
+    try {
+      await u.ctx.world.runCommand(`agent place ${方向 ?? 'forward'}`)
+      result.next(Ok(u.ctx))
+    } catch (e) {
+      result.next(Err(String(e)))
+    }
+  },
+}
+
+export const エージェントがブロック破壊: CodeNode = {
+  id: 'AgentDestroy',
+  displayName: 'エージェントがブロック破壊',
+  menuDisplayName: 'Agent破壊',
+  defaultStyle: STYLE,
+  inputs: {
+    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
+    方向: { description: '破壊方向（forward / back / left / right / up / down）' },
+  },
+  outputs: {
+    Result: {},
+  },
+  run: async ({ コンテキスト, 方向 }, { Result: result }) => {
+    const u = unwrapCtx(コンテキスト)
+    if (!u.ok) { result.next(u.err); return }
+    try {
+      await u.ctx.world.runCommand(`agent destroy ${方向 ?? 'forward'}`)
+      result.next(Ok(u.ctx))
+    } catch (e) {
+      result.next(Err(String(e)))
+    }
+  },
+}
+
+export const エージェントの座標を取得: CodeNode = {
+  id: 'AgentGetPosition',
+  displayName: 'エージェントの座標を取得',
+  menuDisplayName: 'Agent座標',
+  defaultStyle: STYLE,
+  inputs: {
+    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
+  },
+  outputs: {
+    Result: {},
+    座標: {},
+  },
+  run: async ({ コンテキスト }, { Result: result, 座標 }, ) => {
+    const u = unwrapCtx(コンテキスト)
+    if (!u.ok) { result.next(u.err); return }
+    try {
+      const res = await u.ctx.world.runCommand('agent getPosition')
+      座標.next(res)
+      result.next(Ok(u.ctx))
+    } catch (e) {
+      result.next(Err(String(e)))
+    }
+  },
+}
