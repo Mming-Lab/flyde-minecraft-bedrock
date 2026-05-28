@@ -18,12 +18,12 @@ export const Minecraft接続: CodeNode = {
     ワールド: {},
     エラー: {},
   },
-  run: ({ ポート }, { ワールド, エラー }) => {
+  run: ({ ポート }, { ワールド, エラー }, adv) => {
     try {
       const server = getServer(ポート ?? 8080)
-      server.on(ServerEvent.WorldAdd, (signal) => {
-        ワールド.next(signal.world)
-      })
+      const handler = (signal: any) => ワールド.next(signal.world)
+      server.on(ServerEvent.WorldAdd, handler)
+      adv.onCleanup(() => server.remove(ServerEvent.WorldAdd, handler))
     } catch (e) {
       エラー.next(String(e))
     }

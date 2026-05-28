@@ -14,12 +14,14 @@ export const チャット受信: CodeNode = {
     送信者: {},
     メッセージ: {},
   },
-  run: ({ ワールド }, { 送信者, メッセージ }) => {
+  run: ({ ワールド }, { 送信者, メッセージ }, adv) => {
     const world = ワールド as World
-    world.server.on(ServerEvent.PlayerChat, (ev) => {
+    const handler = (ev: any) => {
       送信者.next(ev.sender)
       メッセージ.next(ev.message)
-    })
+    }
+    world.server.on(ServerEvent.PlayerChat, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerChat, handler))
   },
 }
 
@@ -33,11 +35,11 @@ export const プレイヤー参加: CodeNode = {
   outputs: {
     プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー }) => {
+  run: ({ ワールド }, { プレイヤー }, adv) => {
     const world = ワールド as World
-    world.server.on(ServerEvent.PlayerJoin, (ev) => {
-      プレイヤー.next(ev.player)
-    })
+    const handler = (ev: any) => プレイヤー.next(ev.player)
+    world.server.on(ServerEvent.PlayerJoin, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerJoin, handler))
   },
 }
 
@@ -51,11 +53,11 @@ export const プレイヤー退出: CodeNode = {
   outputs: {
     プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー }) => {
+  run: ({ ワールド }, { プレイヤー }, adv) => {
     const world = ワールド as World
-    world.server.on(ServerEvent.PlayerLeave, (ev) => {
-      プレイヤー.next(ev.player)
-    })
+    const handler = (ev: any) => プレイヤー.next(ev.player)
+    world.server.on(ServerEvent.PlayerLeave, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerLeave, handler))
   },
 }
 
@@ -70,11 +72,13 @@ export const ブロック破壊: CodeNode = {
     プレイヤー: {},
     ブロック種別: {},
   },
-  run: ({ ワールド }, { プレイヤー, ブロック種別 }) => {
+  run: ({ ワールド }, { プレイヤー, ブロック種別 }, adv) => {
     const world = ワールド as World
-    world.server.on(ServerEvent.BlockBroken, (ev) => {
+    const handler = (ev: any) => {
       プレイヤー.next(ev.player)
       ブロック種別.next(ev.brokenBlockType)
-    })
+    }
+    world.server.on(ServerEvent.BlockBroken, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.BlockBroken, handler))
   },
 }
