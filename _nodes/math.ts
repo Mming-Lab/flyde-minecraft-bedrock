@@ -10,6 +10,24 @@ type Vec2 = { x: number; y: number }
 type VecXZ = { x: number; z: number }
 type AABB = { min: Vec3; max: Vec3 }
 
+export const 座標を組み立てる: CodeNode = {
+  id: 'Vector3Create',
+  displayName: '座標を組み立てる',
+  menuDisplayName: '座標作成',
+  defaultStyle: STYLE,
+  inputs: {
+    x: { description: 'X座標', defaultValue: 0 },
+    y: { description: 'Y座標', defaultValue: 0 },
+    z: { description: 'Z座標', defaultValue: 0 },
+  },
+  outputs: {
+    座標: {},
+  },
+  run: ({ x, y, z }, { 座標 }) => {
+    座標.next({ x: Number(x ?? 0), y: Number(y ?? 0), z: Number(z ?? 0) })
+  },
+}
+
 export const 座標を足す: CodeNode = {
   id: 'Vector3Add',
   displayName: '座標を足す',
@@ -350,6 +368,27 @@ export const 二次元単位ベクトル化: CodeNode = {
 }
 
 // ── Vector3 追加演算 ──────────────────────────────────────────────────────
+
+export const 座標を分解: CodeNode = {
+  id: 'Vector3Split',
+  displayName: '座標を分解',
+  menuDisplayName: '座標分解',
+  defaultStyle: STYLE,
+  inputs: {
+    座標: { description: '分解する座標 {x, y, z}' },
+  },
+  outputs: {
+    x: {},
+    y: {},
+    z: {},
+  },
+  run: ({ 座標 }, { x, y, z }) => {
+    const v = 座標 as Vec3
+    x.next(v.x)
+    y.next(v.y)
+    z.next(v.z)
+  },
+}
 
 export const 座標を切り上げ: CodeNode = {
   id: 'Vector3Ceil',

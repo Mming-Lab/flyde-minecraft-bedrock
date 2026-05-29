@@ -1,39 +1,45 @@
 import { CodeNode } from '@flyde/core'
-import { Ok, Err } from './types/common'
-import type { Result, McContext } from './types/common'
+import { getCurrentContext } from './context-manager'
 
 const STYLE = { color: '#D83B01' } // agent
 
-function unwrapCtx(raw: unknown): { ok: true; ctx: McContext } | { ok: false; err: Result } {
-  const r = raw as Result<McContext>
-  if (!r.ok) return { ok: false, err: r }
-  return { ok: true, ctx: r.value }
-}
+const SIX_DIR_OPTIONS = [
+  { label: 'forward（前）', value: 'forward' },
+  { label: 'back（後）',    value: 'back' },
+  { label: 'left（左）',   value: 'left' },
+  { label: 'right（右）',  value: 'right' },
+  { label: 'up（上）',     value: 'up' },
+  { label: 'down（下）',   value: 'down' },
+]
 
-export const エージェント前進: CodeNode = {
-  id: 'AgentMoveForward',
-  displayName: 'エージェント前進',
-  menuDisplayName: 'Agent前進',
+const TURN_DIR_OPTIONS = [
+  { label: 'left（左）',  value: 'left' },
+  { label: 'right（右）', value: 'right' },
+]
+
+export const エージェント移動: CodeNode = {
+  id: 'AgentMove',
+  displayName: 'エージェント移動',
+  menuDisplayName: 'Agent移動',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
-    歩数: { description: '前進する歩数（デフォルト: 1）' },
+    トリガー: { description: 'トリガー（任意）' },
+    方向: {
+      description: '移動方向',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: SIX_DIR_OPTIONS },
+    },
+    歩数: { description: '移動する歩数（IIP可）', defaultValue: 1 },
   },
-  outputs: {
-    Result: {},
-  },
-  run: async ({ コンテキスト, 歩数 }, { Result: result }) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      const steps: number = 歩数 ?? 1
-      for (let i = 0; i < steps; i++) {
-        await u.ctx.world.runCommand('agent move forward')
-      }
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
+  outputs: { 完了: {} },
+  run: async ({ 方向, 歩数 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    const steps = Number(歩数 ?? 1)
+    for (let i = 0; i < steps; i++) {
+      await world.runCommand(`agent move ${方向 ?? 'forward'}`)
     }
+    完了.next(true)
   },
 }
 
@@ -43,21 +49,18 @@ export const エージェント回転: CodeNode = {
   menuDisplayName: 'Agent回転',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
-    方向: { description: '回転方向（left / right）' },
+    方向: {
+      description: '回転方向',
+      defaultValue: 'left',
+      editorType: 'select',
+      editorTypeData: { options: TURN_DIR_OPTIONS },
+    },
   },
-  outputs: {
-    Result: {},
-  },
-  run: async ({ コンテキスト, 方向 }, { Result: result }) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      await u.ctx.world.runCommand(`agent turn ${方向}`)
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
-    }
+  outputs: { 完了: {} },
+  run: async ({ 方向 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.runCommand(`agent turn ${方向 ?? 'left'}`)
+    完了.next(true)
   },
 }
 
@@ -67,21 +70,14 @@ export const エージェントコマンド: CodeNode = {
   menuDisplayName: 'Agent命令',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
-    コマンド: { description: 'agentコマンド本体（例: move forward / place 1）' },
+    トリガー: { description: 'トリガー（任意）' },
+    コマンド: { description: 'agent コマンド本体（例: move forward / place 1）' },
   },
-  outputs: {
-    Result: {},
-  },
-  run: async ({ コンテキスト, コマンド }, { Result: result }) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      await u.ctx.world.runCommand(`agent ${コマンド}`)
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
-    }
+  outputs: { 完了: {} },
+  run: async ({ コマンド }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.runCommand(`agent ${コマンド}`)
+    完了.next(true)
   },
 }
 
@@ -91,21 +87,18 @@ export const エージェントがブロック設置: CodeNode = {
   menuDisplayName: 'Agent設置',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
-    方向: { description: '設置方向（forward / back / left / right / up / down）' },
+    方向: {
+      description: '設置方向',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: SIX_DIR_OPTIONS },
+    },
   },
-  outputs: {
-    Result: {},
-  },
-  run: async ({ コンテキスト, 方向 }, { Result: result }) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      await u.ctx.world.runCommand(`agent place ${方向 ?? 'forward'}`)
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
-    }
+  outputs: { 完了: {} },
+  run: async ({ 方向 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.runCommand(`agent place ${方向 ?? 'forward'}`)
+    完了.next(true)
   },
 }
 
@@ -115,21 +108,18 @@ export const エージェントがブロック破壊: CodeNode = {
   menuDisplayName: 'Agent破壊',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
-    方向: { description: '破壊方向（forward / back / left / right / up / down）' },
+    方向: {
+      description: '破壊方向',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: SIX_DIR_OPTIONS },
+    },
   },
-  outputs: {
-    Result: {},
-  },
-  run: async ({ コンテキスト, 方向 }, { Result: result }) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      await u.ctx.world.runCommand(`agent destroy ${方向 ?? 'forward'}`)
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
-    }
+  outputs: { 完了: {} },
+  run: async ({ 方向 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.runCommand(`agent destroy ${方向 ?? 'forward'}`)
+    完了.next(true)
   },
 }
 
@@ -139,21 +129,86 @@ export const エージェントの座標を取得: CodeNode = {
   menuDisplayName: 'Agent座標',
   defaultStyle: STYLE,
   inputs: {
-    コンテキスト: { description: 'Result<McContext>（鉄道のレール）' },
+    トリガー: { description: 'トリガー（任意）' },
   },
-  outputs: {
-    Result: {},
-    座標: {},
+  outputs: { 座標: {} },
+  run: async (_, { 座標 }) => {
+    const { world } = getCurrentContext()
+    const res = await world.runCommand('agent getPosition')
+    座標.next(res)
   },
-  run: async ({ コンテキスト }, { Result: result, 座標 }, ) => {
-    const u = unwrapCtx(コンテキスト)
-    if (!u.ok) { result.next(u.err); return }
-    try {
-      const res = await u.ctx.world.runCommand('agent getPosition')
-      座標.next(res)
-      result.next(Ok(u.ctx))
-    } catch (e) {
-      result.next(Err(String(e)))
-    }
+}
+
+export const エージェント向き取得: CodeNode = {
+  id: 'AgentGetOrientation',
+  displayName: 'エージェント向き取得',
+  menuDisplayName: 'Agent向き',
+  defaultStyle: STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+  },
+  outputs: { 向き: {} },
+  run: async (_, { 向き }) => {
+    const { world } = getCurrentContext()
+    const res = await world.runCommand('agent getOrientation')
+    向き.next(res.facing ?? res.orientation ?? 0)
+  },
+}
+
+export const エージェントブロック検知: CodeNode = {
+  id: 'AgentDetect',
+  displayName: 'エージェントブロック検知',
+  menuDisplayName: 'Agent検知',
+  defaultStyle: STYLE,
+  inputs: {
+    方向: {
+      description: '検知方向',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: SIX_DIR_OPTIONS },
+    },
+  },
+  outputs: { 検知: {} },
+  run: async ({ 方向 }, { 検知 }) => {
+    const { world } = getCurrentContext()
+    const res = await world.runCommand(`agent detect ${方向 ?? 'forward'}`)
+    検知.next(!!(res.detected))
+  },
+}
+
+export const エージェントブロック検査: CodeNode = {
+  id: 'AgentInspect',
+  displayName: 'エージェントブロック検査',
+  menuDisplayName: 'Agent検査',
+  defaultStyle: STYLE,
+  inputs: {
+    方向: {
+      description: '検査方向',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: SIX_DIR_OPTIONS },
+    },
+  },
+  outputs: { ブロックID: {} },
+  run: async ({ 方向 }, { ブロックID }) => {
+    const { world } = getCurrentContext()
+    const res = await world.runCommand(`agent inspect ${方向 ?? 'forward'}`)
+    ブロックID.next(String(res.block ?? res.blockId ?? ''))
+  },
+}
+
+export const エージェントアイテム数取得: CodeNode = {
+  id: 'AgentGetItemCount',
+  displayName: 'エージェントアイテム数取得',
+  menuDisplayName: 'Agentｱｲﾃﾑ数',
+  defaultStyle: STYLE,
+  inputs: {
+    スロット: { description: 'インベントリスロット番号（1〜）', defaultValue: 1 },
+  },
+  outputs: { 個数: {} },
+  run: async ({ スロット }, { 個数 }) => {
+    const { world } = getCurrentContext()
+    const res = await world.runCommand(`agent getItemCount ${スロット ?? 1}`)
+    個数.next(Number(res.count ?? res.itemCount ?? 0))
   },
 }

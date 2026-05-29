@@ -8,9 +8,11 @@ import type { MicroBitHandle } from './types/common'
 const STYLE = { color: '#5C5C5C' } // connection
 
 // Flyde の内部テレメトリ(reportEvent)が fetch を投げっぱなしにする。
-// Node.js v16+ は unhandledRejection でプロセスをクラッシュさせるため、
-// ここで握り潰してプロセスを生かし続ける。
-process.on('unhandledRejection', () => {})
+// fetch エラーだけ無視し、それ以外はコンソールに表示する。
+process.on('unhandledRejection', (reason: unknown) => {
+  if (String(reason).includes('fetch')) return
+  console.error('\n[エラーが発生しました]', reason, '\n')
+})
 
 // Flyde は mode:'optional' 入力があると run() を繰り返し呼ぶため、
 // モジュールレベルのフラグと pending Promise でループを止める。

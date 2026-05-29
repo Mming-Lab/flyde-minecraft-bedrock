@@ -2,22 +2,22 @@ imports: {}
 node:
   instances:
     - pos:
-        x: -68.36453437805176
-        y: -121.14311599731445
+        x: -100
+        y: 0
       id: mc-connect
       inputConfig: {}
       nodeId: MinecraftConnect
       config:
         ポート:
-          type: dynamic
-          value: "{{ポート}}"
+          type: number
+          value: 8080
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 127.16799545288086
-        y: -12.668121337890625
+        x: 150
+        y: 0
       id: chat-receive
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -30,167 +30,94 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 309.1366958618164
-        y: -65.10157108306885
-      id: create-ctx
-      inputConfig:
-        ワールド:
-          mode: sticky
-      nodeId: CreateContext
+        x: 400
+        y: 0
+      id: is-daytime
+      inputConfig: {}
+      nodeId: IsDaytime
       config:
-        ワールド:
+        トリガー:
           type: dynamic
-          value: "{{ワールド}}"
-        プレイヤー:
-          type: dynamic
-          value: "{{プレイヤー}}"
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 240.91597175598145
-        y: 67.74589538574219
-      id: val-time
-      inputConfig: {}
-      nodeId: InlineValue
+        x: 650
+        y: 0
+      id: switch
+      inputConfig:
+        真:
+          mode: sticky
+        偽:
+          mode: sticky
+      nodeId: Conditional
       config:
-        value:
-          type: string
-          value: "0"
+        条件:
+          type: dynamic
+          value: "{{条件}}"
+        真:
+          type: number
+          value: 18000
+        偽:
+          type: number
+          value: 0
       type: code
       source:
-        type: package
-        data: "@flyde/nodes"
-      style:
-        color: "#C07800"
+        type: file
+        data: ../_nodes/index.flyde.ts
     - pos:
-        x: 469.8599853515625
-        y: 41.813239097595215
+        x: 900
+        y: 0
       id: set-time
-      inputConfig:
-        時刻:
-          mode: sticky
+      inputConfig: {}
       nodeId: SetTime
       config:
-        ワールド:
+        トリガー:
           type: dynamic
-          value: "{{ワールド}}"
+          value: "{{トリガー}}"
         時刻:
           type: dynamic
           value: "{{時刻}}"
-        コンテキスト:
-          type: dynamic
-          value: "{{コンテキスト}}"
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 375.79708099365234
-        y: 180.3117060661316
-      id: val-weather
-      inputConfig: {}
-      nodeId: InlineValue
-      config:
-        value:
-          type: string
-          value: clear
-      type: code
-      source:
-        type: package
-        data: "@flyde/nodes"
-      style:
-        color: "#C07800"
-    - pos:
-        x: 620.8883788585663
-        y: 158.6671028137207
+        x: 1150
+        y: 0
       id: set-weather
       inputConfig:
         天気:
           mode: sticky
       nodeId: ChangeWeather
       config:
-        ワールド:
+        トリガー:
           type: dynamic
-          value: "{{ワールド}}"
+          value: "{{トリガー}}"
         天気:
-          type: dynamic
-          value: "{{天気}}"
-        コンテキスト:
-          type: dynamic
-          value: "{{コンテキスト}}"
+          type: string
+          value: clear
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 538.5947456359863
-        y: 280.27891063690186
-      id: val-msg
-      inputConfig: {}
-      nodeId: InlineValue
-      config:
-        value:
-          type: string
-          value: 朝になって晴れにしたよ！
-      type: code
-      source:
-        type: package
-        data: "@flyde/nodes"
-      style:
-        color: "#C07800"
-    - pos:
-        x: 780.0708141922951
-        y: 254.87335968017578
+        x: 1400
+        y: 0
       id: send-msg
       inputConfig:
-        メッセージ:
-          mode: sticky
-      nodeId: SendMessage
-      config:
-        プレイヤー:
-          type: dynamic
-          value: "{{プレイヤー}}"
-        メッセージ:
-          type: dynamic
-          value: "{{メッセージ}}"
-        コンテキスト:
-          type: dynamic
-          value: "{{コンテキスト}}"
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 958.4614734649658
-        y: 254.36557865142822
-      id: split
-      inputConfig: {}
-      nodeId: SplitResult
-      config:
-        Result:
-          type: dynamic
-          value: "{{Result}}"
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 1120.8960695266724
-        y: -127.52596855163574
-      id: send-err
-      inputConfig:
-        ワールド:
+        テキスト:
           mode: sticky
       nodeId: SendMessageAll
       config:
-        ワールド:
+        トリガー:
           type: dynamic
-          value: "{{ワールド}}"
+          value: "{{トリガー}}"
         テキスト:
-          type: dynamic
-          value: "{{テキスト}}"
+          type: string
+          value: 時刻を切り替えました！
       type: code
       source:
         type: file
@@ -203,76 +130,39 @@ node:
         insId: chat-receive
         pinId: ワールド
     - from:
-        insId: mc-connect
-        pinId: ワールド
-      to:
-        insId: create-ctx
-        pinId: ワールド
-    - from:
-        insId: mc-connect
-        pinId: ワールド
-      to:
-        insId: send-err
-        pinId: ワールド
-    - from:
         insId: chat-receive
-        pinId: 送信者
+        pinId: 送信者名
       to:
-        insId: create-ctx
-        pinId: プレイヤー
+        insId: is-daytime
+        pinId: トリガー
     - from:
-        insId: create-ctx
-        pinId: Result
+        insId: is-daytime
+        pinId: 昼
       to:
-        insId: set-time
-        pinId: コンテキスト
+        insId: switch
+        pinId: 条件
     - from:
-        insId: set-time
-        pinId: Result
-      to:
-        insId: set-weather
-        pinId: コンテキスト
-    - from:
-        insId: set-weather
-        pinId: Result
-      to:
-        insId: send-msg
-        pinId: コンテキスト
-    - from:
-        insId: val-time
-        pinId: value
+        insId: switch
+        pinId: 結果
       to:
         insId: set-time
         pinId: 時刻
     - from:
-        insId: val-weather
-        pinId: value
+        insId: set-time
+        pinId: 完了
       to:
         insId: set-weather
-        pinId: 天気
+        pinId: トリガー
     - from:
-        insId: val-msg
-        pinId: value
+        insId: set-weather
+        pinId: 完了
       to:
         insId: send-msg
-        pinId: メッセージ
-    - from:
-        insId: send-msg
-        pinId: Result
-      to:
-        insId: split
-        pinId: Result
-    - from:
-        insId: split
-        pinId: 失敗
-      to:
-        insId: send-err
-        pinId: テキスト
+        pinId: トリガー
   id: SampleFlow
   inputs: {}
   outputs: {}
   inputsPosition: {}
   outputsPosition: {}
   completionOutputs: []
-  description: チャットを受け取ったら①夜明けに→②晴れに→③完了メッセージ
-    を順番に実行。どこかで失敗しても後続はスキップされ、最後の1箇所だけでエラーを全員に通知する（鉄道指向プログラミングのサンプル）
+  description: チャット受信→昼夜判定→時刻切り替え（昼なら夜に、夜なら昼に）→晴れ→完了メッセージ
