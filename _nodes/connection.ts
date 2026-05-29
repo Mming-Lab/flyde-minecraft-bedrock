@@ -2,7 +2,7 @@ import { CodeNode } from '@flyde/core'
 import { ServerEvent } from 'socket-be'
 import { SerialPort } from 'serialport'
 import { ReadlineParser } from '@serialport/parser-readline'
-import { getServer } from './socketbe-instance'
+import { getServer, stopServer } from './socketbe-instance'
 import type { MicroBitHandle } from './types/common'
 
 const STYLE = { color: '#5C5C5C' } // connection
@@ -41,8 +41,9 @@ export const Minecraft接続: CodeNode = {
         const server = getServer(ポート ?? 8080, (msg) => エラー.next(msg))
         const handler = (signal: any) => ワールド.next(signal.world)
         server.on(ServerEvent.WorldAdd, handler)
-        adv.onCleanup(() => {
+        adv.onCleanup(async () => {
           server.remove(ServerEvent.WorldAdd, handler)
+          await stopServer()   // ポートを解放してから次のフローが起動できるようにする
           _mcConnectRunning = false
           resolve()
         })

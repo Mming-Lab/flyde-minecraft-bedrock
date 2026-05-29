@@ -29,3 +29,20 @@ export function getServer(port: number = 8080, onError?: (msg: string) => void):
   }
   return _server!
 }
+
+// フロー停止時にポートを解放する。onCleanup から呼ぶこと。
+export async function stopServer(): Promise<void> {
+  if (!_server) return
+  const s = _server
+  _server = null
+  try {
+    await s.stop()
+    console.log('[SocketBE] サーバーを停止しました')
+  } catch {
+    // すでに閉じている場合などは無視
+  }
+}
+
+// Flyde が別プロセスでフローを実行する場合、プロセス終了時にもポートを解放する
+process.once('SIGTERM', () => stopServer().finally(() => process.exit(0)))
+process.once('SIGINT',  () => stopServer().finally(() => process.exit(0)))
