@@ -93,7 +93,7 @@ export const ブロック破壊: CodeNode = {
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
-      ブロック種別.next(ev.brokenBlockType)
+      ブロック種別.next(ev.brokenBlockType.id)
     }
     world.server.on(ServerEvent.BlockBroken, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.BlockBroken, handler))
@@ -118,7 +118,7 @@ export const ブロック設置イベント: CodeNode = {
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
-      ブロック種別.next(ev.placedBlockType)
+      ブロック種別.next(ev.placedBlockType.id)
     }
     world.server.on(ServerEvent.BlockPlaced, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.BlockPlaced, handler))
@@ -270,5 +270,182 @@ export const 的ブロック命中: CodeNode = {
     }
     world.server.on(ServerEvent.TargetBlockHit, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.TargetBlockHit, handler))
+  },
+}
+
+export const プレイヤータイトル: CodeNode = {
+  id: 'OnPlayerTitle',
+  displayName: 'プレイヤータイトル',
+  menuDisplayName: 'ﾀｲﾄﾙ受信',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    送信者名: {},
+    メッセージ: {},
+    受信者名: {},
+  },
+  run: ({ ワールド }, { 送信者名, メッセージ, 受信者名 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.sender)
+      送信者名.next(ev.sender.name)
+      メッセージ.next(ev.message)
+      受信者名.next(ev.receiver.name)
+    }
+    world.server.on(ServerEvent.PlayerTitle, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerTitle, handler))
+  },
+}
+
+export const プレイヤーメッセージ: CodeNode = {
+  id: 'OnPlayerMessage',
+  displayName: 'プレイヤーメッセージ',
+  menuDisplayName: 'ﾒｯｾｰｼﾞ受信',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    送信者名: {},
+    メッセージ: {},
+  },
+  run: ({ ワールド }, { 送信者名, メッセージ }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.sender)
+      送信者名.next(ev.sender.name)
+      メッセージ.next(ev.message)
+    }
+    world.server.on(ServerEvent.PlayerMessage, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerMessage, handler))
+  },
+}
+
+export const アイテムをクラフト: CodeNode = {
+  id: 'OnItemCrafted',
+  displayName: 'アイテムをクラフト',
+  menuDisplayName: 'ｸﾗﾌﾄ',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー名: {},
+    アイテム名: {},
+  },
+  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.player)
+      プレイヤー名.next(ev.player.name)
+      アイテム名.next(ev.craftedItemStack?.typeId ?? '')
+    }
+    world.server.on(ServerEvent.ItemCrafted, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.ItemCrafted, handler))
+  },
+}
+
+export const アイテムを装備: CodeNode = {
+  id: 'OnItemEquipped',
+  displayName: 'アイテムを装備',
+  menuDisplayName: 'ｱｲﾃﾑ装備',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー名: {},
+    アイテム名: {},
+  },
+  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.player)
+      プレイヤー名.next(ev.player.name)
+      アイテム名.next(ev.itemStack?.typeId ?? '')
+    }
+    world.server.on(ServerEvent.ItemEquipped, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.ItemEquipped, handler))
+  },
+}
+
+export const アイテムを精錬: CodeNode = {
+  id: 'OnItemSmelted',
+  displayName: 'アイテムを精錬',
+  menuDisplayName: 'ｱｲﾃﾑ精錬',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー名: {},
+    アイテム名: {},
+  },
+  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.player)
+      プレイヤー名.next(ev.player.name)
+      アイテム名.next(ev.smeltedItemType?.id ?? '')
+    }
+    world.server.on(ServerEvent.ItemSmelted, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.ItemSmelted, handler))
+  },
+}
+
+export const アイテムを取引: CodeNode = {
+  id: 'OnItemTraded',
+  displayName: 'アイテムを取引',
+  menuDisplayName: 'ｱｲﾃﾑ取引',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー名: {},
+    アイテム名: {},
+  },
+  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.player)
+      プレイヤー名.next(ev.player.name)
+      アイテム名.next(ev.receivedItemStack?.typeId ?? '')
+    }
+    world.server.on(ServerEvent.ItemTraded, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.ItemTraded, handler))
+  },
+}
+
+export const バウンス: CodeNode = {
+  id: 'OnPlayerBounced',
+  displayName: 'バウンス',
+  menuDisplayName: 'ﾊﾞｳﾝｽ',
+  defaultStyle: STYLE,
+  completionOutputs: [],
+  inputs: {
+    ワールド: { description: 'Minecraft接続ノードのワールド出力' },
+  },
+  outputs: {
+    プレイヤー名: {},
+    高さ: {},
+  },
+  run: ({ ワールド }, { プレイヤー名, 高さ }, adv) => {
+    const world = ワールド as World
+    const handler = (ev: any) => {
+      setCurrentContext(world, ev.player)
+      プレイヤー名.next(ev.player.name)
+      高さ.next(ev.bounceHeight)
+    }
+    world.server.on(ServerEvent.PlayerBounced, handler)
+    adv.onCleanup(() => world.server.remove(ServerEvent.PlayerBounced, handler))
   },
 }

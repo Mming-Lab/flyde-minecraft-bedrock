@@ -122,6 +122,7 @@ export const 座標を切り捨て: CodeNode = {
   },
 }
 
+/*
 export const 座標を補間: CodeNode = {
   id: 'Vector3Lerp',
   displayName: '座標を補間',
@@ -146,6 +147,7 @@ export const 座標を補間: CodeNode = {
     })
   },
 }
+*/
 
 export const 座標を文字列に変換: CodeNode = {
   id: 'Vector3ToString',
@@ -182,6 +184,7 @@ export const Y座標を補完: CodeNode = {
   },
 }
 
+/*
 export const ベクトルの長さ: CodeNode = {
   id: 'Vector3Magnitude',
   displayName: 'ベクトルの長さ',
@@ -217,6 +220,7 @@ export const 単位ベクトル化: CodeNode = {
     結果.next({ x: v.x / mag, y: v.y / mag, z: v.z / mag })
   },
 }
+*/
 
 export const 数値を範囲に収める: CodeNode = {
   id: 'ClampNumber',
@@ -236,6 +240,7 @@ export const 数値を範囲に収める: CodeNode = {
   },
 }
 
+/*
 // ── Vector2 演算（{x, y} ── 回転角・2D座標）──────────────────────────────
 
 export const 二次元座標を足す: CodeNode = {
@@ -366,6 +371,7 @@ export const 二次元単位ベクトル化: CodeNode = {
     結果.next({ x: v.x / mag, y: v.y / mag })
   },
 }
+*/
 
 // ── Vector3 追加演算 ──────────────────────────────────────────────────────
 
@@ -390,6 +396,7 @@ export const 座標を分解: CodeNode = {
   },
 }
 
+/*
 export const 座標を切り上げ: CodeNode = {
   id: 'Vector3Ceil',
   displayName: '座標を切り上げ',
@@ -453,7 +460,9 @@ export const 座標をY軸回転: CodeNode = {
     結果.next({ x: v.x * cos - v.z * sin, y: v.y, z: v.x * sin + v.z * cos })
   },
 }
+*/
 
+/*
 // ── VectorXZ 演算（{x, z} ── 水平座標・テレポート先など）────────────────
 
 export const XZ座標を足す: CodeNode = {
@@ -584,6 +593,7 @@ export const XZ単位ベクトル化: CodeNode = {
     結果.next({ x: v.x / mag, z: v.z / mag })
   },
 }
+*/
 
 // ── AABB 演算（エリア判定・バウンディングボックス）──────────────────────
 
@@ -626,6 +636,7 @@ export const エリア内判定: CodeNode = {
   },
 }
 
+/*
 export const エリアが重なるか: CodeNode = {
   id: 'AABBIntersects',
   displayName: 'エリアが重なるか',
@@ -692,3 +703,4 @@ export const エリアの最大座標: CodeNode = {
     座標.next((エリア as AABB).max)
   },
 }
+*/

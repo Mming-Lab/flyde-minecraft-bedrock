@@ -17,6 +17,7 @@ const TURN_DIR_OPTIONS = [
   { label: 'right（右）', value: 'right' },
 ]
 
+/*
 export const エージェント移動: CodeNode = {
   id: 'AgentMove',
   displayName: 'エージェント移動',
@@ -49,6 +50,7 @@ export const エージェント回転: CodeNode = {
   menuDisplayName: 'Agent回転',
   defaultStyle: STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     方向: {
       description: '回転方向',
       defaultValue: 'left',
@@ -87,6 +89,7 @@ export const エージェントがブロック設置: CodeNode = {
   menuDisplayName: 'Agent設置',
   defaultStyle: STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     方向: {
       description: '設置方向',
       defaultValue: 'forward',
@@ -108,6 +111,7 @@ export const エージェントがブロック破壊: CodeNode = {
   menuDisplayName: 'Agent破壊',
   defaultStyle: STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     方向: {
       description: '破壊方向',
       defaultValue: 'forward',
@@ -212,3 +216,4 @@ export const エージェントアイテム数取得: CodeNode = {
     個数.next(Number(res.count ?? res.itemCount ?? 0))
   },
 }
+*/

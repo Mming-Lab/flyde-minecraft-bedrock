@@ -1,4 +1,6 @@
-# mc-flow-template プロジェクト
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## 配置場所
 このファイルは `mc-flow-template/CLAUDE.md` に置く。
@@ -44,6 +46,17 @@ mc-flow-template/
 ```
 
 **重要：`flows/` は生徒の作業領域。明示的に依頼されない限り Claude Code が変更しないこと。**
+
+---
+
+## コマンド
+
+```bash
+npm install        # 依存パッケージのインストール
+npm run typecheck  # TypeScript 型チェック（tsc --noEmit）
+```
+
+ユニットテストなし。動作確認は Minecraft 実機で行う（後述）。
 
 ---
 
@@ -132,11 +145,6 @@ run: ({ ワールド }, { 出力ポート }, adv) => {
 },
 ```
 
-### IIP（部分適用）の活用
-
-固定値はノードの config（IIP）で設定し、`mode: sticky` を付けてワイヤー接続も受け付ける。  
-`トリガー` ポートを持つノードは「トリガー受信 → 現在の IIP 値で実行」のパターンで動く。
-
 ### スタイル色の定義
 
 | 種別 | 色 |
@@ -156,13 +164,84 @@ run: ({ ワールド }, { 出力ポート }, adv) => {
 
 ---
 
+## .flyde ファイル形式
+
+`flows/*.flyde` は YAML 形式。**Flyde エディタが自動生成する**が、手動編集や AI による生成も可能。
+
+### インスタンスの構造
+
+```yaml
+instances:
+  - id: my-node          # フロー内でユニークな ID（任意の文字列）
+    type: code
+    nodeId: RunCommand   # CodeNode の id フィールドと一致させる
+    source:
+      type: file
+      data: "../_nodes/index.flyde.ts"   # .flyde ファイルからの相対パス
+    config:              # 各入力ポートの値を ConfigurableValue 形式で設定
+      コマンド:
+        type: string
+        value: "time set day"
+      トリガー:
+        type: dynamic    # ワイヤー接続を受け取るピンになる
+    inputConfig: {}      # キュー/スティッキー制御（通常 {} で OK）
+    pos:
+      x: 300
+      y: 200
+```
+
+### ConfigurableValue（config フィールドの値）
+
+| type | 用途 | value の型 |
+|---|---|---|
+| `dynamic` | ワイヤーで受け取る（ピンを生成） | 不要（省略可） |
+| `string` | 文字列 IIP | `"文字列"` |
+| `number` | 数値 IIP | `123` |
+| `boolean` | 真偽値 IIP | `true` / `false` |
+| `select` | 選択肢 IIP（`editorType: 'select'` のポート） | `"選択値"` |
+| `json` | オブジェクト/配列 IIP | YAML マッピング/シーケンス |
+
+`config` に指定しないポートは自動的に `dynamic` 扱いになる（ピンが生成される）。  
+`type: boolean/number/select/json` を指定したポートはピンが生成されず、値が焼き込まれる（ワイヤー不要）。
+
+### 文字列テンプレートで座標を展開する
+
+`type: string` の value に `{{ポート名.フィールド}}` を書くと、そのポート名のピンが生成される。
+
+```yaml
+# config.コマンド に書くと「座標」という入力ピンが自動生成される
+コマンド:
+  type: string
+  value: "summon chicken {{座標.x}} {{座標.y}} {{座標.z}}"
+```
+
+接続で `repeat.値 → summon.座標` のようにオブジェクト `{x, y, z}` を流すと、
+実行時に `"summon chicken 10 74 20"` のように展開される。
+
+### 接続の構造
+
+```yaml
+connections:
+  - from:
+      insId: source-node-id   # インスタンス ID
+      pinId: 出力ポート名
+    to:
+      insId: target-node-id
+      pinId: 入力ポート名     # dynamic なポートのみ接続できる
+```
+
+接続できるのは `type: dynamic`（または config 未設定）なポートのみ。  
+IIP（boolean/number/string/json/select）で焼き込んだポートはワイヤー接続不可。
+
+---
+
 ## 主要パッケージと役割
 
 | パッケージ | 役割 |
 |---|---|
 | `socket-be` | Minecraft WebSocket 通信 |
 | `@minecraft/vanilla-data` | ブロック・エンティティ名の enum |
-| `@flyde/core` | Flyde の CodeNode 型定義 |
+| `@flyde/core` | Flyde の CodeNode 型定義・ランタイム |
 | `serialport` | micro:bit USB シリアル通信（未実装） |
 | `@serialport/parser-readline` | シリアルの行単位パーサー（未実装） |
 | `express` | REST API（未実装） |

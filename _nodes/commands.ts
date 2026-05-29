@@ -1,5 +1,5 @@
 import { CodeNode } from '@flyde/core'
-import { MinecraftEntityTypes } from '@minecraft/vanilla-data'
+import { WeatherType } from 'socket-be'
 import { getCurrentContext } from './context-manager'
 
 const PLAYER_STYLE = { color: '#0078D7' }   // player
@@ -24,6 +24,7 @@ export const コマンド実行: CodeNode = {
   },
 }
 
+/*
 export const メッセージ送信: CodeNode = {
   id: 'SendMessage',
   displayName: 'メッセージ送信',
@@ -42,7 +43,9 @@ export const メッセージ送信: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const 全員にメッセージ: CodeNode = {
   id: 'SendMessageAll',
   displayName: '全員にメッセージ',
@@ -61,13 +64,16 @@ export const 全員にメッセージ: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const エフェクト付与: CodeNode = {
   id: 'ApplyEffect',
   displayName: 'エフェクト付与',
   menuDisplayName: 'ｴﾌｪｸﾄ付与',
   defaultStyle: PLAYER_STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     エフェクト名: { description: 'エフェクト名（speed / jump_boost / regeneration 等）' },
     秒数: { description: '持続時間（秒）' },
   },
@@ -80,13 +86,16 @@ export const エフェクト付与: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const テレポート: CodeNode = {
   id: 'TeleportPlayer',
   displayName: 'テレポート',
   menuDisplayName: 'ﾃﾚﾎﾟｰﾄ',
   defaultStyle: PLAYER_STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     座標: { description: '座標 {x, y, z}' },
   },
   outputs: {
@@ -99,7 +108,9 @@ export const テレポート: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const 時刻変更: CodeNode = {
   id: 'SetTime',
   displayName: '時刻変更',
@@ -118,13 +129,16 @@ export const 時刻変更: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const エンティティ召喚: CodeNode = {
   id: 'SummonEntity',
   displayName: 'エンティティ召喚',
   menuDisplayName: 'ｴﾝﾃｨﾃｨ召喚',
   defaultStyle: GAMEPLAY_STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     座標: { description: '召喚する座標 {x, y, z}' },
     エンティティ名: {
       description: 'エンティティID',
@@ -145,6 +159,7 @@ export const エンティティ召喚: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
 export const プレイヤー座標取得: CodeNode = {
   id: 'GetPlayerLocation',
@@ -164,12 +179,14 @@ export const プレイヤー座標取得: CodeNode = {
   },
 }
 
+/*
 export const プレイヤーコマンド実行: CodeNode = {
   id: 'RunPlayerCommand',
   displayName: 'プレイヤーコマンド実行',
   menuDisplayName: 'ﾌﾟﾚｲﾔｰｺﾏﾝﾄﾞ',
   defaultStyle: GAMEPLAY_STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     コマンド: { description: '実行するコマンド（~ で相対座標可、/ 不要）' },
   },
   outputs: {
@@ -181,7 +198,9 @@ export const プレイヤーコマンド実行: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
+/*
 export const 天気変更: CodeNode = {
   id: 'ChangeWeather',
   displayName: '天気変更',
@@ -189,24 +208,38 @@ export const 天気変更: CodeNode = {
   defaultStyle: GAMEPLAY_STYLE,
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
-    天気: { description: '天気（clear / rain / thunder）' },
+    天気: {
+      description: '天気の種類',
+      defaultValue: 'clear',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: 'clear（晴れ）',  value: 'clear' },
+          { label: 'rain（雨）',     value: 'rain' },
+          { label: 'thunder（雷雨）', value: 'thunder' },
+        ],
+      },
+    },
   },
   outputs: {
     完了: {},
   },
   run: async ({ 天気 }, { 完了 }) => {
     const { world } = getCurrentContext()
-    await world.runCommand(`weather ${天気}`)
+    await world.runCommand(`weather ${天気 ?? 'clear'}`)
     完了.next(true)
   },
 }
+*/
 
+/*
 export const ブロックを置く: CodeNode = {
   id: 'SetBlock',
   displayName: 'ブロックを置く',
   menuDisplayName: 'ﾌﾞﾛｯｸ設置',
   defaultStyle: GAMEPLAY_STYLE,
   inputs: {
+    トリガー: { description: 'トリガー（任意）' },
     座標: { description: '設置する座標 {x, y, z}' },
     ブロックID: { description: 'ブロックID（例: minecraft:stone）' },
   },
@@ -220,6 +253,7 @@ export const ブロックを置く: CodeNode = {
     完了.next(true)
   },
 }
+*/
 
 export const プレイヤー向き取得: CodeNode = {
   id: 'GetPlayerOrientation',
@@ -274,6 +308,7 @@ export const 昼夜判定: CodeNode = {
   },
 }
 
+/*
 export const ブロックを確認: CodeNode = {
   id: 'TestForBlock',
   displayName: 'ブロックを確認',
@@ -316,5 +351,174 @@ export const 範囲ブロック確認: CodeNode = {
       `testforblocks ${s.x} ${s.y} ${s.z} ${e.x} ${e.y} ${e.z} ${d.x} ${d.y} ${d.z}`
     )
     一致.next(res.statusCode === 0)
+  },
+}
+*/
+
+export const 時刻を設定: CodeNode = {
+  id: 'SetTimeOfDay',
+  displayName: '時刻を設定',
+  menuDisplayName: '時刻設定',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    時刻: { description: '0=夜明け / 1000=昼 / 6000=正午 / 12000=夕方 / 13000=夜 / 18000=深夜' },
+  },
+  outputs: { 完了: {} },
+  run: async ({ 時刻 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.setTimeOfDay(Number(時刻))
+    完了.next(true)
+  },
+}
+
+export const 天気を変更: CodeNode = {
+  id: 'SetWeather',
+  displayName: '天気を変更',
+  menuDisplayName: '天気変更',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    天気: {
+      description: '天気の種類',
+      defaultValue: WeatherType.Clear,
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: 'Clear（晴れ）',   value: WeatherType.Clear },
+          { label: 'Rain（雨）',      value: WeatherType.Rain },
+          { label: 'Thunder（雷雨）', value: WeatherType.Thunder },
+        ],
+      },
+    },
+  },
+  outputs: { 完了: {} },
+  run: async ({ 天気 }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.setWeather((天気 ?? WeatherType.Clear) as WeatherType)
+    完了.next(true)
+  },
+}
+
+export const 全員にメッセージ: CodeNode = {
+  id: 'SendMessageAll',
+  displayName: '全員にメッセージ',
+  menuDisplayName: '全員送信',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    メッセージ: { description: '全員に送るメッセージ' },
+  },
+  outputs: { 完了: {} },
+  run: async ({ メッセージ }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.sendMessage(String(メッセージ))
+    完了.next(true)
+  },
+}
+
+export const プレイヤーにメッセージ: CodeNode = {
+  id: 'SendMessage',
+  displayName: 'プレイヤーにメッセージ',
+  menuDisplayName: 'ﾌﾟﾚｲﾔｰ送信',
+  defaultStyle: PLAYER_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    メッセージ: { description: '送信するメッセージ' },
+  },
+  outputs: { 完了: {} },
+  run: async ({ メッセージ }, { 完了 }) => {
+    const { player } = getCurrentContext()
+    await player.sendMessage(String(メッセージ))
+    完了.next(true)
+  },
+}
+
+export const 天気を取得: CodeNode = {
+  id: 'GetWeather',
+  displayName: '天気を取得',
+  menuDisplayName: '天気取得',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+  },
+  outputs: { 天気: {} },
+  run: async (_, { 天気 }) => {
+    const { world } = getCurrentContext()
+    天気.next(await world.getWeather())
+  },
+}
+
+export const 日数を取得: CodeNode = {
+  id: 'GetDay',
+  displayName: '日数を取得',
+  menuDisplayName: '日数取得',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+  },
+  outputs: { 日数: {} },
+  run: async (_, { 日数 }) => {
+    const { world } = getCurrentContext()
+    日数.next(await world.getDay())
+  },
+}
+
+export const ブロックを設置: CodeNode = {
+  id: 'SetBlock',
+  displayName: 'ブロックを設置',
+  menuDisplayName: 'ﾌﾞﾛｯｸ設置',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    座標: { description: '設置する座標 {x, y, z}' },
+    ブロックID: { description: 'ブロックID（例: minecraft:stone）' },
+  },
+  outputs: { 完了: {} },
+  run: async ({ 座標: pos, ブロックID }, { 完了 }) => {
+    const { world } = getCurrentContext()
+    await world.setBlock(pos as { x: number; y: number; z: number }, String(ブロックID))
+    完了.next(true)
+  },
+}
+
+export const エリアを塗りつぶす: CodeNode = {
+  id: 'FillBlocks',
+  displayName: 'エリアを塗りつぶす',
+  menuDisplayName: 'ｴﾘｱ塗りつぶし',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    始点: { description: '始点 {x, y, z}' },
+    終点: { description: '終点 {x, y, z}' },
+    ブロックID: { description: 'ブロックID（例: minecraft:stone）' },
+  },
+  outputs: { 完了: {}, 個数: {} },
+  run: async ({ 始点, 終点, ブロックID }, { 完了, 個数 }) => {
+    const { world } = getCurrentContext()
+    const count = await world.fillBlocks(
+      始点 as { x: number; y: number; z: number },
+      終点 as { x: number; y: number; z: number },
+      String(ブロックID)
+    )
+    個数.next(count)
+    完了.next(true)
+  },
+}
+
+export const 地面の高さを取得: CodeNode = {
+  id: 'GetTopSolidBlock',
+  displayName: '地面の高さを取得',
+  menuDisplayName: '地面高さ',
+  defaultStyle: GAMEPLAY_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+  },
+  outputs: { 座標: {}, ブロック名: {} },
+  run: async (_, { 座標, ブロック名 }) => {
+    const { world } = getCurrentContext()
+    const result = await world.getTopSolidBlock()
+    座標.next(result.location)
+    ブロック名.next(result.blockName)
   },
 }
