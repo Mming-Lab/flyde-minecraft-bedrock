@@ -29,8 +29,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 665.5359039306641
-        y: 297.2621612548828
+        x: 635
+        y: 274
       id: filter
       inputConfig: {}
       nodeId: PassIfMatch
@@ -47,8 +47,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 937.9440002441406
-        y: 304.16915702819824
+        x: 900
+        y: 160
       id: get-pos
       inputConfig: {}
       nodeId: GetPlayerLocation
@@ -60,43 +60,55 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1194.8983154296875
-        y: 290.49734687805176
-      id: add-y
+        x: 900
+        y: 380
+      id: get-time
+      inputConfig: {}
+      nodeId: GetTimeOfDay
+      config:
+        トリガー:
+          type: dynamic
+      type: code
+      source:
+        type: file
+        data: ../_nodes/index.flyde.ts
+    - pos:
+        x: 1160
+        y: 380
+      id: make-offset
+      inputConfig: {}
+      nodeId: Vector3Create
+      config:
+        x:
+          type: number
+          value: 0
+        y:
+          type: dynamic
+        z:
+          type: number
+          value: 0
+      type: code
+      source:
+        type: file
+        data: ../_nodes/index.flyde.ts
+    - pos:
+        x: 1160
+        y: 220
+      id: vec-add
       inputConfig: {}
       nodeId: Vector3Add
       config:
         座標A:
           type: dynamic
         座標B:
-          type: json
-          value:
-            x: 0
-            y: 10
-            z: 0
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 1443.8737182617188
-        y: 277.5671615600586
-      id: repeat
-      inputConfig: {}
-      nodeId: Repeat
-      config:
-        値:
           type: dynamic
-        回数:
-          type: number
-          value: 100
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1715.6474609375
-        y: 291.09373664855957
+        x: 1440
+        y: 220
       id: summon
       inputConfig: {}
       nodeId: RunCommand
@@ -137,20 +149,32 @@ node:
         insId: get-pos
         pinId: トリガー
     - from:
+        insId: filter
+        pinId: 値
+      to:
+        insId: get-time
+        pinId: トリガー
+    - from:
         insId: get-pos
         pinId: 座標
       to:
-        insId: add-y
+        insId: vec-add
         pinId: 座標A
     - from:
-        insId: add-y
-        pinId: 結果
+        insId: get-time
+        pinId: 時刻
       to:
-        insId: repeat
-        pinId: 値
+        insId: make-offset
+        pinId: y
     - from:
-        insId: repeat
-        pinId: 値
+        insId: make-offset
+        pinId: 座標
+      to:
+        insId: vec-add
+        pinId: 座標B
+    - from:
+        insId: vec-add
+        pinId: 結果
       to:
         insId: summon
         pinId: 座標
@@ -160,4 +184,4 @@ node:
   inputsPosition: {}
   outputsPosition: {}
   completionOutputs: []
-  description: チャットで「chicken」と入力するとプレイヤーの10ブロック上にニワトリを100羽召喚する
+  description: チャットで「chicken」と入力すると、プレイヤーの座標から現在の時刻（ゲームtick）ブロック分高い位置にニワトリを1羽召喚する

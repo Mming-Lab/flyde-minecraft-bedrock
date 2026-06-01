@@ -87,13 +87,17 @@ export const ブロック破壊: CodeNode = {
   outputs: {
     プレイヤー名: {},
     ブロック種別: {},
+    プレイヤー: {},
+    ブロック: {},
   },
-  run: ({ ワールド }, { プレイヤー名, ブロック種別 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, ブロック種別, プレイヤー, ブロック }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       ブロック種別.next(ev.brokenBlockType.id)
+      プレイヤー.next(ev.rawPlayer)
+      ブロック.next(ev.brokenBlockType)
     }
     world.server.on(ServerEvent.BlockBroken, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.BlockBroken, handler))
@@ -112,13 +116,17 @@ export const ブロック設置イベント: CodeNode = {
   outputs: {
     プレイヤー名: {},
     ブロック種別: {},
+    プレイヤー: {},
+    ブロック: {},
   },
-  run: ({ ワールド }, { プレイヤー名, ブロック種別 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, ブロック種別, プレイヤー, ブロック }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       ブロック種別.next(ev.placedBlockType.id)
+      プレイヤー.next(ev.rawPlayer)
+      ブロック.next(ev.placedBlockType)
     }
     world.server.on(ServerEvent.BlockPlaced, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.BlockPlaced, handler))
@@ -137,13 +145,15 @@ export const プレイヤーが移動: CodeNode = {
   outputs: {
     プレイヤー名: {},
     移動距離: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名, 移動距離 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, 移動距離, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       移動距離.next(ev.metersTravelled)
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.PlayerTravelled, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.PlayerTravelled, handler))
@@ -161,12 +171,14 @@ export const テレポート完了: CodeNode = {
   },
   outputs: {
     プレイヤー名: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.PlayerTeleported, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.PlayerTeleported, handler))
@@ -185,13 +197,17 @@ export const アイテムを使った: CodeNode = {
   outputs: {
     プレイヤー名: {},
     アイテム名: {},
+    プレイヤー: {},
+    アイテム: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, プレイヤー, アイテム }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.itemStack?.typeId ?? '')
+      プレイヤー.next(ev.rawPlayer)
+      アイテム.next(ev.itemStack ?? null)
     }
     world.server.on(ServerEvent.ItemInteracted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemInteracted, handler))
@@ -211,14 +227,16 @@ export const アイテム取得: CodeNode = {
     プレイヤー名: {},
     アイテム名: {},
     個数: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名, 個数 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, 個数, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.itemType.id)
       個数.next(ev.acquiredAmount)
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.ItemAcquired, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemAcquired, handler))
@@ -236,12 +254,14 @@ export const モブと交流: CodeNode = {
   },
   outputs: {
     プレイヤー名: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.MobInteracted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.MobInteracted, handler))
@@ -260,13 +280,15 @@ export const 的ブロック命中: CodeNode = {
   outputs: {
     プレイヤー名: {},
     強さ: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名, 強さ }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, 強さ, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       強さ.next(ev.redstoneLevel)
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.TargetBlockHit, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.TargetBlockHit, handler))
@@ -337,13 +359,17 @@ export const アイテムをクラフト: CodeNode = {
   outputs: {
     プレイヤー名: {},
     アイテム名: {},
+    プレイヤー: {},
+    アイテム: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, プレイヤー, アイテム }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.craftedItemStack?.typeId ?? '')
+      プレイヤー.next(ev.rawPlayer)
+      アイテム.next(ev.craftedItemStack)
     }
     world.server.on(ServerEvent.ItemCrafted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemCrafted, handler))
@@ -362,13 +388,17 @@ export const アイテムを装備: CodeNode = {
   outputs: {
     プレイヤー名: {},
     アイテム名: {},
+    プレイヤー: {},
+    アイテム: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, プレイヤー, アイテム }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.itemStack?.typeId ?? '')
+      プレイヤー.next(ev.rawPlayer)
+      アイテム.next(ev.itemStack)
     }
     world.server.on(ServerEvent.ItemEquipped, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemEquipped, handler))
@@ -387,13 +417,15 @@ export const アイテムを精錬: CodeNode = {
   outputs: {
     プレイヤー名: {},
     アイテム名: {},
+    プレイヤー: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, プレイヤー }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.smeltedItemType?.id ?? '')
+      プレイヤー.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.ItemSmelted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemSmelted, handler))
@@ -412,13 +444,19 @@ export const アイテムを取引: CodeNode = {
   outputs: {
     プレイヤー名: {},
     アイテム名: {},
+    プレイヤー: {},
+    アイテム: {},
+    村人: {},
   },
-  run: ({ ワールド }, { プレイヤー名, アイテム名 }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, アイテム名, プレイヤー, アイテム, 村人 }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       アイテム名.next(ev.receivedItemStack?.typeId ?? '')
+      プレイヤー.next(ev.rawPlayer)
+      アイテム.next(ev.receivedItemStack)
+      村人.next(ev.trader)
     }
     world.server.on(ServerEvent.ItemTraded, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemTraded, handler))
@@ -437,13 +475,17 @@ export const バウンス: CodeNode = {
   outputs: {
     プレイヤー名: {},
     高さ: {},
+    プレイヤー: {},
+    ブロック: {},
   },
-  run: ({ ワールド }, { プレイヤー名, 高さ }, adv) => {
+  run: ({ ワールド }, { プレイヤー名, 高さ, プレイヤー, ブロック }, adv) => {
     const world = ワールド as World
     const handler = (ev: any) => {
       setCurrentContext(world, ev.player)
       プレイヤー名.next(ev.player.name)
       高さ.next(ev.bounceHeight)
+      プレイヤー.next(ev.rawPlayer)
+      ブロック.next(ev.blockType)
     }
     world.server.on(ServerEvent.PlayerBounced, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.PlayerBounced, handler))

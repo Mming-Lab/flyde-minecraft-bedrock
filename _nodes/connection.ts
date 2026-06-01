@@ -1,9 +1,6 @@
 import { CodeNode } from '@flyde/core'
 import { ServerEvent } from 'socket-be'
-import { SerialPort } from 'serialport'
-import { ReadlineParser } from '@serialport/parser-readline'
 import { getServer, stopServer } from './socketbe-instance'
-import type { MicroBitHandle } from './types/common'
 
 const STYLE = { color: '#5C5C5C' } // connection
 
@@ -38,7 +35,9 @@ export const Minecraft接続: CodeNode = {
     _mcConnectRunning = true
     return new Promise<void>((resolve) => {
       try {
-        const server = getServer(ポート ?? 8080, (msg) => エラー.next(msg))
+        const port = ポート ?? 8080
+        const server = getServer(port, (msg) => エラー.next(msg))
+        console.log(`\n[Minecraft接続] Minecraftで次のコマンドを入力してください: /connect localhost:${port}\n`)
         const handler = (signal: any) => ワールド.next(signal.world)
         server.on(ServerEvent.WorldAdd, handler)
         adv.onCleanup(async () => {
@@ -69,31 +68,5 @@ export const Minecraft切断: CodeNode = {
   run: async () => {
     await stopServer()
     process.exit(0)
-  },
-}
-
-export const MicroBit接続: CodeNode = {
-  id: 'MicroBitConnect',
-  displayName: 'micro:bit接続',
-  menuDisplayName: 'micro:bit接続',
-  defaultStyle: STYLE,
-  inputs: {
-    COMポート: { description: 'COMポート（例: COM3）' },
-    ボーレート: { description: 'ボーレート（デフォルト: 115200）' },
-  },
-  outputs: {
-    接続完了: {},
-    エラー: {},
-  },
-  run: ({ COMポート, ボーレート }, { 接続完了, エラー }) => {
-    try {
-      const port = new SerialPort({ path: COMポート, baudRate: ボーレート ?? 115200 })
-      const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
-      const handle: MicroBitHandle = { port, parser }
-      port.on('open', () => 接続完了.next(handle))
-      port.on('error', (err: Error) => エラー.next(err.message))
-    } catch (e) {
-      エラー.next(String(e))
-    }
   },
 }

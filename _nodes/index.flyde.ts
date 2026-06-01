@@ -1,6 +1,6 @@
 export * from './connection'
 export * from './events'
 export * from './commands'
-export * from './agent'
 export * from './transforms'
+export * from './utils'
 export * from './math'
