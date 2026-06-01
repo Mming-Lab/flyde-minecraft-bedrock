@@ -1,5 +1,5 @@
 {
   "files.exclude": {
-    "_nodes/": true
+    "_nodes/": false 
   }
 }

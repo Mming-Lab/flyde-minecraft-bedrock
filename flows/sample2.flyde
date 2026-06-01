@@ -2,8 +2,8 @@ imports: {}
 node:
   instances:
     - pos:
-        x: 100
-        y: 300
+        x: 258.1493740081787
+        y: -104.01134872436523
       id: mc-connect
       inputConfig: {}
       nodeId: MinecraftConnect
@@ -16,8 +16,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 380
-        y: 300
+        x: 437.8235740661621
+        y: 23.64812469482422
       id: chat-listen
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -29,26 +29,27 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 635
-        y: 274
+        x: 602.9792747497559
+        y: 155.96107864379883
       id: filter
       inputConfig: {}
-      nodeId: PassIfMatch
+      nodeId: Conditional
       config:
-        値:
-          type: dynamic
-        テキスト:
-          type: dynamic
-        キーワード:
+        condition:
+          type: EQUAL
+        leftOperand:
+          type: string
+          value: "{{メッセージ}}"
+        rightOperand:
           type: string
           value: chicken
       type: code
       source:
-        type: file
-        data: ../_nodes/index.flyde.ts
+        type: package
+        data: "@flyde/nodes"
     - pos:
-        x: 900
-        y: 160
+        x: 768.7141265869141
+        y: -3.608098030090332
       id: get-pos
       inputConfig: {}
       nodeId: GetPlayerLocation
@@ -60,8 +61,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 900
-        y: 380
+        x: 788.5028228759766
+        y: 246.40928369760513
       id: get-time
       inputConfig: {}
       nodeId: GetTimeOfDay
@@ -73,8 +74,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1160
-        y: 380
+        x: 940.989860534668
+        y: 341.5015931725502
       id: make-offset
       inputConfig: {}
       nodeId: Vector3Create
@@ -92,8 +93,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1160
-        y: 220
+        x: 1125.0180969238281
+        y: 45.27970504760742
       id: vec-add
       inputConfig: {}
       nodeId: Vector3Add
@@ -107,8 +108,38 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1440
-        y: 220
+        x: 1279.3323822021484
+        y: 151.69441604614258
+      id: repeat-pos
+      inputConfig: {}
+      displayName: 100回繰り返す
+      nodeId: Repeat
+      config:
+        value:
+          type: dynamic
+        times:
+          type: number
+          value: 100
+      type: code
+      source:
+        type: package
+        data: "@flyde/nodes"
+    - pos:
+        x: 1459.927505493164
+        y: 248.4166717529297
+      id: loop-pos
+      inputConfig: {}
+      nodeId: Loop List
+      config:
+        list:
+          type: dynamic
+      type: code
+      source:
+        type: package
+        data: "@flyde/nodes"
+    - pos:
+        x: 1672.280044555664
+        y: 328.3276023864746
       id: summon
       inputConfig: {}
       nodeId: RunCommand
@@ -123,6 +154,20 @@ node:
       source:
         type: file
         data: ../_nodes/index.flyde.ts
+    - pos:
+        x: 1853.4709510171688
+        y: 412.0853814447199
+      id: MinecraftDisconnect-e3bofza9
+      inputConfig: {}
+      nodeId: MinecraftDisconnect
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ..\_nodes\index.flyde.ts
   connections:
     - from:
         insId: mc-connect
@@ -132,25 +177,19 @@ node:
         pinId: ワールド
     - from:
         insId: chat-listen
-        pinId: 送信者名
-      to:
-        insId: filter
-        pinId: 値
-    - from:
-        insId: chat-listen
         pinId: メッセージ
       to:
         insId: filter
-        pinId: テキスト
+        pinId: メッセージ
     - from:
         insId: filter
-        pinId: 値
+        pinId: "true"
       to:
         insId: get-pos
         pinId: トリガー
     - from:
         insId: filter
-        pinId: 値
+        pinId: "true"
       to:
         insId: get-time
         pinId: トリガー
@@ -176,12 +215,30 @@ node:
         insId: vec-add
         pinId: 結果
       to:
+        insId: repeat-pos
+        pinId: value
+    - from:
+        insId: repeat-pos
+        pinId: list
+      to:
+        insId: loop-pos
+        pinId: list
+    - from:
+        insId: loop-pos
+        pinId: item
+      to:
         insId: summon
         pinId: 座標
+    - from:
+        insId: summon
+        pinId: 完了
+      to:
+        insId: MinecraftDisconnect-e3bofza9
+        pinId: トリガー
   id: ChickenSpawnFlow
   inputs: {}
   outputs: {}
   inputsPosition: {}
   outputsPosition: {}
   completionOutputs: []
-  description: チャットで「chicken」と入力すると、プレイヤーの座標から現在の時刻（ゲームtick）ブロック分高い位置にニワトリを1羽召喚する
+  description: チャットで「chicken」と入力すると、プレイヤーの座標から現在の時刻（ゲームtick）ブロック分高い位置にニワトリを100羽召喚する
