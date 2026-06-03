@@ -30,10 +30,19 @@ mc-flow-template/
 │   ├── index.flyde.ts     ← Flyde エディタ用エントリ（math を追加で含む）
 │   ├── context-manager.ts ← McContext シングルトン（内部用・外部公開しない）
 │   ├── connection.ts      ← 接続系（Minecraft接続・切断）
-│   ├── events.ts          ← イベント系（Minecraft → フロー）
-│   ├── commands.ts        ← コマンド・クエリ系（フロー → Minecraft）
+│   ├── events/            ← イベント系（Minecraft → フロー）
+│   │   ├── index.ts       ← re-export
+│   │   ├── player.ts      ← プレイヤーイベント
+│   │   ├── block.ts       ← ブロックイベント
+│   │   ├── item.ts        ← アイテムイベント
+│   │   └── mob.ts         ← モブイベント
+│   ├── commands/          ← コマンド・クエリ系（フロー → Minecraft）
+│   │   ├── index.ts       ← re-export
+│   │   ├── gameplay.ts    ← ゲームプレイ全般（コマンド実行・時刻・天気・エリア塗りつぶし等）
+│   │   └── player.ts      ← プレイヤー操作（座標・タグ・レベル・ゲームモード等）
 │   ├── transforms.ts      ← Minecraft 固有の型変換（プレイヤー・アイテム・ブロック・村人情報取得）
-│   ├── utils.ts           ← 汎用変換・条件分岐ノード（文字列結合・数値変換・テキスト整形など）
+│   ├── agents.ts          ← エージェント系（座標取得・移動等）
+│   ├── scoreboard.ts      ← スコアボード系（目標CRUD・スコア操作）
 │   ├── math.ts            ← 座標・ベクトル演算ノード（Vector3・AABB）
 │   ├── socketbe-instance.ts ← SocketBE シングルトン
 │   └── types/
@@ -163,7 +172,7 @@ export const ブロック情報取得:   CodeNode = { id: 'GetFromBlockType', ..
 | 種別 | 色 |
 |---|---|
 | イベント系 | `#25567D` |
-| コマンド・ゲームプレイ系 | `#8F6D40` |
+| コマンド・ゲームプレイ系・スコアボード系 | `#8F6D40` |
 | プレイヤー操作系 | `#0078D7` |
 | エージェント系 | `#D83B01` |
 | 変換・ユーティリティ系 | `#767676` |
@@ -174,9 +183,12 @@ export const ブロック情報取得:   CodeNode = { id: 'GetFromBlockType', ..
 
 1. 追加先ファイルを選ぶ
    - Minecraft固有の型変換 → `transforms.ts`
-   - 汎用変換・条件分岐 → `utils.ts`
    - 座標・数値演算 → `math.ts`
-   - イベント → `events.ts`、コマンド/クエリ → `commands.ts`
+   - プレイヤーイベント → `events/player.ts`、ブロック/アイテム/モブ → 対応する `events/*.ts`
+   - ゲームプレイ系コマンド/クエリ → `commands/gameplay.ts`
+   - プレイヤー操作コマンド/クエリ → `commands/player.ts`
+   - エージェント操作 → `agents.ts`
+   - スコアボード → `scoreboard.ts`
 2. `_nodes/index.ts` に export を追加（必要なら）
 3. `_nodes/index.flyde.ts` に export を追加（Flyde で使うノード）
 4. `03_Flydeノード設計.md` のノード一覧テーブルを更新
