@@ -2,11 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 配置場所
-このファイルは `mc-flow-template/CLAUDE.md` に置く。
-
----
-
 ## プロジェクト概要
 
 Minecraft Education Edition をビジュアルフロープログラミングで操作する教室用ツール。  
@@ -49,7 +44,8 @@ mc-flow-template/
 │       └── common.ts      ← 共通型定義（現在未使用）
 └── flows/                 ← 生徒が .flyde ファイルを作る場所
     ├── sample.flyde       ← サンプル（昼夜切り替え）
-    └── sample2.flyde      ← サンプル（座標取得・エンティティ召喚）
+    ├── sample2.flyde      ← サンプル（座標取得・エンティティ召喚）
+    └── sample3.flyde      ← サンプル（ブロック破壊 → transforms で情報取得 → say）
 ```
 
 **重要：`flows/` は生徒の作業領域。明示的に依頼されない限り Claude Code が変更しないこと。**
@@ -165,6 +161,21 @@ run: ({ ワールド }, { 出力ポート }, adv) => {
 // transforms.ts 側（プルダウンで項目を選ぶ）
 export const プレイヤー情報取得: CodeNode = { id: 'GetFromPlayerSnapshot', ... }
 export const ブロック情報取得:   CodeNode = { id: 'GetFromBlockType', ... }
+```
+
+### アイコンの設定
+
+`icon` フィールドに FontAwesome 6 Free のアイコン名（文字列）を指定する。Flyde エディタのノードに表示される。
+
+```typescript
+icon: 'bolt'           // イベント系
+icon: 'play'           // コマンド実行
+icon: 'magnifying-glass' // クエリ系
+icon: 'shuffle'        // 変換系
+icon: 'robot'          // エージェント系
+icon: 'list-ol'        // スコアボード系
+icon: 'calculator'     // 数学・座標系
+icon: 'plug'           // 接続系
 ```
 
 ### スタイル色の定義
