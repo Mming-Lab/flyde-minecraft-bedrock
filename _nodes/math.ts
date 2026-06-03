@@ -12,6 +12,7 @@ export const 座標を組み立てる: CodeNode = {
   id: 'Vector3Create',
   displayName: '座標を組み立てる',
   menuDisplayName: '座標作成',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     x: { description: 'X座標', defaultValue: 0 },
@@ -30,6 +31,7 @@ export const 座標を足す: CodeNode = {
   id: 'Vector3Add',
   displayName: '座標を足す',
   menuDisplayName: '座標+',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標A: { description: 'ベース座標 {x, y, z}' },
@@ -49,6 +51,7 @@ export const 座標を引く: CodeNode = {
   id: 'Vector3Subtract',
   displayName: '座標を引く',
   menuDisplayName: '座標-',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標A: { description: 'ベース座標 {x, y, z}' },
@@ -68,6 +71,7 @@ export const 座標をスケール: CodeNode = {
   id: 'Vector3Scale',
   displayName: '座標をスケール',
   menuDisplayName: '座標×',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標: { description: 'スケールする座標 {x, y, z}' },
@@ -87,6 +91,7 @@ export const 座標間の距離: CodeNode = {
   id: 'Vector3Distance',
   displayName: '座標間の距離',
   menuDisplayName: '距離',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標A: { description: '始点 {x, y, z}' },
@@ -107,6 +112,7 @@ export const 座標を切り捨て: CodeNode = {
   id: 'Vector3Floor',
   displayName: '座標を切り捨て',
   menuDisplayName: '座標Floor',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標: { description: '切り捨てる座標 {x, y, z}' },
@@ -124,6 +130,7 @@ export const 座標を文字列に変換: CodeNode = {
   id: 'Vector3ToString',
   displayName: '座標を文字列に変換',
   menuDisplayName: '座標→文字列',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標: { description: '変換する座標 {x, y, z}' },
@@ -141,6 +148,7 @@ export const Y座標を補完: CodeNode = {
   id: 'Vector3FromXZ',
   displayName: 'Y座標を補完',
   menuDisplayName: 'XZ→XYZ',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標XZ: { description: '2D座標 {x, z}' },
@@ -159,6 +167,7 @@ export const 座標を分解: CodeNode = {
   id: 'Vector3Split',
   displayName: '座標を分解',
   menuDisplayName: '座標分解',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     座標: { description: '分解する座標 {x, y, z}' },
@@ -180,6 +189,7 @@ export const 数値を範囲に収める: CodeNode = {
   id: 'ClampNumber',
   displayName: '数値を範囲に収める',
   menuDisplayName: '数値Clamp',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     値: { description: 'クランプする数値' },
@@ -198,6 +208,7 @@ export const エリアを作る: CodeNode = {
   id: 'AABBCreate',
   displayName: 'エリアを作る',
   menuDisplayName: 'AABB作成',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     角座標A: { description: 'エリアの角1 {x, y, z}（順序不問）' },
@@ -217,6 +228,7 @@ export const エリア内判定: CodeNode = {
   id: 'AABBIsInside',
   displayName: 'エリア内判定',
   menuDisplayName: 'AABB内判定',
+  icon: 'calculator',
   defaultStyle: STYLE,
   inputs: {
     エリア: { description: 'AABBエリア {min, max}' },

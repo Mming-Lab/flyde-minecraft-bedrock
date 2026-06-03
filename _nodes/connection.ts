@@ -1,6 +1,8 @@
-import { CodeNode } from '@flyde/core'
+import { CodeNode, debugLogger } from '@flyde/core'
 import { ServerEvent } from 'socket-be'
 import { getServer, stopServer } from './socketbe-instance'
+
+const log = debugLogger('connection')
 
 const STYLE = { color: '#5C5C5C' } // connection
 
@@ -19,6 +21,7 @@ export const Minecraft接続: CodeNode = {
   id: 'MinecraftConnect',
   displayName: 'Minecraft接続',
   menuDisplayName: 'Minecraft接続',
+  icon: 'plug',
   defaultStyle: STYLE,
   completionOutputs: [],
   inputs: {
@@ -37,7 +40,7 @@ export const Minecraft接続: CodeNode = {
       try {
         const port = ポート ?? 8080
         const server = getServer(port, (msg) => エラー.next(msg))
-        console.log(`\n[Minecraft接続] Minecraftで次のコマンドを入力してください: /connect localhost:${port}\n`)
+        log(`Minecraftで次のコマンドを入力してください: /connect localhost:${port}`)
         const handler = (signal: any) => ワールド.next(signal.world)
         server.on(ServerEvent.WorldAdd, handler)
         adv.onCleanup(async () => {
@@ -59,6 +62,7 @@ export const Minecraft切断: CodeNode = {
   id: 'MinecraftDisconnect',
   displayName: 'Minecraft切断',
   menuDisplayName: 'Minecraft切断',
+  icon: 'plug',
   defaultStyle: STYLE,
   completionOutputs: [],
   inputs: {
