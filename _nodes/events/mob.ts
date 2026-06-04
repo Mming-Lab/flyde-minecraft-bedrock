@@ -1,11 +1,11 @@
 import { CodeNode } from '@flyde/core'
 import {
   ServerEvent,
-  type World,
   type MobInteractedSignal,
   type TargetBlockHitSignal,
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
+import { getCurrentWorld } from '../socketbe-instance'
 
 const STYLE = { color: '#25567D' }
 
@@ -25,7 +25,7 @@ export const モブと交流: CodeNode = {
     E_交流種別: { description: 'モブ交流種別の数値コード（Enum）→ enum名称変換ノードへ' },
   },
   run: ({ ワールド }, { O_ﾓﾌﾞ, O_ﾌﾟﾚｲﾔｰ, E_交流種別 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: MobInteractedSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾓﾌﾞ.next(ev.mob)
@@ -52,7 +52,7 @@ export const 的ブロック命中: CodeNode = {
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
   },
   run: ({ ワールド }, { 強さ, O_ﾌﾟﾚｲﾔｰ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: TargetBlockHitSignal) => {
       setCurrentContext(world, ev.player)
       強さ.next(ev.redstoneLevel)

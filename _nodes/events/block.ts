@@ -1,11 +1,11 @@
 import { CodeNode } from '@flyde/core'
 import {
   ServerEvent,
-  type World,
   type BlockBrokenSignal,
   type BlockPlacedSignal,
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
+import { getCurrentWorld } from '../socketbe-instance'
 
 const STYLE = { color: '#25567D' }
 
@@ -26,7 +26,7 @@ export const ブロック破壊: CodeNode = {
     O_ｱｲﾃﾑ: { description: '【null許容】所持アイテム（破壊前に持っていたアイテム）。素手のとき null → Conditional(EXISTS)で分岐' },
   },
   run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, E_破壊方法, O_ｱｲﾃﾑ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: BlockBrokenSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾞﾛｯｸ.next(ev.brokenBlockType)
@@ -57,7 +57,7 @@ export const ブロック設置イベント: CodeNode = {
     O_ｱｲﾃﾑ: { description: '所持アイテム（設置前に持っていたアイテム）→ 所持アイテム情報取得ノードへ' },
   },
   run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, 水中, E_設置方法, O_ｱｲﾃﾑ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: BlockPlacedSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾞﾛｯｸ.next(ev.placedBlockType)

@@ -1,7 +1,6 @@
 import { CodeNode } from '@flyde/core'
 import {
   ServerEvent,
-  type World,
   type ItemAcquiredSignal,
   type ItemCraftedSignal,
   type ItemEquippedSignal,
@@ -10,6 +9,7 @@ import {
   type ItemTradedSignal,
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
+import { getCurrentWorld } from '../socketbe-instance'
 
 const STYLE = { color: '#25567D' }
 
@@ -29,7 +29,7 @@ export const アイテムを使った: CodeNode = {
     E_使用方法: { description: 'アイテム使用方法の数値コード（Enum）→ enum名称変換ノードへ' },
   },
   run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_使用方法 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemInteractedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.itemStack ?? null)
@@ -58,7 +58,7 @@ export const アイテム取得: CodeNode = {
     E_取得方法: { description: 'アイテム取得方法の数値コード（Enum）→ enum名称変換ノードへ' },
   },
   run: ({ ワールド }, { 個数, O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_取得方法 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemAcquiredSignal) => {
       setCurrentContext(world, ev.player)
       個数.next(ev.acquiredAmount)
@@ -87,7 +87,7 @@ export const アイテムをクラフト: CodeNode = {
     ｸﾗﾌﾄ台使用: { description: 'クラフトテーブルを使用したか（true/false）' },
   },
   run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, ｸﾗﾌﾄ台使用 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemCraftedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.craftedItemStack)
@@ -115,7 +115,7 @@ export const アイテムを装備: CodeNode = {
     E_ｽﾛｯﾄ: { description: '装備スロットの数値コード（Enum）→ enum名称変換ノードへ' },
   },
   run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_ｽﾛｯﾄ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemEquippedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.itemStack)
@@ -143,7 +143,7 @@ export const アイテムを精錬: CodeNode = {
     O_燃料ｱｲﾃﾑ: { description: 'アイテム種別（燃料アイテム）→ アイテム種別情報取得ノードへ' },
   },
   run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, O_燃料ｱｲﾃﾑ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemSmeltedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.smeltedItemType)
@@ -175,7 +175,7 @@ export const アイテムを取引: CodeNode = {
     村人EM数: { description: '村人が取引後に持っているエメラルド数' },
   },
   run: ({ ワールド }, { O_ｱｲﾃﾑ, O_村人, O_ﾌﾟﾚｲﾔｰ, O_支払A, O_支払B, ﾌﾟﾚｲﾔｰEM数, 村人EM数 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: ItemTradedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.receivedItemStack)

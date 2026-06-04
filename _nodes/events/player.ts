@@ -1,7 +1,6 @@
 import { CodeNode } from '@flyde/core'
 import {
   ServerEvent,
-  type World,
   type PlayerBouncedSignal,
   type PlayerChatSignal,
   type PlayerJoinSignal,
@@ -12,6 +11,7 @@ import {
   type PlayerTravelledSignal,
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
+import { getCurrentWorld } from '../socketbe-instance'
 
 const STYLE = { color: '#25567D' }
 
@@ -30,7 +30,7 @@ export const チャット受信: CodeNode = {
     メッセージ: { description: 'チャットメッセージの内容（文字列）' },
   },
   run: ({ ワールド }, { 送信者名, メッセージ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerChatSignal) => {
       setCurrentContext(world, ev.sender)
       送信者名.next(ev.sender.name)
@@ -55,7 +55,7 @@ export const プレイヤー参加: CodeNode = {
     ﾌﾟﾚｲﾔｰ名: { description: '参加したプレイヤーの名前（文字列）' },
   },
   run: ({ ワールド }, { ﾌﾟﾚｲﾔｰ名 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerJoinSignal) => {
       setCurrentContext(world, ev.player)
       ﾌﾟﾚｲﾔｰ名.next(ev.player.name)
@@ -79,7 +79,7 @@ export const プレイヤー退出: CodeNode = {
     ﾌﾟﾚｲﾔｰ名: { description: '退出したプレイヤーの名前（文字列）' },
   },
   run: ({ ワールド }, { ﾌﾟﾚｲﾔｰ名 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerLeaveSignal) => {
       setCurrentContext(world, ev.player)
       ﾌﾟﾚｲﾔｰ名.next(ev.player.name)
@@ -107,7 +107,7 @@ export const プレイヤーが移動: CodeNode = {
     E_移動方法: { description: '移動方法の数値コード（Enum）→ enum名称変換（移動方法）ノードへ' },
   },
   run: ({ ワールド }, { 移動距離, O_ﾌﾟﾚｲﾔｰ, 水中, E_ﾊﾞｲｵｰﾑ, E_移動方法 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerTravelledSignal) => {
       setCurrentContext(world, ev.player)
       移動距離.next(ev.metersTravelled)
@@ -137,7 +137,7 @@ export const テレポート完了: CodeNode = {
     移動距離: { description: 'テレポートした距離（メートル）' },
   },
   run: ({ ワールド }, { O_ﾌﾟﾚｲﾔｰ, E_原因, 移動距離 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerTeleportedSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
@@ -165,7 +165,7 @@ export const プレイヤータイトル: CodeNode = {
     受信者名: { description: '受信したプレイヤーの名前（文字列）' },
   },
   run: ({ ワールド }, { 送信者名, メッセージ, 受信者名 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerTitleSignal) => {
       setCurrentContext(world, ev.sender)
       送信者名.next(ev.sender.name)
@@ -194,7 +194,7 @@ export const プレイヤーメッセージ: CodeNode = {
     受信者名: { description: '【null許容】受信者の名前。tell 以外では null → Conditional(EXISTS)で分岐' },
   },
   run: ({ ワールド }, { 送信者名, メッセージ, 種別, 受信者名 }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerMessageSignal) => {
       setCurrentContext(world, ev.sender)
       送信者名.next(ev.sender.name)
@@ -223,7 +223,7 @@ export const バウンス: CodeNode = {
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
   },
   run: ({ ワールド }, { 高さ, O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ }, adv) => {
-    const world = ワールド as World
+    const world = getCurrentWorld()!
     const handler = (ev: PlayerBouncedSignal) => {
       setCurrentContext(world, ev.player)
       高さ.next(ev.bounceHeight)

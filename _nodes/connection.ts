@@ -1,8 +1,14 @@
-import { CodeNode, debugLogger } from '@flyde/core'
+import { appendFileSync } from 'fs'
+import { join } from 'path'
+import { CodeNode } from '@flyde/core'
 import { ServerEvent } from 'socket-be'
 import { getServer, stopServer } from './socketbe-instance'
 
-const log = debugLogger('connection')
+const DIAG_FILE = join(process.cwd(), 'mc-flow-diag.log')
+function diagLog(msg: string): void {
+  try { appendFileSync(DIAG_FILE, `[${new Date().toISOString()}] ${msg}\n`) } catch {}
+}
+function log(msg: string): void { diagLog(`[connection] ${msg}`) }
 
 const STYLE = { color: '#5C5C5C' } // connection
 
@@ -39,12 +45,28 @@ export const Minecraft接続: CodeNode = {
     return new Promise<void>((resolve) => {
       try {
         const port = ポート ?? 8080
-        const server = getServer(port, (msg) => エラー.next(msg))
+        const server = getServer(port, (msg) => { diagLog(`[mc-flow] onError callback: ${msg}`); エラー.next(msg) })
+        diagLog(`[mc-flow] getServer returned, registering WorldAdd handler`)
         log(`Minecraftで次のコマンドを入力してください: /connect localhost:${port}`)
-        const handler = (signal: any) => ワールド.next(signal.world)
+        const handler = (signal: any) => {
+          diagLog(`[mc-flow] WorldAdd fired! world type=${typeof signal?.world}, signal keys=${Object.keys(signal ?? {}).join(',')}`)
+          // World オブジェクトは Flyde の socket.io IPC でシリアライズできないため true を流す。
+          // World 本体は socketbe-instance.getCurrentWorld() で取得する。
+          ワールド.next(true)
+        }
         server.on(ServerEvent.WorldAdd, handler)
+        diagLog(`[mc-flow] WorldAdd handler registered`)
+
+        // WorldRemove も監視（切断の検知）
+        const removeHandler = (signal: any) => {
+          diagLog(`[mc-flow] WorldRemove fired! code=${signal?.code}`)
+        }
+        server.on(ServerEvent.WorldRemove, removeHandler)
+
         adv.onCleanup(async () => {
+          diagLog(`[mc-flow] onCleanup called`)
           server.remove(ServerEvent.WorldAdd, handler)
+          server.remove(ServerEvent.WorldRemove, removeHandler)
           await stopServer()   // ポートを解放してから次のフローが起動できるようにする
           _mcConnectRunning = false
           resolve()
