@@ -16,8 +16,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 500.66015243530273
-        y: 247.65558385849
+        x: 499.66015243530273
+        y: 246.65558385849
       id: chat-listen
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -29,7 +29,7 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 681.7502136230469
+        x: 679.7502136230469
         y: 259.97557377815247
       id: filter
       inputConfig: {}

@@ -1,14 +1,50 @@
+import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'fs'
+import { tmpdir } from 'os'
+import { join } from 'path'
 import { Server, ServerEvent } from 'socket-be'
 import { debugLogger } from '@flyde/core'
 
 const log = debugLogger('socketbe')
 
 let _server: Server | null = null
+let _port: number = 8080
+
+// PID ファイルのパス（ポートごとに分ける）
+function pidFilePath(port: number) {
+  return join(tmpdir(), `mc-flow-${port}.pid`)
+}
+
+// 前回の自プロセスを PID ファイル経由で終了させる（他アプリには触れない）
+function killPreviousProcess(port: number): void {
+  const file = pidFilePath(port)
+  if (!existsSync(file)) return
+  try {
+    const pid = parseInt(readFileSync(file, 'utf8').trim(), 10)
+    if (pid > 0 && pid !== process.pid) {
+      process.kill(pid)
+      log(`⚠️ 前回の mc-flow プロセス (PID: ${pid}) を終了しました`)
+    }
+  } catch {
+    // プロセスが既に終了済みなら無視
+  }
+  try { unlinkSync(file) } catch {}
+}
+
+function writePidFile(port: number): void {
+  try { writeFileSync(pidFilePath(port), String(process.pid), 'utf8') } catch {}
+}
+
+function deletePidFile(port: number): void {
+  try { unlinkSync(pidFilePath(port)) } catch {}
+}
 
 // 同一プロセスで複数インスタンスが起動しないようにシングルトンで管理する
 // onError: EADDRINUSE などの非同期エラーを呼び出し元に通知するコールバック
 export function getServer(port: number = 8080, onError?: (msg: string) => void): Server {
   if (!_server) {
+    _port = port
+    killPreviousProcess(port)  // 前回の自プロセスが残留していれば終了させる
+    writePidFile(port)
     _server = new Server({ port, disableEncryption: true, webSocketOptions: { host: '0.0.0.0' } })
 
     // サーバーが実際に listen 開始したことを確認するログ
@@ -38,6 +74,7 @@ export async function stopServer(): Promise<void> {
   if (!_server) return
   const s = _server
   _server = null
+  deletePidFile(_port)
   try {
     await s.stop()
     log('サーバーを停止しました')

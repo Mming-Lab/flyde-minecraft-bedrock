@@ -20,17 +20,17 @@ export const モブと交流: CodeNode = {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },
   outputs: {
-    プレイヤー名: {},
-    モブ: {},
-    プレイヤー: {},
+    O_ﾓﾌﾞ: { description: 'WorldMob オブジェクト（交流したモブ）' },
+    O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
+    E_交流種別: { description: 'モブ交流種別の数値コード（Enum）→ enum名称変換ノードへ' },
   },
-  run: ({ ワールド }, { プレイヤー名, モブ, プレイヤー }, adv) => {
+  run: ({ ワールド }, { O_ﾓﾌﾞ, O_ﾌﾟﾚｲﾔｰ, E_交流種別 }, adv) => {
     const world = ワールド as World
     const handler = (ev: MobInteractedSignal) => {
       setCurrentContext(world, ev.player)
-      プレイヤー名.next(ev.rawPlayer.name)
-      モブ.next(ev.mob)
-      プレイヤー.next(ev.rawPlayer)
+      O_ﾓﾌﾞ.next(ev.mob)
+      O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
+      E_交流種別.next(ev.interactionType)
     }
     world.server.on(ServerEvent.MobInteracted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.MobInteracted, handler))
@@ -48,17 +48,15 @@ export const 的ブロック命中: CodeNode = {
     ワールド: { description: 'Minecraft接続ノードのワールド出力' },
   },
   outputs: {
-    プレイヤー名: {},
-    強さ: {},
-    プレイヤー: {},
+    強さ: { description: 'レッドストーン信号の強さ（0〜15）' },
+    O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
   },
-  run: ({ ワールド }, { プレイヤー名, 強さ, プレイヤー }, adv) => {
+  run: ({ ワールド }, { 強さ, O_ﾌﾟﾚｲﾔｰ }, adv) => {
     const world = ワールド as World
     const handler = (ev: TargetBlockHitSignal) => {
       setCurrentContext(world, ev.player)
-      プレイヤー名.next(ev.rawPlayer.name)
       強さ.next(ev.redstoneLevel)
-      プレイヤー.next(ev.rawPlayer)
+      O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
     }
     world.server.on(ServerEvent.TargetBlockHit, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.TargetBlockHit, handler))
