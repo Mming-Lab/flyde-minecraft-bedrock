@@ -12,6 +12,7 @@ import {
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
 import { getCurrentWorld } from '../socketbe-instance'
+import { toEnumString } from '../enum-utils'
 
 const STYLE = { color: '#25567D' }
 
@@ -103,18 +104,18 @@ export const プレイヤーが移動: CodeNode = {
     移動距離: { description: '今回の移動距離（メートル）' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
     水中: { description: '水中を移動中か（true/false）' },
-    E_ﾊﾞｲｵｰﾑ: { description: '現在いるバイオームの数値コード（Enum）→ enum名称変換（バイオーム）ノードへ' },
-    E_移動方法: { description: '移動方法の数値コード（Enum）→ enum名称変換（移動方法）ノードへ' },
+    バイオーム: { description: '現在いるバイオーム名' },
+    移動方法: { description: '移動方法名' },
   },
-  run: ({ ワールド }, { 移動距離, O_ﾌﾟﾚｲﾔｰ, 水中, E_ﾊﾞｲｵｰﾑ, E_移動方法 }, adv) => {
+  run: ({ ワールド }, { 移動距離, O_ﾌﾟﾚｲﾔｰ, 水中, バイオーム, 移動方法 }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: PlayerTravelledSignal) => {
       setCurrentContext(world, ev.player)
       移動距離.next(ev.metersTravelled)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
       水中.next(ev.isUnderwater)
-      E_ﾊﾞｲｵｰﾑ.next(ev.newBiome)
-      E_移動方法.next(ev.travelMethod)
+      バイオーム.next(toEnumString('biome', ev.newBiome))
+      移動方法.next(toEnumString('travelMethod', ev.travelMethod))
     }
     world.server.on(ServerEvent.PlayerTravelled, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.PlayerTravelled, handler))
@@ -133,15 +134,15 @@ export const テレポート完了: CodeNode = {
   },
   outputs: {
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
-    E_原因: { description: 'テレポート原因の数値コード（Enum）→ enum名称変換（テレポート原因）ノードへ' },
+    テレポート原因: { description: 'テレポート原因名' },
     移動距離: { description: 'テレポートした距離（メートル）' },
   },
-  run: ({ ワールド }, { O_ﾌﾟﾚｲﾔｰ, E_原因, 移動距離 }, adv) => {
+  run: ({ ワールド }, { O_ﾌﾟﾚｲﾔｰ, テレポート原因, 移動距離 }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: PlayerTeleportedSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
-      E_原因.next(ev.cause)
+      テレポート原因.next(toEnumString('teleportationCause', ev.cause))
       移動距離.next(ev.metersTravelled)
     }
     world.server.on(ServerEvent.PlayerTeleported, handler)

@@ -10,6 +10,7 @@ import {
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
 import { getCurrentWorld } from '../socketbe-instance'
+import { toEnumString } from '../enum-utils'
 
 const STYLE = { color: '#25567D' }
 
@@ -26,15 +27,15 @@ export const アイテムを使った: CodeNode = {
   outputs: {
     O_ｱｲﾃﾑ: { description: '【null許容】所持アイテム。アイテムなしの場合 null → Conditional(EXISTS)で分岐' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
-    E_使用方法: { description: 'アイテム使用方法の数値コード（Enum）→ enum名称変換ノードへ' },
+    使用方法: { description: 'アイテム使用方法名' },
   },
-  run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_使用方法 }, adv) => {
+  run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, 使用方法 }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: ItemInteractedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.itemStack ?? null)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
-      E_使用方法.next(ev.method)
+      使用方法.next(toEnumString('interactMethod', ev.method))
     }
     world.server.on(ServerEvent.ItemInteracted, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemInteracted, handler))
@@ -55,16 +56,16 @@ export const アイテム取得: CodeNode = {
     個数: { description: '取得したアイテムの個数' },
     O_ｱｲﾃﾑ: { description: 'アイテム種別 → アイテム種別情報取得ノードへ' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
-    E_取得方法: { description: 'アイテム取得方法の数値コード（Enum）→ enum名称変換ノードへ' },
+    取得方法: { description: 'アイテム取得方法名' },
   },
-  run: ({ ワールド }, { 個数, O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_取得方法 }, adv) => {
+  run: ({ ワールド }, { 個数, O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, 取得方法 }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: ItemAcquiredSignal) => {
       setCurrentContext(world, ev.player)
       個数.next(ev.acquiredAmount)
       O_ｱｲﾃﾑ.next(ev.itemType)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
-      E_取得方法.next(ev.acquisitionMethod)
+      取得方法.next(toEnumString('acquisitionMethod', ev.acquisitionMethod))
     }
     world.server.on(ServerEvent.ItemAcquired, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemAcquired, handler))
@@ -112,15 +113,15 @@ export const アイテムを装備: CodeNode = {
   outputs: {
     O_ｱｲﾃﾑ: { description: '所持アイテム → 所持アイテム情報取得ノードへ' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
-    E_ｽﾛｯﾄ: { description: '装備スロットの数値コード（Enum）→ enum名称変換ノードへ' },
+    装備スロット: { description: '装備スロット名' },
   },
-  run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, E_ｽﾛｯﾄ }, adv) => {
+  run: ({ ワールド }, { O_ｱｲﾃﾑ, O_ﾌﾟﾚｲﾔｰ, 装備スロット }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: ItemEquippedSignal) => {
       setCurrentContext(world, ev.player)
       O_ｱｲﾃﾑ.next(ev.itemStack)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
-      E_ｽﾛｯﾄ.next(ev.slot)
+      装備スロット.next(toEnumString('equipmentSlot', ev.slot))
     }
     world.server.on(ServerEvent.ItemEquipped, handler)
     adv.onCleanup(() => world.server.remove(ServerEvent.ItemEquipped, handler))

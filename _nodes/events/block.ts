@@ -6,6 +6,7 @@ import {
 } from 'socket-be'
 import { setCurrentContext } from '../context-manager'
 import { getCurrentWorld } from '../socketbe-instance'
+import { toEnumString } from '../enum-utils'
 
 const STYLE = { color: '#25567D' }
 
@@ -22,16 +23,16 @@ export const ブロック破壊: CodeNode = {
   outputs: {
     O_ﾌﾞﾛｯｸ: { description: 'BlockType オブジェクト → ブロック情報取得ノードへ' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
-    E_破壊方法: { description: '破壊方法の数値コード（Enum）→ enum名称変換ノードへ' },
+    破壊方法: { description: '破壊方法名' },
     O_ｱｲﾃﾑ: { description: '【null許容】所持アイテム（破壊前に持っていたアイテム）。素手のとき null → Conditional(EXISTS)で分岐' },
   },
-  run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, E_破壊方法, O_ｱｲﾃﾑ }, adv) => {
+  run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, 破壊方法, O_ｱｲﾃﾑ }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: BlockBrokenSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾞﾛｯｸ.next(ev.brokenBlockType)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
-      E_破壊方法.next(ev.destructionMethod)
+      破壊方法.next(toEnumString('destructionMethod', ev.destructionMethod))
       O_ｱｲﾃﾑ.next(ev.itemStackBeforeBreak ?? null)
     }
     world.server.on(ServerEvent.BlockBroken, handler)
@@ -53,17 +54,17 @@ export const ブロック設置イベント: CodeNode = {
     O_ﾌﾞﾛｯｸ: { description: 'BlockType オブジェクト → ブロック情報取得ノードへ' },
     O_ﾌﾟﾚｲﾔｰ: { description: 'WorldPlayer オブジェクト → プレイヤー情報取得ノードへ' },
     水中: { description: '水中に設置したか（true/false）' },
-    E_設置方法: { description: '設置方法の数値コード（Enum）→ enum名称変換ノードへ' },
+    設置方法: { description: '設置方法名' },
     O_ｱｲﾃﾑ: { description: '所持アイテム（設置前に持っていたアイテム）→ 所持アイテム情報取得ノードへ' },
   },
-  run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, 水中, E_設置方法, O_ｱｲﾃﾑ }, adv) => {
+  run: ({ ワールド }, { O_ﾌﾞﾛｯｸ, O_ﾌﾟﾚｲﾔｰ, 水中, 設置方法, O_ｱｲﾃﾑ }, adv) => {
     const world = getCurrentWorld()!
     const handler = (ev: BlockPlacedSignal) => {
       setCurrentContext(world, ev.player)
       O_ﾌﾞﾛｯｸ.next(ev.placedBlockType)
       O_ﾌﾟﾚｲﾔｰ.next(ev.rawPlayer)
       水中.next(ev.placedUnderwater)
-      E_設置方法.next(ev.placementMethod)
+      設置方法.next(toEnumString('placementMethod', ev.placementMethod))
       O_ｱｲﾃﾑ.next(ev.itemStackBeforePlace)
     }
     world.server.on(ServerEvent.BlockPlaced, handler)

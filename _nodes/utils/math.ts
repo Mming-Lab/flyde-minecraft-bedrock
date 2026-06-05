@@ -3,7 +3,7 @@ import { CodeNode } from '@flyde/core'
 // @minecraft/math は @minecraft/server（Bedrock専用）に依存するためNode.jsで動かない。
 // 同等の純関数を自前で実装する。
 
-const STYLE = { color: '#107C10' } // math / green
+const STYLE = { color: '#107C10' }
 
 type Vec3 = { x: number; y: number; z: number }
 type AABB = { min: Vec3; max: Vec3 }
