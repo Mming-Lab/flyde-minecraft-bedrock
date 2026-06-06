@@ -109,59 +109,39 @@ export const スコア取得: CodeNode = {
   },
 }
 
-export const スコア設定: CodeNode = {
-  id: 'SetScore',
-  displayName: 'スコア設定',
-  menuDisplayName: 'スコア設定',
+export const スコア演算: CodeNode = {
+  id: 'ScoreOperation',
+  displayName: 'スコア演算',
+  menuDisplayName: 'スコア演算',
   icon: 'list-ol',
   defaultStyle: SCOREBOARD_STYLE,
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
+    操作: {
+      description: '演算の種類',
+      defaultValue: 'add',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: '加算', value: 'add' },
+          { label: '減算', value: 'remove' },
+          { label: '設定', value: 'set' },
+        ],
+      },
+    },
     プレイヤー名: { description: 'プレイヤー名' },
     目標ID: { description: 'スコアボード目標のID' },
-    値: { description: '設定するスコア値' },
+    値: { description: '演算する値' },
   },
   outputs: { 新スコア: {} },
-  run: async ({ プレイヤー名, 目標ID, 値 }, { 新スコア }) => {
+  run: async ({ 操作, プレイヤー名, 目標ID, 値 }, { 新スコア }) => {
     const { world } = getCurrentContext()
-    新スコア.next(await world.scoreboard.setScore(String(プレイヤー名), String(目標ID), Number(値)))
-  },
-}
-
-export const スコア加算: CodeNode = {
-  id: 'AddScore',
-  displayName: 'スコア加算',
-  menuDisplayName: 'スコア加算',
-  icon: 'list-ol',
-  defaultStyle: SCOREBOARD_STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-    プレイヤー名: { description: 'プレイヤー名' },
-    目標ID: { description: 'スコアボード目標のID' },
-    値: { description: '加算する値' },
-  },
-  outputs: { 新スコア: {} },
-  run: async ({ プレイヤー名, 目標ID, 値 }, { 新スコア }) => {
-    const { world } = getCurrentContext()
-    新スコア.next(await world.scoreboard.addScore(String(プレイヤー名), String(目標ID), Number(値)))
-  },
-}
-
-export const スコア減算: CodeNode = {
-  id: 'RemoveScore',
-  displayName: 'スコア減算',
-  menuDisplayName: 'スコア減算',
-  icon: 'list-ol',
-  defaultStyle: SCOREBOARD_STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-    プレイヤー名: { description: 'プレイヤー名' },
-    目標ID: { description: 'スコアボード目標のID' },
-    値: { description: '減算する値' },
-  },
-  outputs: { 新スコア: {} },
-  run: async ({ プレイヤー名, 目標ID, 値 }, { 新スコア }) => {
-    const { world } = getCurrentContext()
-    新スコア.next(await world.scoreboard.removeScore(String(プレイヤー名), String(目標ID), Number(値)))
+    const p = String(プレイヤー名)
+    const id = String(目標ID)
+    const v = Number(値)
+    const k = String(操作)
+    if      (k === 'add')    新スコア.next(await world.scoreboard.addScore(p, id, v))
+    else if (k === 'remove') 新スコア.next(await world.scoreboard.removeScore(p, id, v))
+    else if (k === 'set')    新スコア.next(await world.scoreboard.setScore(p, id, v))
   },
 }
