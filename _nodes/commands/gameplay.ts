@@ -23,21 +23,34 @@ export const コマンド実行: CodeNode = {
   },
 }
 
-export const 時刻を取得: CodeNode = {
-  id: 'GetTimeOfDay',
-  displayName: '時刻を取得',
-  menuDisplayName: '時刻取得',
+export const ゲーム内時刻取得: CodeNode = {
+  id: 'GetGameTime',
+  displayName: 'ゲーム内時刻取得',
+  menuDisplayName: 'ゲーム時刻',
   icon: 'magnifying-glass',
   defaultStyle: STYLE,
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
+    種別: {
+      description: '取得する時刻の種別',
+      defaultValue: 'time',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: '時刻 (0〜24000)', value: 'time' },
+          { label: '日数',            value: 'day' },
+          { label: 'ティック数',      value: 'tick' },
+        ],
+      },
+    },
   },
-  outputs: {
-    時刻: {},
-  },
-  run: async (_, { 時刻 }) => {
+  outputs: { 値: {} },
+  run: async ({ 種別 }, { 値 }) => {
     const { world } = getCurrentContext()
-    時刻.next(await world.getTimeOfDay())
+    const k = String(種別)
+    if      (k === 'time') 値.next(await world.getTimeOfDay())
+    else if (k === 'day')  値.next(await world.getDay())
+    else if (k === 'tick') 値.next(await world.getCurrentTick())
   },
 }
 
@@ -76,21 +89,6 @@ export const 天気を取得: CodeNode = {
   },
 }
 
-export const 日数を取得: CodeNode = {
-  id: 'GetDay',
-  displayName: '日数を取得',
-  menuDisplayName: '日数取得',
-  icon: 'magnifying-glass',
-  defaultStyle: STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-  },
-  outputs: { 日数: {} },
-  run: async (_, { 日数 }) => {
-    const { world } = getCurrentContext()
-    日数.next(await world.getDay())
-  },
-}
 
 export const エリアを塗りつぶす: CodeNode = {
   id: 'FillBlocks',
@@ -135,66 +133,31 @@ export const 地面の高さを取得: CodeNode = {
   },
 }
 
-export const 現在ティック取得: CodeNode = {
-  id: 'GetCurrentTick',
-  displayName: '現在ティック取得',
-  menuDisplayName: 'ティック取得',
-  icon: 'magnifying-glass',
-  defaultStyle: STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-  },
-  outputs: { ティック: {} },
-  run: async (_, { ティック }) => {
-    const { world } = getCurrentContext()
-    ティック.next(await world.getCurrentTick())
-  },
-}
 
-export const エンティティクエリ: CodeNode = {
-  id: 'QueryMobs',
-  displayName: 'エンティティクエリ',
-  menuDisplayName: 'ENTクエリ',
+export const ワールドクエリ: CodeNode = {
+  id: 'WorldQuery',
+  displayName: 'ワールドクエリ',
+  menuDisplayName: 'ﾜｰﾙﾄﾞｸｴﾘ',
   icon: 'magnifying-glass',
   defaultStyle: STYLE,
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
+    種別: {
+      description: '取得する種別',
+      defaultValue: 'mob',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: 'エンティティ', value: 'mob' },
+          { label: 'ブロック',     value: 'block' },
+          { label: 'アイテム',     value: 'item' },
+        ],
+      },
+    },
   },
-  outputs: { エンティティ一覧: {} },
-  run: async (_, { エンティティ一覧 }) => {
+  outputs: { 一覧: {} },
+  run: async ({ 種別 }, { 一覧 }) => {
     const { world } = getCurrentContext()
-    エンティティ一覧.next(await world.queryData('mob'))
-  },
-}
-
-export const ブロッククエリ: CodeNode = {
-  id: 'QueryBlocks',
-  displayName: 'ブロッククエリ',
-  menuDisplayName: 'BLKクエリ',
-  icon: 'magnifying-glass',
-  defaultStyle: STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-  },
-  outputs: { ブロック一覧: {} },
-  run: async (_, { ブロック一覧 }) => {
-    const { world } = getCurrentContext()
-    ブロック一覧.next(await world.queryData('block'))
-  },
-}
-
-export const アイテムクエリ: CodeNode = {
-  id: 'QueryItems',
-  displayName: 'アイテムクエリ',
-  menuDisplayName: 'ITMクエリ',
-  icon: 'magnifying-glass',
-  defaultStyle: STYLE,
-  inputs: {
-    トリガー: { description: 'トリガー（任意）' },
-  },
-  outputs: { アイテム一覧: {} },
-  run: async (_, { アイテム一覧 }) => {
-    const { world } = getCurrentContext()
-    アイテム一覧.next(await world.queryData('item'))
+    一覧.next(await (world.queryData as any)(種別))
   },
 }
