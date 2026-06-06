@@ -3,6 +3,22 @@ import { getCurrentContext } from './context-manager'
 
 const SCOREBOARD_STYLE = { color: '#8F6D40' }
 
+export const スコアボード目標一覧取得: CodeNode = {
+  id: 'GetScoreboardObjectives',
+  displayName: 'スコアボード目標一覧取得',
+  menuDisplayName: 'SB目標一覧',
+  icon: 'list-ol',
+  defaultStyle: SCOREBOARD_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+  },
+  outputs: { 目標一覧: {} },
+  run: async (_, { 目標一覧 }) => {
+    const { world } = getCurrentContext()
+    目標一覧.next(await world.scoreboard.getObjectives())
+  },
+}
+
 export const スコアボード目標取得: CodeNode = {
   id: 'GetScoreboardObjective',
   displayName: 'スコアボード目標取得',
@@ -11,18 +27,12 @@ export const スコアボード目標取得: CodeNode = {
   defaultStyle: SCOREBOARD_STYLE,
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
-    目標ID: { description: '目標ID（空文字で全件取得）', defaultValue: '' },
+    目標ID: { description: 'スコアボード目標のID' },
   },
-  outputs: { 目標一覧: {} },
-  run: async ({ 目標ID }, { 目標一覧 }) => {
+  outputs: { 目標: {} },
+  run: async ({ 目標ID }, { 目標 }) => {
     const { world } = getCurrentContext()
-    const id = String(目標ID)
-    if (!id) {
-      目標一覧.next(await world.scoreboard.getObjectives())
-    } else {
-      const obj = await world.scoreboard.getObjective(id)
-      目標一覧.next(obj ? [obj] : [])
-    }
+    目標.next(await world.scoreboard.getObjective(String(目標ID)))
   },
 }
 
@@ -64,6 +74,23 @@ export const スコアボード目標削除: CodeNode = {
   },
 }
 
+export const 全スコア取得: CodeNode = {
+  id: 'GetScores',
+  displayName: '全スコア取得',
+  menuDisplayName: '全スコア',
+  icon: 'list-ol',
+  defaultStyle: SCOREBOARD_STYLE,
+  inputs: {
+    トリガー: { description: 'トリガー（任意）' },
+    プレイヤー名: { description: 'プレイヤー名' },
+  },
+  outputs: { スコア一覧: {} },
+  run: async ({ プレイヤー名 }, { スコア一覧 }) => {
+    const { world } = getCurrentContext()
+    スコア一覧.next(await world.scoreboard.getScores(String(プレイヤー名)))
+  },
+}
+
 export const スコア取得: CodeNode = {
   id: 'GetScore',
   displayName: 'スコア取得',
@@ -73,20 +100,12 @@ export const スコア取得: CodeNode = {
   inputs: {
     トリガー: { description: 'トリガー（任意）' },
     プレイヤー名: { description: 'プレイヤー名' },
-    目標ID: { description: '目標ID（空文字で全目標のスコアを取得）', defaultValue: '' },
+    目標ID: { description: 'スコアボード目標のID' },
   },
-  outputs: { スコア一覧: {} },
-  run: async ({ プレイヤー名, 目標ID }, { スコア一覧 }) => {
+  outputs: { スコア: {} },
+  run: async ({ プレイヤー名, 目標ID }, { スコア }) => {
     const { world } = getCurrentContext()
-    const p = String(プレイヤー名)
-    const id = String(目標ID)
-    if (!id) {
-      const scores = await world.scoreboard.getScores(p)
-      スコア一覧.next(Object.entries(scores).map(([objectiveId, score]) => ({ objectiveId, score })))
-    } else {
-      const score = await world.scoreboard.getScore(p, id)
-      スコア一覧.next([{ objectiveId: id, score }])
-    }
+    スコア.next(await world.scoreboard.getScore(String(プレイヤー名), String(目標ID)))
   },
 }
 
