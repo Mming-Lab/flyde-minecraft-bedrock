@@ -3,15 +3,38 @@ import { BLOCK_CATS, ITEM_CATS, MOB_CATS, ENUM_CAT_OPTS, enumOpts } from './_cat
 
 const STYLE = { color: '#767676' }
 
-export const ブロック選択: CodeNode = {
-  id: 'BlockSelector',
-  displayName: 'ブロック選択',
-  menuDisplayName: 'ﾌﾞﾛｯｸ選択',
-  icon: 'cube',
+export const 選択: CodeNode = {
+  id: 'Selector',
+  displayName: '選択',
+  menuDisplayName: '選択',
+  icon: 'hand-pointer',
   defaultStyle: STYLE,
   inputs: {
-    カテゴリ: {
+    種別: {
+      description: '選択する値の種別',
+      defaultValue: 'ブロック',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: '🧱 ブロック', value: 'ブロック' },
+          { label: '🎒 アイテム', value: 'アイテム' },
+          { label: '🐾 モブ', value: 'モブ' },
+          { label: '🚶 移動方法', value: '移動方法' },
+          { label: '✨ テレポート原因', value: 'テレポート原因' },
+          { label: '🐄 モブ交流', value: 'モブ交流' },
+          { label: '🤚 アイテム使用', value: 'アイテム使用' },
+          { label: '📦 アイテム取得', value: 'アイテム取得' },
+          { label: '🪖 装備スロット', value: '装備スロット' },
+          { label: '⛏️ 破壊方法', value: '破壊方法' },
+          { label: '🏗️ 設置方法', value: '設置方法' },
+        ]
+      }
+    },
+
+    // ── ブロック ──
+    ブロックカテゴリ: {
       description: 'ブロックのカテゴリ',
+      condition: "種別 === 'ブロック'",
       defaultValue: '石材',
       editorType: 'select',
       editorTypeData: {
@@ -27,75 +50,51 @@ export const ブロック選択: CodeNode = {
     },
     石材: {
       description: '石材ブロックの種類',
-      condition: "カテゴリ === '石材'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === '石材'",
       defaultValue: 'minecraft:stone',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['石材'] }
     },
     木材: {
       description: '木材ブロックの種類',
-      condition: "カテゴリ === '木材'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === '木材'",
       defaultValue: 'minecraft:oak_log',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['木材'] }
     },
     鉱石: {
       description: '鉱石ブロックの種類',
-      condition: "カテゴリ === '鉱石'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === '鉱石'",
       defaultValue: 'minecraft:coal_ore',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['鉱石'] }
     },
     自然: {
       description: '自然ブロックの種類',
-      condition: "カテゴリ === '自然'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === '自然'",
       defaultValue: 'minecraft:grass_block',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['自然'] }
     },
     建材: {
       description: '建材ブロックの種類',
-      condition: "カテゴリ === '建材'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === '建材'",
       defaultValue: 'minecraft:brick_block',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['建材'] }
     },
     その他: {
       description: 'その他ブロックの種類',
-      condition: "カテゴリ === 'その他'",
+      condition: "種別 === 'ブロック' && ブロックカテゴリ === 'その他'",
       defaultValue: 'minecraft:air',
       editorType: 'select',
       editorTypeData: { options: BLOCK_CATS['その他'] }
     },
-  },
-  outputs: {
-    ブロックID: { description: '"minecraft:stone" 形式のブロックID' },
-  },
-  run: ({ カテゴリ, 石材, 木材, 鉱石, 自然, 建材, その他 }, { ブロックID }) => {
-    const cat = String(カテゴリ)
-    let result: string
-    switch (cat) {
-      case '石材': result = String(石材); break
-      case '木材': result = String(木材); break
-      case '鉱石': result = String(鉱石); break
-      case '自然': result = String(自然); break
-      case '建材': result = String(建材); break
-      case 'その他': result = String(その他); break
-      default: result = 'minecraft:stone'
-    }
-    ブロックID.next(result)
-  },
-}
 
-export const アイテム選択: CodeNode = {
-  id: 'ItemSelector',
-  displayName: 'アイテム選択',
-  menuDisplayName: 'ｱｲﾃﾑ選択',
-  icon: 'box-open',
-  defaultStyle: STYLE,
-  inputs: {
-    カテゴリ: {
+    // ── アイテム ──
+    アイテムカテゴリ: {
       description: 'アイテムのカテゴリ',
+      condition: "種別 === 'アイテム'",
       defaultValue: '武器',
       editorType: 'select',
       editorTypeData: {
@@ -110,67 +109,44 @@ export const アイテム選択: CodeNode = {
     },
     武器: {
       description: '武器の種類',
-      condition: "カテゴリ === '武器'",
+      condition: "種別 === 'アイテム' && アイテムカテゴリ === '武器'",
       defaultValue: 'minecraft:wooden_sword',
       editorType: 'select',
       editorTypeData: { options: ITEM_CATS['武器'] }
     },
     道具: {
       description: '道具の種類',
-      condition: "カテゴリ === '道具'",
+      condition: "種別 === 'アイテム' && アイテムカテゴリ === '道具'",
       defaultValue: 'minecraft:wooden_pickaxe',
       editorType: 'select',
       editorTypeData: { options: ITEM_CATS['道具'] }
     },
     防具: {
       description: '防具の種類',
-      condition: "カテゴリ === '防具'",
+      condition: "種別 === 'アイテム' && アイテムカテゴリ === '防具'",
       defaultValue: 'minecraft:iron_helmet',
       editorType: 'select',
       editorTypeData: { options: ITEM_CATS['防具'] }
     },
     食料: {
       description: '食料の種類',
-      condition: "カテゴリ === '食料'",
+      condition: "種別 === 'アイテム' && アイテムカテゴリ === '食料'",
       defaultValue: 'minecraft:apple',
       editorType: 'select',
       editorTypeData: { options: ITEM_CATS['食料'] }
     },
     素材: {
       description: '素材の種類',
-      condition: "カテゴリ === '素材'",
+      condition: "種別 === 'アイテム' && アイテムカテゴリ === '素材'",
       defaultValue: 'minecraft:iron_ingot',
       editorType: 'select',
       editorTypeData: { options: ITEM_CATS['素材'] }
     },
-  },
-  outputs: {
-    アイテムID: { description: '"minecraft:apple" 形式のアイテムID' },
-  },
-  run: ({ カテゴリ, 武器, 道具, 防具, 食料, 素材 }, { アイテムID }) => {
-    const cat = String(カテゴリ)
-    let result: string
-    switch (cat) {
-      case '武器': result = String(武器); break
-      case '道具': result = String(道具); break
-      case '防具': result = String(防具); break
-      case '食料': result = String(食料); break
-      case '素材': result = String(素材); break
-      default: result = 'minecraft:wooden_sword'
-    }
-    アイテムID.next(result)
-  },
-}
 
-export const モブ選択: CodeNode = {
-  id: 'MobSelector',
-  displayName: 'モブ選択',
-  menuDisplayName: 'ﾓﾌﾞ選択',
-  icon: 'paw',
-  defaultStyle: STYLE,
-  inputs: {
-    カテゴリ: {
+    // ── モブ ──
+    モブカテゴリ: {
       description: 'モブのカテゴリ',
+      condition: "種別 === 'モブ'",
       defaultValue: '動物',
       editorType: 'select',
       editorTypeData: {
@@ -182,47 +158,20 @@ export const モブ選択: CodeNode = {
     },
     動物: {
       description: '動物の種類',
-      condition: "カテゴリ === '動物'",
+      condition: "種別 === 'モブ' && モブカテゴリ === '動物'",
       defaultValue: 'minecraft:cow',
       editorType: 'select',
       editorTypeData: { options: MOB_CATS['動物'] }
     },
     モンスター: {
       description: 'モンスターの種類',
-      condition: "カテゴリ === 'モンスター'",
+      condition: "種別 === 'モブ' && モブカテゴリ === 'モンスター'",
       defaultValue: 'minecraft:zombie',
       editorType: 'select',
       editorTypeData: { options: MOB_CATS['モンスター'] }
     },
-  },
-  outputs: {
-    モブID: { description: '"minecraft:cow" 形式のモブID' },
-  },
-  run: ({ カテゴリ, 動物, モンスター }, { モブID }) => {
-    const cat = String(カテゴリ)
-    let result: string
-    switch (cat) {
-      case '動物': result = String(動物); break
-      case 'モンスター': result = String(モンスター); break
-      default: result = 'minecraft:cow'
-    }
-    モブID.next(result)
-  },
-}
 
-export const イベントenum選択: CodeNode = {
-  id: 'EventEnumSelector',
-  displayName: 'イベント値選択',
-  menuDisplayName: 'ｲﾍﾞﾝﾄ値選択',
-  icon: 'list-check',
-  defaultStyle: STYLE,
-  inputs: {
-    種別: {
-      description: '選択するイベント値の種別',
-      defaultValue: '移動方法',
-      editorType: 'select',
-      editorTypeData: { options: ENUM_CAT_OPTS },
-    },
+    // ── イベント値 ──
     移動方法: {
       description: '移動方法',
       condition: "種別 === '移動方法'",
@@ -281,18 +230,39 @@ export const イベントenum選択: CodeNode = {
     },
   },
   outputs: {
-    値: { description: 'イベントノードの出力と比較できる文字列（例: "Walk"）' },
+    値: { description: '選択した値（ブロック/アイテム/モブIDまたはイベント値）' },
   },
-  run: ({ 種別, 移動方法, テレポート原因, モブ交流, アイテム使用, アイテム取得, 装備スロット, 破壊方法, 設置方法 }, { 値 }) => {
-    const cat = String(種別)
-    const v = cat === '移動方法'       ? 移動方法
-            : cat === 'テレポート原因' ? テレポート原因
-            : cat === 'モブ交流'       ? モブ交流
-            : cat === 'アイテム使用'   ? アイテム使用
-            : cat === 'アイテム取得'   ? アイテム取得
-            : cat === '装備スロット'   ? 装備スロット
-            : cat === '破壊方法'       ? 破壊方法
-            :                            設置方法
-    値.next(String(v))
+  run: (inputs, { 値 }) => {
+    const s = String(inputs['種別'])
+    let result: string
+
+    if (s === 'ブロック') {
+      const cat = String(inputs['ブロックカテゴリ'])
+      switch (cat) {
+        case '石材': result = String(inputs['石材']); break
+        case '木材': result = String(inputs['木材']); break
+        case '鉱石': result = String(inputs['鉱石']); break
+        case '自然': result = String(inputs['自然']); break
+        case '建材': result = String(inputs['建材']); break
+        default:     result = String(inputs['その他'])
+      }
+    } else if (s === 'アイテム') {
+      const cat = String(inputs['アイテムカテゴリ'])
+      switch (cat) {
+        case '武器': result = String(inputs['武器']); break
+        case '道具': result = String(inputs['道具']); break
+        case '防具': result = String(inputs['防具']); break
+        case '食料': result = String(inputs['食料']); break
+        default:     result = String(inputs['素材'])
+      }
+    } else if (s === 'モブ') {
+      const cat = String(inputs['モブカテゴリ'])
+      result = cat === '動物' ? String(inputs['動物']) : String(inputs['モンスター'])
+    } else {
+      // イベント値：種別名 === 入力キー名
+      result = String(inputs[s])
+    }
+
+    値.next(result)
   },
 }
