@@ -2,8 +2,8 @@ imports: {}
 node:
   instances:
     - pos:
-        x: 258.1493740081787
-        y: -104.01134872436523
+        x: 448.289457321167
+        y: -357.3257255554199
       id: mc-connect
       inputConfig: {}
       nodeId: MinecraftConnect
@@ -16,8 +16,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 437.8235740661621
-        y: 23.64812469482422
+        x: 673.8952102661133
+        y: -367.5574207305908
       id: chat-listen
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -29,10 +29,11 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 602.9792747497559
-        y: 155.96107864379883
+        x: 852.428783416748
+        y: -356.18806076049805
       id: filter
       inputConfig: {}
+      displayName: '"chicken"と入力された時'
       nodeId: Conditional
       config:
         condition:
@@ -42,77 +43,17 @@ node:
           value: "{{メッセージ}}"
         rightOperand:
           type: string
-          value: chicken
+          value: "1"
       type: code
       source:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 768.7141265869141
-        y: -3.608098030090332
-      id: get-pos
-      inputConfig: {}
-      nodeId: GetPlayerLocation
-      config:
-        トリガー:
-          type: dynamic
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 788.5028228759766
-        y: 246.40928369760513
-      id: get-time
-      inputConfig: {}
-      nodeId: GetTimeOfDay
-      config:
-        トリガー:
-          type: dynamic
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 940.989860534668
-        y: 341.5015931725502
-      id: make-offset
-      inputConfig: {}
-      nodeId: Vector3Create
-      config:
-        x:
-          type: number
-          value: 0
-        y:
-          type: dynamic
-        z:
-          type: number
-          value: 0
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 1125.0180969238281
-        y: 45.27970504760742
-      id: vec-add
-      inputConfig: {}
-      nodeId: Vector3Add
-      config:
-        座標A:
-          type: dynamic
-        座標B:
-          type: dynamic
-      type: code
-      source:
-        type: file
-        data: ../_nodes/index.flyde.ts
-    - pos:
-        x: 1279.3323822021484
-        y: 151.69441604614258
+        x: 852.6852035522461
+        y: -222.8099024295807
       id: repeat-pos
       inputConfig: {}
-      displayName: 100回繰り返す
+      displayName: 100リスト化
       nodeId: Repeat
       config:
         value:
@@ -125,10 +66,11 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 1459.927505493164
-        y: 248.4166717529297
+        x: 1020.1276397705078
+        y: -132.6353759765625
       id: loop-pos
       inputConfig: {}
+      displayName: リストを回す
       nodeId: Loop List
       config:
         list:
@@ -138,10 +80,11 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 1672.280044555664
-        y: 328.3276023864746
+        x: 1205.5985107421875
+        y: -158.47808361053467
       id: summon
       inputConfig: {}
+      displayName: summon コマンド実行
       nodeId: RunCommand
       config:
         トリガー:
@@ -149,30 +92,29 @@ node:
           value: true
         コマンド:
           type: string
-          value: summon chicken {{座標.x}} {{座標.y}} {{座標.z}}
+          value: "{{コマンド}}"
       type: code
       source:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 1900
-        y: 500
+        x: 1386.9301147460938
+        y: -114.38301086425781
       id: collect-summons
       inputConfig: {}
-      displayName: 100羽完了待ち
+      displayName: コマンド完了待ち
       nodeId: Collect
       config:
         strategy: count
         count:
-          mode: static
-          value: 100
+          mode: dynamic
       type: code
       source:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 2120
-        y: 500
+        x: 1460.3833122253418
+        y: 21.20887851715088
       id: MinecraftDisconnect-e3bofza9
       inputConfig: {}
       nodeId: MinecraftDisconnect
@@ -183,6 +125,38 @@ node:
       source:
         type: file
         data: ../_nodes/index.flyde.ts
+    - pos:
+        x: 622.142403839237
+        y: -221.9089839180313
+      id: InlineValue-ul1zfyke
+      inputConfig: {}
+      nodeId: InlineValue
+      config:
+        value:
+          type: string
+          value: summon chicken ~0 ~10 ~0
+      type: code
+      source:
+        type: package
+        data: "@flyde/nodes"
+    - pos:
+        x: 1260.3937741498546
+        y: 20.423217154892598
+      id: RunCommand-s1ykea4i
+      inputConfig: {}
+      displayName: 終了メッセージ
+      nodeId: RunCommand
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+        コマンド:
+          type: string
+          value: say おわり！！！
+      type: code
+      source:
+        type: file
+        data: ..\_nodes\index.flyde.ts
   connections:
     - from:
         insId: mc-connect
@@ -197,53 +171,11 @@ node:
         insId: filter
         pinId: メッセージ
     - from:
-        insId: filter
-        pinId: "true"
-      to:
-        insId: get-pos
-        pinId: トリガー
-    - from:
-        insId: filter
-        pinId: "true"
-      to:
-        insId: get-time
-        pinId: トリガー
-    - from:
-        insId: get-pos
-        pinId: 座標
-      to:
-        insId: vec-add
-        pinId: 座標A
-    - from:
-        insId: get-time
-        pinId: 時刻
-      to:
-        insId: make-offset
-        pinId: y
-    - from:
-        insId: make-offset
-        pinId: 座標
-      to:
-        insId: vec-add
-        pinId: 座標B
-    - from:
-        insId: vec-add
-        pinId: 結果
-      to:
-        insId: repeat-pos
-        pinId: value
-    - from:
         insId: repeat-pos
         pinId: list
       to:
         insId: loop-pos
         pinId: list
-    - from:
-        insId: loop-pos
-        pinId: item
-      to:
-        insId: summon
-        pinId: 座標
     - from:
         insId: summon
         pinId: 完了
@@ -251,8 +183,38 @@ node:
         insId: collect-summons
         pinId: value
     - from:
+        insId: InlineValue-ul1zfyke
+        pinId: value
+      to:
+        insId: repeat-pos
+        pinId: value
+    - from:
+        insId: filter
+        pinId: "true"
+      to:
+        insId: InlineValue-ul1zfyke
+        pinId: __trigger
+    - from:
+        insId: loop-pos
+        pinId: item
+      to:
+        insId: summon
+        pinId: コマンド
+    - from:
+        insId: loop-pos
+        pinId: length
+      to:
+        insId: collect-summons
+        pinId: count
+    - from:
         insId: collect-summons
         pinId: list
+      to:
+        insId: RunCommand-s1ykea4i
+        pinId: トリガー
+    - from:
+        insId: RunCommand-s1ykea4i
+        pinId: 完了
       to:
         insId: MinecraftDisconnect-e3bofza9
         pinId: トリガー

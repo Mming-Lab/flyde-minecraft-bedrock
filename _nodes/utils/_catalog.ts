@@ -36,41 +36,7 @@ export const MOB_ID_TO_JA:   Record<string, string> = Object.fromEntries(MOB_ALL
 
 // ── イベントenum ─────────────────────────────────────────────────
 
-export const ENUM_JA: Record<string, Record<string, string>> = {
-  移動方法: {
-    Walk: '歩く', SwimWater: '水泳', Fall: '落下', Climb: '登る',
-    SwimLava: '溶岩泳ぎ', Fly: '飛ぶ', Riding: '乗り物', Sneak: 'しゃがむ',
-    Sprint: '走る', Bounce: 'バウンス', FrostWalk: '氷上歩行', Teleport: 'テレポート',
-  },
-  テレポート原因: {
-    Projectile: '飛び道具', ChorusFruit: 'コーラスフルーツ',
-    Command: 'コマンド', Behavior: 'ビヘイビア',
-  },
-  モブ交流: {
-    Breeding: '繁殖', Taming: '手なずけ', Curing: '治療', Crafted: 'クラフト',
-    Shearing: 'ハサミ', Milking: 'ミルク', Trading: '取引', Feeding: 'えさやり',
-    Igniting: '着火', Coloring: '染色', Naming: '命名', Leashing: 'リード',
-    Unleashing: 'リード外す', PetSleep: 'ペット就寝', Trusting: '信頼', Commanding: '命令',
-  },
-  アイテム使用: {
-    Use: '使用', Place: '設置',
-  },
-  アイテム取得: {
-    Pickedup: '拾った', Crafted: 'クラフト', TakenFromChest: 'チェストから取得',
-    TakenFromEnderChest: 'エンダーチェストから取得', Bought: '購入', Anvil: '金床',
-    Smelted: '精錬', Brewed: '醸造', Filled: 'バケツで汲んだ', Trading: '取引',
-    Fishing: '釣り', Container: 'コンテナ', Feeding: 'えさやり',
-  },
-  装備スロット: {
-    Offhand: 'オフハンド', Head: '頭', Chest: '胴体', Legs: '脚', Feet: '足',
-  },
-  破壊方法: {
-    Player: 'プレイヤー', Explosion: '爆発', Mob: 'モブ', Piston: 'ピストン', Other: 'その他',
-  },
-  設置方法: {
-    Player: 'プレイヤー', Other: 'その他',
-  },
-}
+export const ENUM_JA: Record<string, Record<string, string>> = jaMaps.ENUM_JA
 
 export function enumOpts(kind: string): SelectOption[] {
   return Object.entries(ENUM_JA[kind] ?? {}).map(([en, ja]) => ({ label: ja, value: en }))

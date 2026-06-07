@@ -2,8 +2,8 @@ imports: {}
 node:
   instances:
     - pos:
-        x: 276.9835693836212
-        y: 259.51261019706726
+        x: 318.70210576057434
+        y: 121.47108340263367
       id: mc-connect
       inputConfig: {}
       nodeId: MinecraftConnect
@@ -16,8 +16,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 499.66015243530273
-        y: 246.65558385849
+        x: 554.1425590515137
+        y: 117.7242636680603
       id: chat-listen
       inputConfig: {}
       nodeId: OnPlayerChat
@@ -29,8 +29,8 @@ node:
         type: file
         data: ../_nodes/index.flyde.ts
     - pos:
-        x: 679.7502136230469
-        y: 259.97557377815247
+        x: 703.7162780761719
+        y: 250.16699528694153
       id: filter
       inputConfig: {}
       nodeId: Conditional
