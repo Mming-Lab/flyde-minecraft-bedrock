@@ -36,7 +36,7 @@ node:
       displayName: ブロックID取得
       nodeId: GetFromBlockType
       config:
-        O_ﾌﾞﾛｯｸ:
+        ﾌﾞﾛｯｸ:
           type: dynamic
         項目:
           type: select
@@ -57,7 +57,7 @@ node:
           type: EXISTS
         leftOperand:
           type: dynamic
-          value: "{{O_ｱｲﾃﾑ}}"
+          value: "{{ｱｲﾃﾑ}}"
         rightOperand:
           type: string
           value: Some value
@@ -73,7 +73,7 @@ node:
       displayName: アイテムID取得
       nodeId: GetFromItemStack
       config:
-        O_ｱｲﾃﾑ:
+        ｱｲﾃﾑ:
           type: dynamic
         項目:
           type: select
@@ -205,9 +205,9 @@ node:
       inputConfig: {}
       nodeId: GetFromPlayerSnapshot
       config:
-        O_ﾌﾟﾚｲﾔｰ:
+        ﾌﾟﾚｲﾔｰ:
           type: dynamic
-          value: "{{O_ﾌﾟﾚｲﾔｰ}}"
+          value: "{{ﾌﾟﾚｲﾔｰ}}"
         項目:
           type: select
           value: name
@@ -222,12 +222,12 @@ node:
       inputConfig: {}
       nodeId: GetFromEntity
       config:
-        O_Entity:
+        entity:
           type: dynamic
-          value: "{{O_Entity}}"
-        O_ｴﾝﾃｨﾃｨ:
+          value: "{{entity}}"
+        ｴﾝﾃｨﾃｨ:
           type: dynamic
-          value: "{{O_ｴﾝﾃｨﾃｨ}}"
+          value: "{{ｴﾝﾃｨﾃｨ}}"
       type: code
       source:
         type: file
@@ -283,16 +283,16 @@ node:
         pinId: ワールド
     - from:
         insId: block-broken
-        pinId: O_ﾌﾞﾛｯｸ
+        pinId: ﾌﾞﾛｯｸ
       to:
         insId: get-block-id
-        pinId: O_ﾌﾞﾛｯｸ
+        pinId: ﾌﾞﾛｯｸ
     - from:
         insId: item-null-check
         pinId: "true"
       to:
         insId: get-item-id
-        pinId: O_ｱｲﾃﾑ
+        pinId: ｱｲﾃﾑ
     - from:
         insId: 素手-fallback
         pinId: value
@@ -325,7 +325,7 @@ node:
         pinId: __trigger
     - from:
         insId: block-broken
-        pinId: O_ｱｲﾃﾑ
+        pinId: ｱｲﾃﾑ
       to:
         insId: item-null-check
         pinId: leftOperand
@@ -343,10 +343,10 @@ node:
         pinId: アイテム
     - from:
         insId: block-broken
-        pinId: O_ﾌﾟﾚｲﾔｰ
+        pinId: ﾌﾟﾚｲﾔｰ
       to:
         insId: GetFromPlayerSnapshot-tmly7kvv
-        pinId: O_ﾌﾟﾚｲﾔｰ
+        pinId: ﾌﾟﾚｲﾔｰ
     - from:
         insId: get-block-id
         pinId: ブロックID
@@ -373,10 +373,10 @@ node:
         pinId: 座標
     - from:
         insId: GetFromPlayerSnapshot-tmly7kvv
-        pinId: O_ｴﾝﾃｨﾃｨ
+        pinId: ｴﾝﾃｨﾃｨ
       to:
         insId: GetFromEntity-x5uk8cb1
-        pinId: O_ｴﾝﾃｨﾃｨ
+        pinId: ｴﾝﾃｨﾃｨ
     - from:
         insId: GetFromEntity-x5uk8cb1
         pinId: 座標

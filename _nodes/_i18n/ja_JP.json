@@ -152,7 +152,7 @@
     },
     "outputs": {
       "distance":      { "name": "移動距離", "description": "今回の移動距離（メートル）" },
-      "O_player":      { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "player":      { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "underwater":    { "name": "水中", "description": "水中を移動中か（true/false）" },
       "biome":         { "name": "バイオーム", "description": "現在いるバイオーム名" },
       "travel_method": { "name": "移動方法", "description": "移動方法名" }
@@ -165,7 +165,7 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_player":       { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "player":       { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "teleport_cause": { "name": "テレポート原因", "description": "テレポート原因名" },
       "distance":       { "name": "移動距離", "description": "テレポートした距離（メートル）" }
     }
@@ -203,8 +203,8 @@
     },
     "outputs": {
       "height":   { "name": "高さ", "description": "バウンスの高さ（ブロック数）" },
-      "O_block":  { "name": "O_ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト（バウンスしたブロック）→ ブロック情報取得ノードへ" },
-      "O_player": { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" }
+      "block":  { "name": "ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト（バウンスしたブロック）→ ブロック情報取得ノードへ" },
+      "player": { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" }
     }
   },
   "OnBlockBroken": {
@@ -214,10 +214,10 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_block":        { "name": "O_ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト → ブロック情報取得ノードへ" },
-      "O_player":       { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "block":        { "name": "ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト → ブロック情報取得ノードへ" },
+      "player":       { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "destroy_method": { "name": "破壊方法", "description": "破壊方法名" },
-      "O_item":         { "name": "O_ｱｲﾃﾑ", "description": "【null許容】所持アイテム（破壊前）。素手のとき null" }
+      "item":         { "name": "ｱｲﾃﾑ", "description": "【null許容】所持アイテム（破壊前）。素手のとき null" }
     }
   },
   "OnBlockPlaced": {
@@ -227,11 +227,11 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_block":      { "name": "O_ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト → ブロック情報取得ノードへ" },
-      "O_player":     { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "block":      { "name": "ﾌﾞﾛｯｸ", "description": "BlockType オブジェクト → ブロック情報取得ノードへ" },
+      "player":     { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "underwater":   { "name": "水中", "description": "水中に設置したか（true/false）" },
       "place_method": { "name": "設置方法", "description": "設置方法名" },
-      "O_item":       { "name": "O_ｱｲﾃﾑ", "description": "所持アイテム（設置前）→ 所持アイテム情報取得ノードへ" }
+      "item":       { "name": "ｱｲﾃﾑ", "description": "所持アイテム（設置前）→ 所持アイテム情報取得ノードへ" }
     }
   },
   "OnItemInteracted": {
@@ -241,8 +241,8 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_item":     { "name": "O_ｱｲﾃﾑ", "description": "【null許容】所持アイテム。なし → null" },
-      "O_player":   { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "item":     { "name": "ｱｲﾃﾑ", "description": "【null許容】所持アイテム。なし → null" },
+      "player":   { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "use_method": { "name": "使用方法", "description": "アイテム使用方法名" }
     }
   },
@@ -254,8 +254,8 @@
     },
     "outputs": {
       "count":      { "name": "個数", "description": "取得したアイテムの個数" },
-      "O_item":     { "name": "O_ｱｲﾃﾑ", "description": "アイテム種別 → アイテム種別情報取得ノードへ" },
-      "O_player":   { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "item":     { "name": "ｱｲﾃﾑ", "description": "アイテム種別 → アイテム種別情報取得ノードへ" },
+      "player":   { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "acq_method": { "name": "取得方法", "description": "アイテム取得方法名" }
     }
   },
@@ -266,8 +266,8 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_item":     { "name": "O_ｱｲﾃﾑ", "description": "所持アイテム（クラフトしたアイテム）→ 所持アイテム情報取得ノードへ" },
-      "O_player":   { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "item":     { "name": "ｱｲﾃﾑ", "description": "所持アイテム（クラフトしたアイテム）→ 所持アイテム情報取得ノードへ" },
+      "player":   { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "used_table": { "name": "ｸﾗﾌﾄ台使用", "description": "クラフトテーブルを使用したか（true/false）" }
     }
   },
@@ -278,8 +278,8 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_item":     { "name": "O_ｱｲﾃﾑ", "description": "所持アイテム → 所持アイテム情報取得ノードへ" },
-      "O_player":   { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "item":     { "name": "ｱｲﾃﾑ", "description": "所持アイテム → 所持アイテム情報取得ノードへ" },
+      "player":   { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "equip_slot": { "name": "装備スロット", "description": "装備スロット名" }
     }
   },
@@ -290,9 +290,9 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_item":   { "name": "O_ｱｲﾃﾑ", "description": "アイテム種別（精錬されたアイテム）→ アイテム種別情報取得ノードへ" },
-      "O_player": { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
-      "O_fuel":   { "name": "O_燃料ｱｲﾃﾑ", "description": "アイテム種別（燃料アイテム）→ アイテム種別情報取得ノードへ" }
+      "item":   { "name": "ｱｲﾃﾑ", "description": "アイテム種別（精錬されたアイテム）→ アイテム種別情報取得ノードへ" },
+      "player": { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "fuel":   { "name": "燃料", "description": "アイテム種別（燃料アイテム）→ アイテム種別情報取得ノードへ" }
     }
   },
   "OnItemTraded": {
@@ -302,11 +302,11 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_item":      { "name": "O_ｱｲﾃﾑ", "description": "所持アイテム（受け取ったアイテム）→ 所持アイテム情報取得ノードへ" },
-      "O_villager":  { "name": "O_村人", "description": "WorldVillager オブジェクト → 村人情報取得ノードへ" },
-      "O_player":    { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
-      "O_payment_a": { "name": "O_支払A", "description": "アイテム種別（支払いアイテムA）→ アイテム種別情報取得ノードへ" },
-      "O_payment_b": { "name": "O_支払B", "description": "【null許容】アイテム種別（支払いアイテムB）。不要な取引では null" },
+      "item":      { "name": "ｱｲﾃﾑ", "description": "所持アイテム（受け取ったアイテム）→ 所持アイテム情報取得ノードへ" },
+      "villager":  { "name": "村人", "description": "WorldVillager オブジェクト → 村人情報取得ノードへ" },
+      "player":    { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "payment_a": { "name": "支払A", "description": "アイテム種別（支払いアイテムA）→ アイテム種別情報取得ノードへ" },
+      "payment_b": { "name": "支払B", "description": "【null許容】アイテム種別（支払いアイテムB）。不要な取引では null" },
       "player_xp":   { "name": "ﾌﾟﾚｲﾔｰEM数", "description": "プレイヤーが取引後に持っているエメラルド数" },
       "villager_xp": { "name": "村人EM数", "description": "村人が取引後に持っているエメラルド数" }
     }
@@ -318,8 +318,8 @@
       "world": { "name": "ワールド", "description": "Minecraft接続ノードのワールド出力" }
     },
     "outputs": {
-      "O_mob":            { "name": "O_ﾓﾌﾞ", "description": "WorldMob オブジェクト（交流したモブ）" },
-      "O_player":         { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
+      "mob":            { "name": "ﾓﾌﾞ", "description": "WorldMob オブジェクト（交流したモブ）" },
+      "player":         { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" },
       "interaction_type": { "name": "交流種別", "description": "モブ交流種別名" }
     }
   },
@@ -331,7 +331,7 @@
     },
     "outputs": {
       "strength": { "name": "強さ", "description": "レッドストーン信号の強さ（0〜15）" },
-      "O_player": { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" }
+      "player": { "name": "ﾌﾟﾚｲﾔｰ", "description": "WorldPlayer オブジェクト → プレイヤー情報取得ノードへ" }
     }
   },
   "RunCommand": {
@@ -516,7 +516,7 @@
     "displayName": "エンティティ情報取得",
     "menuDisplayName": "ｴﾝﾃｨﾃｨ情報",
     "inputs": {
-      "O_entity": { "name": "O_ｴﾝﾃｨﾃｨ", "description": "プレイヤーまたは村人オブジェクト（O_ﾌﾟﾚｲﾔｰ・O_村人 出力）" }
+      "entity": { "name": "ｴﾝﾃｨﾃｨ", "description": "プレイヤーまたは村人オブジェクト（ﾌﾟﾚｲﾔｰ・村人 出力）" }
     },
     "outputs": {
       "position":  { "name": "座標",       "description": "エンティティの座標（position）" },
@@ -531,19 +531,19 @@
     "displayName": "プレイヤー情報取得",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ情報",
     "inputs": {
-      "O_player": { "name": "O_ﾌﾟﾚｲﾔｰ", "description": "イベントノードの O_ﾌﾟﾚｲﾔｰ 出力（プレイヤーオブジェクト）" }
+      "player": { "name": "ﾌﾟﾚｲﾔｰ", "description": "イベントノードの ﾌﾟﾚｲﾔｰ 出力（プレイヤーオブジェクト）" }
     },
     "outputs": {
       "name":     { "name": "名前",     "description": "プレイヤー名（name）" },
       "color":    { "name": "カラー",   "description": "マップマーカー色（color）" },
-      "O_entity": { "name": "O_ｴﾝﾃｨﾃｨ", "description": "エンティティ情報取得ノードに接続" }
+      "entity": { "name": "ｴﾝﾃｨﾃｨ", "description": "エンティティ情報取得ノードに接続" }
     }
   },
   "GetFromItemType": {
     "displayName": "アイテム種別情報取得",
     "menuDisplayName": "ｱｲﾃﾑ種別情報",
     "inputs": {
-      "O_item": { "name": "O_ｱｲﾃﾑ", "description": "アイテム種別（アイテム取得・精錬イベントの O_ｱｲﾃﾑ 出力）" }
+      "item": { "name": "ｱｲﾃﾑ", "description": "アイテム種別（アイテム取得・精錬イベントの ｱｲﾃﾑ 出力）" }
     },
     "outputs": {
       "item_id": { "name": "アイテムID", "description": "アイテムID文字列（id）" },
@@ -554,7 +554,7 @@
     "displayName": "所持アイテム情報取得",
     "menuDisplayName": "所持ｱｲﾃﾑ情報",
     "inputs": {
-      "O_item": { "name": "O_ｱｲﾃﾑ", "description": "所持アイテム（使用・装備・クラフト・取引イベントの O_ｱｲﾃﾑ 出力）" }
+      "item": { "name": "ｱｲﾃﾑ", "description": "所持アイテム（使用・装備・クラフト・取引イベントの ｱｲﾃﾑ 出力）" }
     },
     "outputs": {
       "item_id":   { "name": "アイテムID", "description": "アイテムID文字列（typeId）" },
@@ -567,7 +567,7 @@
     "displayName": "ブロック情報取得",
     "menuDisplayName": "ﾌﾞﾛｯｸ情報",
     "inputs": {
-      "O_block": { "name": "O_ﾌﾞﾛｯｸ", "description": "ブロック種別オブジェクト（ブロック・バウンスイベントの O_ﾌﾞﾛｯｸ 出力）" }
+      "block": { "name": "ﾌﾞﾛｯｸ", "description": "ブロック種別オブジェクト（ブロック・バウンスイベントの ﾌﾞﾛｯｸ 出力）" }
     },
     "outputs": {
       "block_id": { "name": "ブロックID", "description": "ブロックID文字列（id）" },
@@ -589,7 +589,7 @@
     "displayName": "モブ情報取得",
     "menuDisplayName": "ﾓﾌﾞ情報",
     "inputs": {
-      "O_mob": { "name": "O_ﾓﾌﾞ", "description": "モブと交流イベントの O_ﾓﾌﾞ 出力" }
+      "mob": { "name": "ﾓﾌﾞ", "description": "モブと交流イベントの ﾓﾌﾞ 出力" }
     },
     "outputs": {
       "type":    { "name": "種別",       "description": "モブ種別番号（type）" },
@@ -601,12 +601,12 @@
     "displayName": "村人情報取得",
     "menuDisplayName": "村人情報",
     "inputs": {
-      "O_villager": { "name": "O_村人", "description": "村人オブジェクト（アイテム取引イベントの O_村人 出力）" }
+      "villager": { "name": "村人", "description": "村人オブジェクト（アイテム取引イベントの 村人 出力）" }
     },
     "outputs": {
       "name":     { "name": "名前",     "description": "村人名（trader.name）" },
       "rank":     { "name": "ランク",   "description": "取引ランク（trader.tier）" },
-      "O_entity": { "name": "O_ｴﾝﾃｨﾃｨ", "description": "エンティティ情報取得ノードに接続" }
+      "entity": { "name": "ｴﾝﾃｨﾃｨ", "description": "エンティティ情報取得ノードに接続" }
     }
   },
   "Selector": {

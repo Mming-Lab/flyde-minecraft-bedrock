@@ -21,16 +21,16 @@ export const OnMobInteracted: CodeNode = {
     world: { description: 'World output from MinecraftConnect node' },
   },
   outputs: {
-    O_mob:            { description: 'WorldMob object (interacted mob)' },
-    O_player:         { description: 'WorldPlayer object → pass to player info node' },
+    mob:            { description: 'WorldMob object (interacted mob)' },
+    player:         { description: 'WorldPlayer object → pass to player info node' },
     interaction_type: { description: 'Mob interaction type name' },
   },
-  run: ({ world }, { O_mob, O_player, interaction_type }, adv) => {
+  run: ({ world }, { mob, player, interaction_type }, adv) => {
     const w = getCurrentWorld()!
     const handler = (ev: MobInteractedSignal) => {
       setCurrentContext(w, ev.player)
-      O_mob.next(ev.mob)
-      O_player.next(ev.rawPlayer)
+      mob.next(ev.mob)
+      player.next(ev.rawPlayer)
       interaction_type.next(toEnumString('MobInteraction', ev.interactionType))
     }
     w.server.on(ServerEvent.MobInteracted, handler)
@@ -50,14 +50,14 @@ export const OnTargetBlockHit: CodeNode = {
   },
   outputs: {
     strength: { description: 'Redstone signal level (0–15)' },
-    O_player: { description: 'WorldPlayer object → pass to player info node' },
+    player: { description: 'WorldPlayer object → pass to player info node' },
   },
-  run: ({ world }, { strength, O_player }, adv) => {
+  run: ({ world }, { strength, player }, adv) => {
     const w = getCurrentWorld()!
     const handler = (ev: TargetBlockHitSignal) => {
       setCurrentContext(w, ev.player)
       strength.next(ev.redstoneLevel)
-      O_player.next(ev.rawPlayer)
+      player.next(ev.rawPlayer)
     }
     w.server.on(ServerEvent.TargetBlockHit, handler)
     adv.onCleanup(() => w.server.remove(ServerEvent.TargetBlockHit, handler))

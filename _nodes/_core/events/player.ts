@@ -102,17 +102,17 @@ export const OnPlayerTravelled: CodeNode = {
   },
   outputs: {
     distance:      { description: 'Distance travelled (meters)' },
-    O_player:      { description: 'WorldPlayer object → pass to player info node' },
+    player:      { description: 'WorldPlayer object → pass to player info node' },
     underwater:    { description: 'Whether travelling underwater (true/false)' },
     biome:         { description: 'Current biome name' },
     travel_method: { description: 'Travel method name' },
   },
-  run: ({ world }, { distance, O_player, underwater, biome, travel_method }, adv) => {
+  run: ({ world }, { distance, player, underwater, biome, travel_method }, adv) => {
     const w = getCurrentWorld()!
     const handler = (ev: PlayerTravelledSignal) => {
       setCurrentContext(w, ev.player)
       distance.next(ev.metersTravelled)
-      O_player.next(ev.rawPlayer)
+      player.next(ev.rawPlayer)
       underwater.next(ev.isUnderwater)
       biome.next(toEnumString('biome', ev.newBiome))
       travel_method.next(toEnumString('TravelMethod', ev.travelMethod))
@@ -133,15 +133,15 @@ export const OnPlayerTeleported: CodeNode = {
     world: { description: 'World output from MinecraftConnect node' },
   },
   outputs: {
-    O_player:      { description: 'WorldPlayer object → pass to player info node' },
+    player:      { description: 'WorldPlayer object → pass to player info node' },
     teleport_cause: { description: 'Teleportation cause name' },
     distance:      { description: 'Teleportation distance (meters)' },
   },
-  run: ({ world }, { O_player, teleport_cause, distance }, adv) => {
+  run: ({ world }, { player, teleport_cause, distance }, adv) => {
     const w = getCurrentWorld()!
     const handler = (ev: PlayerTeleportedSignal) => {
       setCurrentContext(w, ev.player)
-      O_player.next(ev.rawPlayer)
+      player.next(ev.rawPlayer)
       teleport_cause.next(toEnumString('TeleportCause', ev.cause))
       distance.next(ev.metersTravelled)
     }
@@ -220,16 +220,16 @@ export const OnPlayerBounced: CodeNode = {
   },
   outputs: {
     height:   { description: 'Bounce height (blocks)' },
-    O_block:  { description: 'BlockType object (block bounced on) → pass to block info node' },
-    O_player: { description: 'WorldPlayer object → pass to player info node' },
+    block:  { description: 'BlockType object (block bounced on) → pass to block info node' },
+    player: { description: 'WorldPlayer object → pass to player info node' },
   },
-  run: ({ world }, { height, O_block, O_player }, adv) => {
+  run: ({ world }, { height, block, player }, adv) => {
     const w = getCurrentWorld()!
     const handler = (ev: PlayerBouncedSignal) => {
       setCurrentContext(w, ev.player)
       height.next(ev.bounceHeight)
-      O_block.next(ev.blockType)
-      O_player.next(ev.rawPlayer)
+      block.next(ev.blockType)
+      player.next(ev.rawPlayer)
     }
     w.server.on(ServerEvent.PlayerBounced, handler)
     adv.onCleanup(() => w.server.remove(ServerEvent.PlayerBounced, handler))
