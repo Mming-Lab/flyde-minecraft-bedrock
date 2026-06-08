@@ -1,5 +1,5 @@
 {
-  "name": "@yutari-club/mc-flow",
+  "name": "flyde-minecraft",
   "version": "1.0.0",
   "description": "Flyde nodes for Minecraft Education Edition",
   "main": "./_nodes/index.ts",
@@ -7,6 +7,12 @@
     ".":    "./_nodes/index.flyde.ts",
     "./ja": "./_nodes/index.flyde.ts",
     "./en": "./_nodes/index.en_US.flyde.ts"
+  },
+  "flyde": {
+    "exposes": [
+      "_nodes/index.flyde.ts",
+      "_nodes/index.en_US.flyde.ts"
+    ]
   },
   "files": [
     "_nodes/"
