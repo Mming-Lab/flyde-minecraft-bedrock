@@ -1,54 +1,67 @@
 import { MinecraftBlockTypes, MinecraftItemTypes, MinecraftEntityTypes } from '@minecraft/vanilla-data'
-import jaMaps from './_ja_maps.json'
 
 export type SelectOption = { value: string; label: string }
 
-// 日本語ラベルマップ（pxt-mc/core-strings.json から自動生成 → _ja_maps.json）
-export const BLOCK_JA: Record<string, string> = jaMaps.BLOCK_JA
-export const ITEM_JA:  Record<string, string> = jaMaps.ITEM_JA
-export const MOB_JA:   Record<string, string> = jaMaps.MOB_JA
+// ── ロケール設定 ─────────────────────────────────────────────────
+
+const locale = (typeof process !== 'undefined' && process.env.MC_FLOW_LOCALE) || 'ja_JP'
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const maps = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require(`./_maps/${locale}.json`)
+  } catch {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('./_maps/ja_JP.json')
+  }
+})()
 
 // ── 全ID一覧の生成 ────────────────────────────────────────────────
 
-function formatId(id: string): string {
-  return id.replace('minecraft:', '').split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-}
-
-function toOpts(enumObj: object, jaMap: Record<string, string>): SelectOption[] {
+function toOpts(enumObj: object, nameMap: Record<string, string>): SelectOption[] {
   return Object.values(enumObj)
-    .map(id => ({ value: id as string, label: jaMap[id as string] ?? formatId(id as string), hasJa: (id as string) in jaMap }))
+    .map(id => {
+      const label = nameMap[id as string]
+      return { value: id as string, label: label ?? id, hasJa: label !== undefined }
+    })
     .sort((a, b) => {
       if (a.hasJa && !b.hasJa) return -1
       if (!a.hasJa && b.hasJa) return 1
-      return a.label.localeCompare(b.label, 'ja')
+      return a.label.localeCompare(b.label, locale.split('_')[0])
     })
     .map(({ value, label }) => ({ value, label }))
 }
 
-export const BLOCK_ALL: SelectOption[] = toOpts(MinecraftBlockTypes, BLOCK_JA)
-export const ITEM_ALL:  SelectOption[] = toOpts(MinecraftItemTypes,  ITEM_JA)
-export const MOB_ALL:   SelectOption[] = toOpts(MinecraftEntityTypes, MOB_JA)
+export const BLOCK_ALL: SelectOption[] = toOpts(MinecraftBlockTypes, maps.BLOCK ?? {})
+export const ITEM_ALL:  SelectOption[] = toOpts(MinecraftItemTypes,  maps.ITEM  ?? {})
+export const MOB_ALL:   SelectOption[] = toOpts(MinecraftEntityTypes, maps.MOB  ?? {})
 
-// converters.ts から使う逆引きマップ（全IDをカバー）
-export const BLOCK_ID_TO_JA: Record<string, string> = Object.fromEntries(BLOCK_ALL.map(o => [o.value, o.label]))
-export const ITEM_ID_TO_JA:  Record<string, string> = Object.fromEntries(ITEM_ALL.map(o  => [o.value, o.label]))
-export const MOB_ID_TO_JA:   Record<string, string> = Object.fromEntries(MOB_ALL.map(o   => [o.value, o.label]))
+// 逆引きマップ（ID → ロケール名）
+export const BLOCK_ID_TO: Record<string, string> = Object.fromEntries(BLOCK_ALL.map(o => [o.value, o.label]))
+export const ITEM_ID_TO:  Record<string, string> = Object.fromEntries(ITEM_ALL.map(o  => [o.value, o.label]))
+export const MOB_ID_TO:   Record<string, string> = Object.fromEntries(MOB_ALL.map(o   => [o.value, o.label]))
 
-// ── イベントenum ─────────────────────────────────────────────────
+// ── ENUM ─────────────────────────────────────────────────────────
 
-export const ENUM_JA: Record<string, Record<string, string>> = jaMaps.ENUM_JA
+const ENUM: Record<string, Record<string, string>> = maps.ENUM ?? {}
+const ENUM_CAT: Record<string, string> = maps.ENUM_CAT ?? {}
 
 export function enumOpts(kind: string): SelectOption[] {
-  return Object.entries(ENUM_JA[kind] ?? {}).map(([en, ja]) => ({ label: ja, value: en }))
+  return Object.entries(ENUM[kind] ?? {}).map(([en, local]) => ({ label: String(local), value: en }))
 }
 
-export const ENUM_CAT_OPTS: SelectOption[] = [
-  { label: '移動方法',         value: '移動方法' },
-  { label: 'テレポート原因',   value: 'テレポート原因' },
-  { label: 'モブ交流種別',     value: 'モブ交流' },
-  { label: 'アイテム使用方法', value: 'アイテム使用' },
-  { label: 'アイテム取得方法', value: 'アイテム取得' },
-  { label: '装備スロット',     value: '装備スロット' },
-  { label: 'ブロック破壊方法', value: '破壊方法' },
-  { label: 'ブロック設置方法', value: '設置方法' },
-]
+export const ENUM_CAT_OPTS: SelectOption[] = Object.entries(ENUM_CAT)
+  .map(([key, label]) => ({ value: key, label: String(label) }))
+
+/** イベント値（英語キー名）をロケール名に変換 */
+export function getEnumLabel(kind: string, value: string): string | undefined {
+  return (ENUM[kind] ?? {})[value]
+}
+
+// ── 後方互換エクスポート（旧コードとの互換性） ────────────────────
+
+export const BLOCK_JA: Record<string, string> = maps.BLOCK ?? {}
+export const ITEM_JA:  Record<string, string> = maps.ITEM  ?? {}
+export const MOB_JA:   Record<string, string> = maps.MOB   ?? {}
+export const ENUM_JA:  Record<string, Record<string, string>> = ENUM

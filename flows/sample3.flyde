@@ -99,8 +99,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 808.9979813098907
-        y: -692.195068359375
+        x: 831.3511612415314
+        y: -761.4886474609375
       id: say-cmd
       inputConfig: {}
       displayName: 情報表示コマンド実行
@@ -233,7 +233,7 @@ node:
         type: file
         data: ..\_nodes\index.flyde.ts
     - pos:
-        x: 508.6674019098282
+        x: 526.6618477106094
         y: -607.4225006103516
       id: Vector3Op-nk9lsam0
       inputConfig: {}
@@ -360,12 +360,6 @@ node:
         insId: ToJa-ptlyzslx
         pinId: 値
     - from:
-        insId: GetFromEntity-x5uk8cb1
-        pinId: 座標
-      to:
-        insId: Vector3Op-nk9lsam0
-        pinId: 座標
-    - from:
         insId: GetFromPlayerSnapshot-tmly7kvv
         pinId: 名前
       to:
@@ -383,6 +377,12 @@ node:
       to:
         insId: GetFromEntity-x5uk8cb1
         pinId: O_ｴﾝﾃｨﾃｨ
+    - from:
+        insId: GetFromEntity-x5uk8cb1
+        pinId: 座標
+      to:
+        insId: Vector3Op-nk9lsam0
+        pinId: __trigger
   id: BlockBreakInfoFlow
   inputs: {}
   outputs: {}
