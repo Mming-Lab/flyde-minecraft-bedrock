@@ -1,7 +1,7 @@
 {
-  "name": "flyde-minecraft",
+  "name": "flyde-minecraft-bedrock-ws",
   "version": "1.0.0",
-  "description": "Flyde nodes for Minecraft Education Edition",
+  "description": "Flyde nodes for Minecraft Bedrock / Education Edition via WebSocket",
   "main": "./_nodes/index.ts",
   "exports": {
     ".":    "./_nodes/index.flyde.ts",
@@ -38,8 +38,12 @@
     "flyde",
     "minecraft",
     "minecraft-education",
+    "minecraft-bedrock",
+    "websocket",
     "visual-programming",
-    "block-programming"
+    "block-programming",
+    "education",
+    "socket-be"
   ],
   "license": "MIT",
   "repository": {
