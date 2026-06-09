@@ -2011,7 +2011,15 @@
       },
       "direction": {
         "name": "direction",
-        "description": "Direction to detect"
+        "description": "Direction to detect",
+        "options": {
+          "forward": "Forward",
+          "back": "Back",
+          "left": "Left",
+          "right": "Right",
+          "up": "Up",
+          "down": "Down"
+        }
       }
     },
     "outputs": {
@@ -2035,7 +2043,15 @@
       },
       "direction": {
         "name": "direction",
-        "description": "Direction to inspect"
+        "description": "Direction to inspect",
+        "options": {
+          "forward": "Forward",
+          "back": "Back",
+          "left": "Left",
+          "right": "Right",
+          "up": "Up",
+          "down": "Down"
+        }
       }
     },
     "outputs": {
