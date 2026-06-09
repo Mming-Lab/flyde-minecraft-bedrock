@@ -1772,7 +1772,7 @@
   },
   "AgentMove": {
     "displayName": "エージェント移動",
-    "menuDisplayName": "AGT移動",
+    "menuDisplayName": "AG移動",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1796,7 +1796,7 @@
   },
   "AgentTurn": {
     "displayName": "エージェント回転",
-    "menuDisplayName": "AGT回転",
+    "menuDisplayName": "AG回転",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1816,7 +1816,7 @@
   },
   "AgentTeleport": {
     "displayName": "エージェントTP",
-    "menuDisplayName": "AGTTP",
+    "menuDisplayName": "AGTP",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1836,7 +1836,7 @@
   },
   "AgentAction": {
     "displayName": "エージェント行動",
-    "menuDisplayName": "AGT行動",
+    "menuDisplayName": "AG行動",
     "inputs": {
       "action": {
         "name": "行動",
@@ -1873,8 +1873,8 @@
     }
   },
   "AgentPlaceBlock": {
-    "displayName": "ブロック設置(AGT)",
-    "menuDisplayName": "AGTブロック",
+    "displayName": "ブロック設置(AG)",
+    "menuDisplayName": "AGブロック",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1901,8 +1901,8 @@
     }
   },
   "AgentDropItem": {
-    "displayName": "アイテム投棄(AGT)",
-    "menuDisplayName": "AGT投棄",
+    "displayName": "アイテム投棄(AG)",
+    "menuDisplayName": "AG投棄",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1933,8 +1933,8 @@
     }
   },
   "AgentMoveItem": {
-    "displayName": "スロット移動(AGT)",
-    "menuDisplayName": "AGTスロット",
+    "displayName": "スロット移動(AG)",
+    "menuDisplayName": "AGスロット",
     "inputs": {
       "from_slot": {
         "name": "元スロット",
@@ -1957,8 +1957,8 @@
     }
   },
   "AgentSetItem": {
-    "displayName": "アイテムセット(AGT)",
-    "menuDisplayName": "AGTセット",
+    "displayName": "アイテムセット(AG)",
+    "menuDisplayName": "AGセット",
     "inputs": {
       "slot": {
         "name": "スロット",
@@ -1985,8 +1985,8 @@
     }
   },
   "AgentCollect": {
-    "displayName": "アイテム収集(AGT)",
-    "menuDisplayName": "AGT収集",
+    "displayName": "アイテム収集(AG)",
+    "menuDisplayName": "AG収集",
     "inputs": {
       "item_id": {
         "name": "アイテムID",
