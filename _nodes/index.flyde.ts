@@ -118,7 +118,12 @@ export const AgentPlaceBlock  = localizeNode(agents.AgentPlaceBlock,  n.AgentPla
 export const AgentDropItem    = localizeNode(agents.AgentDropItem,    n.AgentDropItem)
 export const AgentMoveItem    = localizeNode(agents.AgentMoveItem,    n.AgentMoveItem)
 export const AgentSetItem     = localizeNode(agents.AgentSetItem,     n.AgentSetItem)
-export const AgentCollect     = localizeNode(agents.AgentCollect,     n.AgentCollect)
+export const AgentCollect        = localizeNode(agents.AgentCollect,        n.AgentCollect)
+export const AgentDetect         = localizeNode(agents.AgentDetect,         n.AgentDetect)
+export const AgentInspect        = localizeNode(agents.AgentInspect,        n.AgentInspect)
+export const AgentGetItemCount   = localizeNode(agents.AgentGetItemCount,   n.AgentGetItemCount)
+export const AgentGetItemSpace   = localizeNode(agents.AgentGetItemSpace,   n.AgentGetItemSpace)
+export const AgentGetItemDetail  = localizeNode(agents.AgentGetItemDetail,  n.AgentGetItemDetail)
 
 // Scoreboard
 export const GetScoreboardObjectives   = localizeNode(scoreboard.GetScoreboardObjectives,   n.GetScoreboardObjectives)

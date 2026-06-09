@@ -1845,11 +1845,7 @@
           "attack": "攻撃",
           "destroyBlock": "破壊",
           "till": "耕す",
-          "dropAllItems": "全捨て",
-          "inspect": "調べる",
-          "inspectData": "データ調査",
-          "detect": "検知",
-          "detectRedstone": "レッドストーン検知"
+          "dropAllItems": "全捨て"
         }
       },
       "direction": {
@@ -1997,6 +1993,118 @@
       "done": {
         "name": "完了",
         "description": "収集完了（true）"
+      }
+    }
+  },
+  "AgentDetect": {
+    "displayName": "AG検知",
+    "menuDisplayName": "AG検知",
+    "inputs": {
+      "type": {
+        "name": "種別",
+        "description": "検知する対象",
+        "options": {
+          "block": "ブロック",
+          "redstone": "レッドストーン"
+        }
+      },
+      "direction": {
+        "name": "方向",
+        "description": "検知する方向",
+        "options": {
+          "forward": "前",
+          "back": "後",
+          "left": "左",
+          "right": "右",
+          "up": "上",
+          "down": "下"
+        }
+      }
+    },
+    "outputs": {
+      "detected": {
+        "name": "検知",
+        "description": "何かあれば true"
+      }
+    }
+  },
+  "AgentInspect": {
+    "displayName": "AG調査",
+    "menuDisplayName": "AG調査",
+    "inputs": {
+      "type": {
+        "name": "種別",
+        "description": "調査する内容",
+        "options": {
+          "block": "ブロックID",
+          "data": "データ値"
+        }
+      },
+      "direction": {
+        "name": "方向",
+        "description": "調査する方向",
+        "options": {
+          "forward": "前",
+          "back": "後",
+          "left": "左",
+          "right": "右",
+          "up": "上",
+          "down": "下"
+        }
+      }
+    },
+    "outputs": {
+      "value": {
+        "name": "値",
+        "description": "ブロックID（文字列）またはデータ値（数値）"
+      }
+    }
+  },
+  "AgentGetItemCount": {
+    "displayName": "AGアイテム数",
+    "menuDisplayName": "AGアイテム数",
+    "inputs": {
+      "slot": {
+        "name": "スロット",
+        "description": "対象スロット番号（1〜27）"
+      }
+    },
+    "outputs": {
+      "count": {
+        "name": "個数",
+        "description": "スロット内のアイテム数"
+      }
+    }
+  },
+  "AgentGetItemSpace": {
+    "displayName": "AG空きスペース",
+    "menuDisplayName": "AG空き",
+    "inputs": {
+      "slot": {
+        "name": "スロット",
+        "description": "対象スロット番号（1〜27）"
+      }
+    },
+    "outputs": {
+      "space": {
+        "name": "空き",
+        "description": "スロットの残り空き数"
+      }
+    }
+  },
+  "AgentGetItemDetail": {
+    "displayName": "AGアイテム詳細",
+    "menuDisplayName": "AGアイテム",
+    "inputs": {
+      "slot": {
+        "name": "スロット",
+        "description": "対象スロット番号（1〜27）"
+      }
+    },
+    "outputs": {
+      "item_id": {
+        "name": "アイテムID",
+        "description": "スロット内のアイテムID（空なら null）"
       }
     }
   },

@@ -119,10 +119,6 @@ export const AgentAction: CodeNode = {
           { label: 'Destroy Block',     value: 'destroyBlock' },
           { label: 'Till',              value: 'till' },
           { label: 'Drop All Items',    value: 'dropAllItems' },
-          { label: 'Inspect',           value: 'inspect' },
-          { label: 'Inspect Data',      value: 'inspectData' },
-          { label: 'Detect',            value: 'detect' },
-          { label: 'Detect Redstone',   value: 'detectRedstone' },
         ],
       },
     },
@@ -143,10 +139,6 @@ export const AgentAction: CodeNode = {
       case 'destroyBlock': await agent.destroyBlock(dir); break
       case 'till':         await agent.till(dir);         break
       case 'dropAllItems':    await agent.dropAllItems(dir);    break
-      case 'inspect':         await agent.inspect(dir);         break
-      case 'inspectData':     await agent.inspectData(dir);     break
-      case 'detect':          await agent.detect(dir);          break
-      case 'detectRedstone':  await agent.detectRedstone(dir);  break
     }
     done.next(true)
   },
@@ -257,5 +249,144 @@ export const AgentCollect: CodeNode = {
     const agent = await world.getOrCreateAgent()
     await agent.collect(String(item_id))
     done.next(true)
+  },
+}
+
+export const AgentDetect: CodeNode = {
+  id: 'AgentDetect',
+  displayName: 'AgentDetect',
+  menuDisplayName: 'AgentDetect',
+  icon: 'robot',
+  defaultStyle: STYLE,
+  inputs: {
+    type: {
+      description: 'Detection type',
+      defaultValue: 'block',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: 'Block',     value: 'block' },
+          { label: 'Redstone',  value: 'redstone' },
+        ],
+      },
+    },
+    direction: {
+      description: 'Direction to detect',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: DIR_OPTS },
+    },
+  },
+  outputs: {
+    detected: { description: 'true if something detected in that direction' },
+  },
+  run: async ({ type, direction }, { detected }) => {
+    const { world } = getCurrentContext()
+    await world.getOrCreateAgent()
+    const cmd = String(type) === 'redstone'
+      ? `agent detectredstone ${direction}`
+      : `agent detect ${direction}`
+    const res = await world.runCommand(cmd) as any
+    detected.next(!!(res.detected ?? res.statusCode === 0))
+  },
+}
+
+export const AgentInspect: CodeNode = {
+  id: 'AgentInspect',
+  displayName: 'AgentInspect',
+  menuDisplayName: 'AgentInspect',
+  icon: 'robot',
+  defaultStyle: STYLE,
+  inputs: {
+    type: {
+      description: 'Inspection type',
+      defaultValue: 'block',
+      editorType: 'select',
+      editorTypeData: {
+        options: [
+          { label: 'Block ID',    value: 'block' },
+          { label: 'Data value',  value: 'data' },
+        ],
+      },
+    },
+    direction: {
+      description: 'Direction to inspect',
+      defaultValue: 'forward',
+      editorType: 'select',
+      editorTypeData: { options: DIR_OPTS },
+    },
+  },
+  outputs: {
+    value: { description: 'Block ID string (block) or data number (data)' },
+  },
+  run: async ({ type, direction }, { value }) => {
+    const { world } = getCurrentContext()
+    await world.getOrCreateAgent()
+    const cmd = String(type) === 'data'
+      ? `agent inspectdata ${direction}`
+      : `agent inspect ${direction}`
+    const res = await world.runCommand(cmd) as any
+    const v = res.block ?? res.blockId ?? res.data ?? res.value ?? null
+    value.next(v)
+  },
+}
+
+export const AgentGetItemCount: CodeNode = {
+  id: 'AgentGetItemCount',
+  displayName: 'AgentGetItemCount',
+  menuDisplayName: 'AgentGetItemCount',
+  icon: 'robot',
+  defaultStyle: STYLE,
+  inputs: {
+    slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
+  },
+  outputs: {
+    count: { description: 'Number of items in the slot' },
+  },
+  run: async ({ slot }, { count }) => {
+    const { world } = getCurrentContext()
+    await world.getOrCreateAgent()
+    const res = await world.runCommand(`agent getitemcount ${Number(slot)}`) as any
+    count.next(res.count ?? res.itemCount ?? 0)
+  },
+}
+
+export const AgentGetItemSpace: CodeNode = {
+  id: 'AgentGetItemSpace',
+  displayName: 'AgentGetItemSpace',
+  menuDisplayName: 'AgentGetItemSpace',
+  icon: 'robot',
+  defaultStyle: STYLE,
+  inputs: {
+    slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
+  },
+  outputs: {
+    space: { description: 'Remaining space in the slot' },
+  },
+  run: async ({ slot }, { space }) => {
+    const { world } = getCurrentContext()
+    await world.getOrCreateAgent()
+    const res = await world.runCommand(`agent getitemspace ${Number(slot)}`) as any
+    space.next(res.space ?? res.itemSpace ?? 0)
+  },
+}
+
+export const AgentGetItemDetail: CodeNode = {
+  id: 'AgentGetItemDetail',
+  displayName: 'AgentGetItemDetail',
+  menuDisplayName: 'AgentGetItemDetail',
+  icon: 'robot',
+  defaultStyle: STYLE,
+  inputs: {
+    slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
+  },
+  outputs: {
+    item_id: { description: 'Item ID in the slot (e.g. minecraft:diamond). null if empty' },
+  },
+  run: async ({ slot }, { item_id }) => {
+    const { world } = getCurrentContext()
+    await world.getOrCreateAgent()
+    const res = await world.runCommand(`agent getitemdetail ${Number(slot)}`) as any
+    item_id.next(res.item ?? res.id ?? null)
   },
 }

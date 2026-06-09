@@ -1846,11 +1846,7 @@
           "attack": "Attack",
           "destroyBlock": "Destroy",
           "till": "Till",
-          "dropAllItems": "Drop All",
-          "inspect": "Inspect",
-          "inspectData": "Inspect Data",
-          "detect": "Detect",
-          "detectRedstone": "Detect RS"
+          "dropAllItems": "Drop All"
         }
       },
       "direction": {
@@ -1998,6 +1994,102 @@
       "done": {
         "name": "done",
         "description": "Fires true when collected"
+      }
+    }
+  },
+  "AgentDetect": {
+    "displayName": "Agent Detect",
+    "menuDisplayName": "AG Detect",
+    "inputs": {
+      "type": {
+        "name": "type",
+        "description": "What to detect",
+        "options": {
+          "block": "Block",
+          "redstone": "Redstone"
+        }
+      },
+      "direction": {
+        "name": "direction",
+        "description": "Direction to detect"
+      }
+    },
+    "outputs": {
+      "detected": {
+        "name": "detected",
+        "description": "true if something is detected"
+      }
+    }
+  },
+  "AgentInspect": {
+    "displayName": "Agent Inspect",
+    "menuDisplayName": "AG Inspect",
+    "inputs": {
+      "type": {
+        "name": "type",
+        "description": "What to inspect",
+        "options": {
+          "block": "Block ID",
+          "data": "Data value"
+        }
+      },
+      "direction": {
+        "name": "direction",
+        "description": "Direction to inspect"
+      }
+    },
+    "outputs": {
+      "value": {
+        "name": "value",
+        "description": "Block ID (string) or data value (number)"
+      }
+    }
+  },
+  "AgentGetItemCount": {
+    "displayName": "Agent Item Count",
+    "menuDisplayName": "AG ItemCount",
+    "inputs": {
+      "slot": {
+        "name": "slot",
+        "description": "Inventory slot (1–27)"
+      }
+    },
+    "outputs": {
+      "count": {
+        "name": "count",
+        "description": "Number of items in the slot"
+      }
+    }
+  },
+  "AgentGetItemSpace": {
+    "displayName": "Agent Item Space",
+    "menuDisplayName": "AG ItemSpace",
+    "inputs": {
+      "slot": {
+        "name": "slot",
+        "description": "Inventory slot (1–27)"
+      }
+    },
+    "outputs": {
+      "space": {
+        "name": "space",
+        "description": "Remaining space in the slot"
+      }
+    }
+  },
+  "AgentGetItemDetail": {
+    "displayName": "Agent Item Detail",
+    "menuDisplayName": "AG ItemDetail",
+    "inputs": {
+      "slot": {
+        "name": "slot",
+        "description": "Inventory slot (1–27)"
+      }
+    },
+    "outputs": {
+      "item_id": {
+        "name": "item_id",
+        "description": "Item ID in the slot (e.g. minecraft:diamond). null if empty"
       }
     }
   },
