@@ -2,6 +2,7 @@
   "MinecraftConnect": {
     "displayName": "Minecraft接続",
     "menuDisplayName": "Minecraft接続",
+    "description": "WebSocketでMinecraftに接続し、ワールドオブジェクトを起動する",
     "inputs": {
       "port": {
         "name": "ポート",
@@ -22,6 +23,7 @@
   "MinecraftDisconnect": {
     "displayName": "Minecraft切断",
     "menuDisplayName": "Minecraft切断",
+    "description": "Minecraftとの接続を切断する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -33,6 +35,7 @@
   "GetAgentLocation": {
     "displayName": "エージェント座標取得",
     "menuDisplayName": "AG座標取得",
+    "description": "エージェントの現在座標を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -49,6 +52,7 @@
   "GetScoreboardObjectives": {
     "displayName": "スコアボード目標一覧取得",
     "menuDisplayName": "SB目標一覧",
+    "description": "全スコアボード目標の一覧を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -65,6 +69,7 @@
   "GetScoreboardObjective": {
     "displayName": "スコアボード目標取得",
     "menuDisplayName": "SB目標取得",
+    "description": "指定IDのスコアボード目標を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -85,6 +90,7 @@
   "AddScoreboardObjective": {
     "displayName": "スコアボード目標追加",
     "menuDisplayName": "SB目標追加",
+    "description": "スコアボードに新しい目標を追加する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -109,6 +115,7 @@
   "RemoveScoreboardObjective": {
     "displayName": "スコアボード目標削除",
     "menuDisplayName": "SB目標削除",
+    "description": "スコアボードから指定の目標を削除する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -129,6 +136,7 @@
   "GetScores": {
     "displayName": "全スコア取得",
     "menuDisplayName": "全スコア",
+    "description": "プレイヤーの全スコアを取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -149,6 +157,7 @@
   "GetScore": {
     "displayName": "スコア取得",
     "menuDisplayName": "スコア取得",
+    "description": "プレイヤーの特定目標のスコアを取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -173,6 +182,7 @@
   "ScoreOperation": {
     "displayName": "スコア演算",
     "menuDisplayName": "スコア演算",
+    "description": "スコアに対して {{operation}} を実行する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -210,6 +220,7 @@
   "OnPlayerChat": {
     "displayName": "チャット受信",
     "menuDisplayName": "ﾁｬｯﾄ受信",
+    "description": "プレイヤーがチャットを送信したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -230,6 +241,7 @@
   "OnPlayerJoin": {
     "displayName": "プレイヤー参加",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ参加",
+    "description": "プレイヤーがワールドに参加したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -246,6 +258,7 @@
   "OnPlayerLeave": {
     "displayName": "プレイヤー退出",
     "menuDisplayName": "ﾌﾟﾚｲﾔ退出",
+    "description": "プレイヤーがワールドを退出したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -262,6 +275,7 @@
   "OnPlayerTravelled": {
     "displayName": "プレイヤーが移動",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ移動",
+    "description": "プレイヤーが移動するたびに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -294,6 +308,7 @@
   "OnPlayerTeleported": {
     "displayName": "テレポート完了",
     "menuDisplayName": "ﾃﾚﾎﾟｰﾄ完了",
+    "description": "プレイヤーがテレポートしたときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -318,6 +333,7 @@
   "OnPlayerTitle": {
     "displayName": "プレイヤータイトル",
     "menuDisplayName": "ﾀｲﾄﾙ受信",
+    "description": "プレイヤーがタイトルを受け取ったときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -342,6 +358,7 @@
   "OnPlayerMessage": {
     "displayName": "プレイヤーメッセージ",
     "menuDisplayName": "ﾒｯｾｰｼﾞ受信",
+    "description": "プレイヤーがメッセージを送信したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -370,6 +387,7 @@
   "OnPlayerBounced": {
     "displayName": "バウンス",
     "menuDisplayName": "ﾊﾞｳﾝｽ",
+    "description": "プレイヤーがスライムブロック等でバウンスしたときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -394,6 +412,7 @@
   "OnBlockBroken": {
     "displayName": "ブロック破壊",
     "menuDisplayName": "ﾌﾞﾛｯｸ破壊",
+    "description": "ブロックが破壊されたときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -422,6 +441,7 @@
   "OnBlockPlaced": {
     "displayName": "ブロック設置イベント",
     "menuDisplayName": "ﾌﾞﾛｯｸ設置イベント",
+    "description": "ブロックが設置されたときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -454,6 +474,7 @@
   "OnItemInteracted": {
     "displayName": "アイテムを使った",
     "menuDisplayName": "ｱｲﾃﾑ使用",
+    "description": "プレイヤーがアイテムを使用したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -478,6 +499,7 @@
   "OnItemAcquired": {
     "displayName": "アイテム取得",
     "menuDisplayName": "ｱｲﾃﾑ取得",
+    "description": "プレイヤーがアイテムを取得したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -506,6 +528,7 @@
   "OnItemCrafted": {
     "displayName": "アイテムをクラフト",
     "menuDisplayName": "ｸﾗﾌﾄ",
+    "description": "プレイヤーがアイテムをクラフトしたときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -530,6 +553,7 @@
   "OnItemEquipped": {
     "displayName": "アイテムを装備",
     "menuDisplayName": "ｱｲﾃﾑ装備",
+    "description": "プレイヤーがアイテムを装備したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -554,6 +578,7 @@
   "OnItemSmelted": {
     "displayName": "アイテムを精錬",
     "menuDisplayName": "ｱｲﾃﾑ精錬",
+    "description": "プレイヤーがアイテムを精錬したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -578,6 +603,7 @@
   "OnItemTraded": {
     "displayName": "アイテムを取引",
     "menuDisplayName": "ｱｲﾃﾑ取引",
+    "description": "プレイヤーが村人とアイテムを取引したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -618,6 +644,7 @@
   "OnMobInteracted": {
     "displayName": "モブと交流",
     "menuDisplayName": "ﾓﾌﾞ交流",
+    "description": "プレイヤーがモブと交流したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -642,6 +669,7 @@
   "OnTargetBlockHit": {
     "displayName": "的ブロック命中",
     "menuDisplayName": "的命中",
+    "description": "的ブロックに命中したときに発火する",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -662,6 +690,7 @@
   "RunCommand": {
     "displayName": "コマンド実行",
     "menuDisplayName": "ｺﾏﾝﾄﾞ実行",
+    "description": "任意のMinecraftコマンドを実行する（/ なし）",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -682,6 +711,7 @@
   "GetGameTime": {
     "displayName": "ゲーム内時刻取得",
     "menuDisplayName": "ゲーム時刻",
+    "description": "ゲーム時刻（{{type}}）を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -706,6 +736,7 @@
   "IsDaytime": {
     "displayName": "昼夜判定",
     "menuDisplayName": "昼夜判定",
+    "description": "現在が昼か夜かを判定する（時刻 < 12000 で昼）",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -722,6 +753,7 @@
   "GetWeather": {
     "displayName": "天気を取得",
     "menuDisplayName": "天気取得",
+    "description": "現在の天気を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -738,6 +770,7 @@
   "FillBlocks": {
     "displayName": "エリアを塗りつぶす",
     "menuDisplayName": "ｴﾘｱ塗りつぶし",
+    "description": "2点間の範囲を指定ブロックで塗りつぶす",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -770,6 +803,7 @@
   "GetTopSolidBlock": {
     "displayName": "地面の高さを取得",
     "menuDisplayName": "地面高さ",
+    "description": "ワールド原点の地面ブロックの座標と種類を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -790,6 +824,7 @@
   "WorldQuery": {
     "displayName": "ワールドクエリ",
     "menuDisplayName": "ﾜｰﾙﾄﾞｸｴﾘ",
+    "description": "ワールドの{{type}}一覧を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -815,6 +850,7 @@
   "GetPlayerLocation": {
     "displayName": "プレイヤー座標取得",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ座標",
+    "description": "プレイヤーの現在座標と向きを取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -835,6 +871,7 @@
   "GetPlayerOrientation": {
     "displayName": "プレイヤー向き取得",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ向き",
+    "description": "プレイヤーのカメラ角度（縦・横）を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -851,6 +888,7 @@
   "GetPlayerTags": {
     "displayName": "プレイヤータグ一覧取得",
     "menuDisplayName": "PLタグ一覧",
+    "description": "プレイヤーに付いている全タグの一覧を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -867,6 +905,7 @@
   "PlayerHasTag": {
     "displayName": "プレイヤータグ判定",
     "menuDisplayName": "PLタグ判定",
+    "description": "プレイヤーが指定タグを持っているか判定する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -887,6 +926,7 @@
   "GetPlayerLevel": {
     "displayName": "プレイヤーレベル取得",
     "menuDisplayName": "PLレベル",
+    "description": "プレイヤーの現在レベルを取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -903,6 +943,7 @@
   "GetGameMode": {
     "displayName": "ゲームモード取得",
     "menuDisplayName": "ゲームモード",
+    "description": "プレイヤーのゲームモードを取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -919,6 +960,7 @@
   "GetPlayerAbilities": {
     "displayName": "プレイヤーアビリティ取得",
     "menuDisplayName": "PLアビリティ",
+    "description": "プレイヤーのアビリティ情報を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -935,6 +977,7 @@
   "GetPlayers": {
     "displayName": "プレイヤー一覧取得",
     "menuDisplayName": "PL一覧",
+    "description": "ワールド内の全プレイヤーの一覧を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -951,6 +994,7 @@
   "GetLocalPlayer": {
     "displayName": "ローカルプレイヤー取得",
     "menuDisplayName": "ローカルPL",
+    "description": "ローカルプレイヤー（自分自身）を取得する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -967,6 +1011,7 @@
   "GetFromEntity": {
     "displayName": "エンティティ情報取得",
     "menuDisplayName": "ｴﾝﾃｨﾃｨ情報",
+    "description": "エンティティオブジェクトから座標・向き・ディメンションなどを取得する",
     "inputs": {
       "entity": {
         "name": "ｴﾝﾃｨﾃｨ",
@@ -1003,6 +1048,7 @@
   "GetFromPlayerSnapshot": {
     "displayName": "プレイヤー情報取得",
     "menuDisplayName": "ﾌﾟﾚｲﾔｰ情報",
+    "description": "プレイヤーオブジェクトから名前・カラー・エンティティ情報を取得する",
     "inputs": {
       "player": {
         "name": "ﾌﾟﾚｲﾔｰ",
@@ -1027,6 +1073,7 @@
   "GetFromItemType": {
     "displayName": "アイテム種別情報取得",
     "menuDisplayName": "ｱｲﾃﾑ種別情報",
+    "description": "アイテム種別オブジェクトからIDとデータ値を取得する",
     "inputs": {
       "item": {
         "name": "ｱｲﾃﾑ",
@@ -1047,6 +1094,7 @@
   "GetFromItemStack": {
     "displayName": "所持アイテム情報取得",
     "menuDisplayName": "所持ｱｲﾃﾑ情報",
+    "description": "所持アイテムオブジェクトからID・個数・最大個数・データ値を取得する",
     "inputs": {
       "item": {
         "name": "ｱｲﾃﾑ",
@@ -1075,6 +1123,7 @@
   "GetFromBlockType": {
     "displayName": "ブロック情報取得",
     "menuDisplayName": "ﾌﾞﾛｯｸ情報",
+    "description": "ブロック種別オブジェクトからIDとデータ値を取得する",
     "inputs": {
       "block": {
         "name": "ﾌﾞﾛｯｸ",
@@ -1095,6 +1144,7 @@
   "GetFromScoreboardObjective": {
     "displayName": "スコアボード目標情報取得",
     "menuDisplayName": "SB目標情報",
+    "description": "スコアボード目標オブジェクトからIDと表示名を取得する",
     "inputs": {
       "objective": {
         "name": "目標",
@@ -1115,6 +1165,7 @@
   "GetFromMob": {
     "displayName": "モブ情報取得",
     "menuDisplayName": "ﾓﾌﾞ情報",
+    "description": "モブオブジェクトから種別・カラー・バリアントを取得する",
     "inputs": {
       "mob": {
         "name": "ﾓﾌﾞ",
@@ -1139,6 +1190,7 @@
   "GetFromVillager": {
     "displayName": "村人情報取得",
     "menuDisplayName": "村人情報",
+    "description": "村人オブジェクトから名前・ランク・エンティティ情報を取得する",
     "inputs": {
       "villager": {
         "name": "村人",
@@ -1163,6 +1215,7 @@
   "Selector": {
     "displayName": "選択",
     "menuDisplayName": "選択",
+    "description": "{{type}} をドロップダウンから選択する",
     "inputs": {
       "type": {
         "name": "種別",
@@ -1236,6 +1289,7 @@
   "ToJa": {
     "displayName": "日本語変換",
     "menuDisplayName": "日本語変換",
+    "description": "{{type}} をローカル言語名に変換する",
     "inputs": {
       "value": {
         "name": "値",
@@ -1269,6 +1323,7 @@
   "Vector3Op": {
     "displayName": "座標演算",
     "menuDisplayName": "座標演算",
+    "description": "{{op}} 演算を座標に適用する",
     "inputs": {
       "op": {
         "name": "演算",
@@ -1329,6 +1384,7 @@
   "Vector3Distance": {
     "displayName": "座標間の距離",
     "menuDisplayName": "距離",
+    "description": "2点間のユークリッド距離を計算する",
     "inputs": {
       "pos_a": {
         "name": "座標A",
@@ -1349,6 +1405,7 @@
   "Vector3ToString": {
     "displayName": "座標を文字列に変換",
     "menuDisplayName": "座標→文字列",
+    "description": "座標オブジェクトを「x y z」形式の文字列に変換する",
     "inputs": {
       "position": {
         "name": "座標",
@@ -1365,6 +1422,7 @@
   "Vector3Split": {
     "displayName": "座標を分解",
     "menuDisplayName": "座標分解",
+    "description": "座標オブジェクトをX・Y・Zの各値に分解する",
     "inputs": {
       "position": {
         "name": "座標",
@@ -1389,6 +1447,7 @@
   "ClampNumber": {
     "displayName": "数値を範囲に収める",
     "menuDisplayName": "数値Clamp",
+    "description": "数値を最小〜最大の範囲に収める",
     "inputs": {
       "value": {
         "name": "値",
@@ -1413,6 +1472,7 @@
   "AABBCreate": {
     "displayName": "エリアを作る",
     "menuDisplayName": "AABB作成",
+    "description": "2点から直方体エリア（AABB）を作る",
     "inputs": {
       "corner_a": {
         "name": "角座標A",
@@ -1433,6 +1493,7 @@
   "AABBIsInside": {
     "displayName": "エリア内判定",
     "menuDisplayName": "AABB内判定",
+    "description": "座標がAABBエリア内にあるか判定する",
     "inputs": {
       "area": {
         "name": "エリア",
@@ -1453,6 +1514,7 @@
   "SendMessage": {
     "displayName": "メッセージ送信",
     "menuDisplayName": "MSG送信",
+    "description": "プレイヤーにチャットメッセージを送信する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1477,6 +1539,7 @@
   "SetTimeOfDay": {
     "displayName": "時刻設定",
     "menuDisplayName": "時刻設定",
+    "description": "ゲーム内時刻を設定する（0〜24000）",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1497,6 +1560,7 @@
   "SetWeather": {
     "displayName": "天気設定",
     "menuDisplayName": "天気設定",
+    "description": "天気を {{weather}} に設定する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1526,6 +1590,7 @@
   "SetBlock": {
     "displayName": "ブロック設置",
     "menuDisplayName": "ブロック設置",
+    "description": "指定座標にブロックを設置する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1550,6 +1615,7 @@
   "GiveItem": {
     "displayName": "アイテム付与",
     "menuDisplayName": "アイテム付与",
+    "description": "プレイヤーに指定アイテムを付与する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1574,6 +1640,7 @@
   "BroadcastCommand": {
     "displayName": "全体コマンド実行",
     "menuDisplayName": "全体CMD",
+    "description": "全ワールドにコマンドをブロードキャストする",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1594,6 +1661,7 @@
   "BroadcastMessage": {
     "displayName": "全体MSG送信",
     "menuDisplayName": "全体MSG",
+    "description": "全ワールドにメッセージをブロードキャストする",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1614,6 +1682,7 @@
   "AddPlayerLevel": {
     "displayName": "レベル加算",
     "menuDisplayName": "レベル加算",
+    "description": "プレイヤーのレベルを加算・減算する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1634,6 +1703,7 @@
   "SetGameMode": {
     "displayName": "GMD設定",
     "menuDisplayName": "GMD設定",
+    "description": "ゲームモードを {{mode}} に設定する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1660,6 +1730,7 @@
   "UpdateAbility": {
     "displayName": "アビリティ変更",
     "menuDisplayName": "アビリティ",
+    "description": "{{ability}} アビリティを変更する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1689,6 +1760,7 @@
   "SetTitle": {
     "displayName": "タイトル表示",
     "menuDisplayName": "タイトル",
+    "description": "プレイヤーにタイトルとサブタイトルを表示する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1713,6 +1785,7 @@
   "SetActionBar": {
     "displayName": "アクションバー",
     "menuDisplayName": "ACTIONバー",
+    "description": "プレイヤーのアクションバーにテキストを表示する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1733,6 +1806,7 @@
   "ClearTitle": {
     "displayName": "タイトル消去",
     "menuDisplayName": "タイトル消去",
+    "description": "プレイヤーのタイトル表示を消去する",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1749,6 +1823,7 @@
   "OnPlayerTransform": {
     "displayName": "PLY位置変化",
     "menuDisplayName": "位置変化",
+    "description": "プレイヤーの位置・向きが変化したときに発火する（高頻度）",
     "inputs": {
       "world": {
         "name": "ワールド",
@@ -1773,6 +1848,7 @@
   "AgentMove": {
     "displayName": "エージェント移動",
     "menuDisplayName": "AG移動",
+    "description": "エージェントを {{direction}} 方向に1ブロック移動させる",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1797,6 +1873,7 @@
   "AgentTurn": {
     "displayName": "エージェント回転",
     "menuDisplayName": "AG回転",
+    "description": "エージェントを {{direction}} に90度回転させる",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1817,6 +1894,7 @@
   "AgentTeleport": {
     "displayName": "エージェントTP",
     "menuDisplayName": "AGTP",
+    "description": "エージェントを指定座標（省略時はプレイヤー位置）にテレポートさせる",
     "inputs": {
       "trigger": {
         "name": "トリガー",
@@ -1837,6 +1915,7 @@
   "AgentAction": {
     "displayName": "エージェント行動",
     "menuDisplayName": "AG行動",
+    "description": "エージェントが {{action}} を実行する（方向: {{direction}}）",
     "inputs": {
       "action": {
         "name": "行動",
@@ -1871,6 +1950,7 @@
   "AgentPlaceBlock": {
     "displayName": "ブロック設置(AG)",
     "menuDisplayName": "AGブロック",
+    "description": "スロット{{slot}}のブロックを{{direction}}方向に設置する",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1899,6 +1979,7 @@
   "AgentDropItem": {
     "displayName": "アイテム投棄(AG)",
     "menuDisplayName": "AG投棄",
+    "description": "スロット{{slot}}のアイテムを{{direction}}方向に投棄する",
     "inputs": {
       "direction": {
         "name": "方向",
@@ -1931,6 +2012,7 @@
   "AgentMoveItem": {
     "displayName": "スロット移動(AG)",
     "menuDisplayName": "AGスロット",
+    "description": "エージェントのインベントリ内でアイテムをスロット間移動する",
     "inputs": {
       "from_slot": {
         "name": "元スロット",
@@ -1955,6 +2037,7 @@
   "AgentSetItem": {
     "displayName": "アイテムセット(AG)",
     "menuDisplayName": "AGセット",
+    "description": "エージェントの指定スロットにアイテムをセットする",
     "inputs": {
       "slot": {
         "name": "スロット",
@@ -1983,6 +2066,7 @@
   "AgentCollect": {
     "displayName": "アイテム収集(AG)",
     "menuDisplayName": "AG収集",
+    "description": "エージェント周囲の指定アイテムを収集する",
     "inputs": {
       "item_id": {
         "name": "アイテムID",
@@ -1999,6 +2083,7 @@
   "AgentDetect": {
     "displayName": "AG検知",
     "menuDisplayName": "AG検知",
+    "description": "{{direction}}方向の{{type}}を検知する",
     "inputs": {
       "type": {
         "name": "種別",
@@ -2031,6 +2116,7 @@
   "AgentInspect": {
     "displayName": "AG調査",
     "menuDisplayName": "AG調査",
+    "description": "{{direction}}方向の{{type}}を調査する",
     "inputs": {
       "type": {
         "name": "種別",
@@ -2063,6 +2149,7 @@
   "AgentGetItemCount": {
     "displayName": "AGアイテム数",
     "menuDisplayName": "AGアイテム数",
+    "description": "スロット{{slot}}のアイテム個数を取得する",
     "inputs": {
       "slot": {
         "name": "スロット",
@@ -2079,6 +2166,7 @@
   "AgentGetItemSpace": {
     "displayName": "AG空きスペース",
     "menuDisplayName": "AG空き",
+    "description": "スロット{{slot}}の残り収納可能数を取得する",
     "inputs": {
       "slot": {
         "name": "スロット",
@@ -2095,6 +2183,7 @@
   "AgentGetItemDetail": {
     "displayName": "AGアイテム詳細",
     "menuDisplayName": "AGアイテム",
+    "description": "スロット{{slot}}のアイテムIDを取得する",
     "inputs": {
       "slot": {
         "name": "スロット",
@@ -2111,6 +2200,7 @@
   "Vector3Lerp": {
     "displayName": "座標補間",
     "menuDisplayName": "座標補間",
+    "description": "2点間を線形補間する（t=0が始点、t=1が終点）",
     "inputs": {
       "pos_a": {
         "name": "座標A",
@@ -2135,6 +2225,7 @@
   "Vector3Normalize": {
     "displayName": "正規化ベクトル",
     "menuDisplayName": "正規化",
+    "description": "ベクトルを長さ1の単位ベクトルに正規化する",
     "inputs": {
       "position": {
         "name": "座標",
@@ -2151,6 +2242,7 @@
   "Vector3Dot": {
     "displayName": "内積",
     "menuDisplayName": "内積",
+    "description": "2つのベクトルの内積を計算する",
     "inputs": {
       "pos_a": {
         "name": "座標A",
@@ -2171,6 +2263,7 @@
   "AABBTranslate": {
     "displayName": "エリア移動",
     "menuDisplayName": "AABB移動",
+    "description": "AABBエリアを指定ベクトルだけ移動する",
     "inputs": {
       "area": {
         "name": "エリア",
@@ -2191,6 +2284,7 @@
   "AABBIntersects": {
     "displayName": "エリア重複判定",
     "menuDisplayName": "AABB重複",
+    "description": "2つのAABBエリアが重なっているか判定する",
     "inputs": {
       "area_a": {
         "name": "エリアA",

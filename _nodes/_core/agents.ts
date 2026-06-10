@@ -21,6 +21,7 @@ export const GetAgentLocation: CodeNode = {
   id: 'GetAgentLocation',
   displayName: 'GetAgentLocation',
   menuDisplayName: 'GetAgentLocation',
+  description: 'エージェントの現在座標を取得する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -40,6 +41,7 @@ export const AgentMove: CodeNode = {
   id: 'AgentMove',
   displayName: 'AgentMove',
   menuDisplayName: 'AgentMove',
+  description: 'エージェントを指定方向に1ブロック移動させる',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -63,6 +65,7 @@ export const AgentTurn: CodeNode = {
   id: 'AgentTurn',
   displayName: 'AgentTurn',
   menuDisplayName: 'AgentTurn',
+  description: 'エージェントを左右に90度回転させる',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -86,6 +89,7 @@ export const AgentTeleport: CodeNode = {
   id: 'AgentTeleport',
   displayName: 'AgentTeleport',
   menuDisplayName: 'AgentTeleport',
+  description: 'エージェントを指定座標（省略時はプレイヤー位置）にテレポートさせる',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -106,6 +110,7 @@ export const AgentAction: CodeNode = {
   id: 'AgentAction',
   displayName: 'AgentAction',
   menuDisplayName: 'AgentAction',
+  description: 'エージェントに攻撃・破壊・耕す・全捨てを実行させる',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -148,6 +153,7 @@ export const AgentPlaceBlock: CodeNode = {
   id: 'AgentPlaceBlock',
   displayName: 'AgentPlaceBlock',
   menuDisplayName: 'AgentPlaceBlock',
+  description: 'エージェントが指定スロットのブロックを指定方向に設置する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -172,6 +178,7 @@ export const AgentDropItem: CodeNode = {
   id: 'AgentDropItem',
   displayName: 'AgentDropItem',
   menuDisplayName: 'AgentDropItem',
+  description: 'エージェントが指定スロットのアイテムを指定方向に投棄する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -197,6 +204,7 @@ export const AgentMoveItem: CodeNode = {
   id: 'AgentMoveItem',
   displayName: 'AgentMoveItem',
   menuDisplayName: 'AgentMoveItem',
+  description: 'エージェントのインベントリ内でアイテムをスロット間移動する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -217,6 +225,7 @@ export const AgentSetItem: CodeNode = {
   id: 'AgentSetItem',
   displayName: 'AgentSetItem',
   menuDisplayName: 'AgentSetItem',
+  description: 'エージェントの指定スロットにアイテムをセットする',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -238,6 +247,7 @@ export const AgentCollect: CodeNode = {
   id: 'AgentCollect',
   displayName: 'AgentCollect',
   menuDisplayName: 'AgentCollect',
+  description: 'エージェント周囲の指定アイテムを収集する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -256,6 +266,7 @@ export const AgentDetect: CodeNode = {
   id: 'AgentDetect',
   displayName: 'AgentDetect',
   menuDisplayName: 'AgentDetect',
+  description: '指定方向にブロックまたはレッドストーン信号があるか検知する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -295,6 +306,7 @@ export const AgentInspect: CodeNode = {
   id: 'AgentInspect',
   displayName: 'AgentInspect',
   menuDisplayName: 'AgentInspect',
+  description: '指定方向のブロックIDまたはデータ値を調べる',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -335,6 +347,7 @@ export const AgentGetItemCount: CodeNode = {
   id: 'AgentGetItemCount',
   displayName: 'AgentGetItemCount',
   menuDisplayName: 'AgentGetItemCount',
+  description: '指定スロットのアイテム個数を取得する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -355,6 +368,7 @@ export const AgentGetItemSpace: CodeNode = {
   id: 'AgentGetItemSpace',
   displayName: 'AgentGetItemSpace',
   menuDisplayName: 'AgentGetItemSpace',
+  description: '指定スロットの残り収納可能数を取得する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
@@ -375,6 +389,7 @@ export const AgentGetItemDetail: CodeNode = {
   id: 'AgentGetItemDetail',
   displayName: 'AgentGetItemDetail',
   menuDisplayName: 'AgentGetItemDetail',
+  description: '指定スロットのアイテムIDを取得する',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {

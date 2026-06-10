@@ -17,6 +17,7 @@ export type OutputI18n = {
 export type NodeI18n = {
   displayName: string
   menuDisplayName: string
+  description?: string
   inputs:  Record<string, InputI18n>
   outputs: Record<string, OutputI18n>
 }
@@ -155,10 +156,42 @@ export function localizeNode(coreNode: CodeNode, nodeI18n: NodeI18n): CodeNode {
   const localizedInputs  = localizeInputDefs( (coreNode.inputs ?? {}) as any,  nodeI18n.inputs,  inEnToLocal)
   const localizedOutputs = localizeOutputDefs((coreNode.outputs ?? {}) as any, nodeI18n.outputs, outEnToLocal)
 
+  // i18n description のテンプレート解決
+  // {{enPortName}} を含む場合、選択中の設定値（ローカル化されたラベル）で置換する関数にする
+  let resolvedDescription: string | ((config: any) => string) | undefined
+  if (nodeI18n.description !== undefined) {
+    if (/{{.+?}}/.test(nodeI18n.description)) {
+      const template = nodeI18n.description
+      const capturedLocalInputs = localizedInputs
+      resolvedDescription = (config: any) => {
+        const enConfig: Record<string, any> = {}
+        for (const [localKey, val] of Object.entries(config as Record<string, any>)) {
+          enConfig[inLocalToEn[localKey] ?? localKey] = val
+        }
+        return template.replace(/{{(\w+)}}/g, (match, enKey) => {
+          const val = enConfig[enKey]
+          if (val && typeof val === 'object' && 'type' in val) {
+            if (val.type === 'dynamic') return match
+            // select の場合はローカル化されたラベルを優先して返す
+            const localKey = inEnToLocal[enKey] ?? enKey
+            const pin = (capturedLocalInputs as any)[localKey]
+            const options: Array<{ value: string; label: string }> = pin?.editorTypeData?.options ?? []
+            const opt = options.find(o => String(o.value) === String(val.value))
+            return opt?.label ?? String(val.value ?? match)
+          }
+          return val != null ? String(val) : match
+        })
+      }
+    } else {
+      resolvedDescription = nodeI18n.description
+    }
+  }
+
   return {
     ...coreNode,
     displayName:     nodeI18n.displayName,
     menuDisplayName: nodeI18n.menuDisplayName,
+    ...(resolvedDescription !== undefined ? { description: resolvedDescription } : {}),
     inputs:  localizedInputs,
     outputs: localizedOutputs,
     run: (localInputs: any, localOutputs: any, adv: any) => {

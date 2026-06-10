@@ -7,6 +7,7 @@ export const GetScoreboardObjectives: CodeNode = {
   id: 'GetScoreboardObjectives',
   displayName: 'GetScoreboardObjectives',
   menuDisplayName: 'GetScoreboardObjectives',
+  description: 'スコアボードの全目標一覧を取得する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -23,6 +24,7 @@ export const GetScoreboardObjective: CodeNode = {
   id: 'GetScoreboardObjective',
   displayName: 'GetScoreboardObjective',
   menuDisplayName: 'GetScoreboardObjective',
+  description: '指定IDのスコアボード目標を取得する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -40,6 +42,7 @@ export const AddScoreboardObjective: CodeNode = {
   id: 'AddScoreboardObjective',
   displayName: 'AddScoreboardObjective',
   menuDisplayName: 'AddScoreboardObjective',
+  description: 'スコアボードに新しい目標を追加する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -61,6 +64,7 @@ export const RemoveScoreboardObjective: CodeNode = {
   id: 'RemoveScoreboardObjective',
   displayName: 'RemoveScoreboardObjective',
   menuDisplayName: 'RemoveScoreboardObjective',
+  description: '指定IDのスコアボード目標を削除する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -78,6 +82,7 @@ export const GetScores: CodeNode = {
   id: 'GetScores',
   displayName: 'GetScores',
   menuDisplayName: 'GetScores',
+  description: '指定プレイヤーの全スコアを取得する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -95,6 +100,7 @@ export const GetScore: CodeNode = {
   id: 'GetScore',
   displayName: 'GetScore',
   menuDisplayName: 'GetScore',
+  description: '指定プレイヤー・目標のスコアを取得する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
@@ -113,6 +119,7 @@ export const ScoreOperation: CodeNode = {
   id: 'ScoreOperation',
   displayName: 'ScoreOperation',
   menuDisplayName: 'ScoreOperation',
+  description: '指定プレイヤー・目標のスコアを加算・減算・設定する',
   icon: 'list-ol',
   defaultStyle: STYLE,
   inputs: {
