@@ -1,14 +1,10 @@
-import { appendFileSync } from 'fs'
-import { join } from 'path'
 import { CodeNode } from '@flyde/core'
 import { ServerEvent } from 'socket-be'
 import { getServer, stopServer } from '../ws-server'
+import { diagLog } from '../diag'
 
-const DIAG_FILE = join(process.cwd(), 'mc-flow-diag.log')
-function diagLog(msg: string): void {
-  try { appendFileSync(DIAG_FILE, `[${new Date().toISOString()}] ${msg}\n`) } catch {}
-}
-function log(msg: string): void { diagLog(`[connection] ${msg}`) }
+const log = (msg: string) => diagLog('INFO',  'connection', msg)
+const dbg = (msg: string) => diagLog('DEBUG', 'mc-flow',    msg)
 
 const STYLE = { color: '#5C5C5C' }
 
@@ -42,23 +38,23 @@ export const MinecraftConnect: CodeNode = {
     return new Promise<void>((resolve) => {
       try {
         const p = port ?? 8080
-        const server = getServer(p, (msg) => { diagLog(`[mc-flow] onError callback: ${msg}`); error.next(msg) })
-        diagLog(`[mc-flow] getServer returned, registering WorldAdd handler`)
+        const server = getServer(p, (msg) => { diagLog('WARN', 'mc-flow', `onError callback: ${msg}`); error.next(msg) })
+        dbg(`getServer returned, registering WorldAdd handler`)
         log(`Enter in Minecraft: /connect localhost:${p}`)
         const handler = (signal: any) => {
-          diagLog(`[mc-flow] WorldAdd fired! world type=${typeof signal?.world}, signal keys=${Object.keys(signal ?? {}).join(',')}`)
+          dbg(`WorldAdd fired! world type=${typeof signal?.world}, signal keys=${Object.keys(signal ?? {}).join(',')}`)
           world.next(true)
         }
         server.on(ServerEvent.WorldAdd, handler)
-        diagLog(`[mc-flow] WorldAdd handler registered`)
+        dbg(`WorldAdd handler registered`)
 
         const removeHandler = (signal: any) => {
-          diagLog(`[mc-flow] WorldRemove fired! code=${signal?.code}`)
+          dbg(`WorldRemove fired! code=${signal?.code}`)
         }
         server.on(ServerEvent.WorldRemove, removeHandler)
 
         adv.onCleanup(async () => {
-          diagLog(`[mc-flow] onCleanup called`)
+          dbg(`onCleanup called`)
           server.remove(ServerEvent.WorldAdd, handler)
           server.remove(ServerEvent.WorldRemove, removeHandler)
           await stopServer()

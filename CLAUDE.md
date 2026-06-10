@@ -23,11 +23,13 @@ mc-flow-template/
 ├── CLAUDE.md
 ├── package.json
 ├── tsconfig.json              ← "types": ["node"] が必須
+├── mc-flow.config.json        ← ログレベル設定（git 管理対象）
 ├── _nodes/
 │   ├── index.flyde.ts         ← 全ノード実装 兼 Flyde エディタ用エントリ（唯一の .flyde.ts）
 │   ├── _factory.ts            ← localizeNode()：_core ノード + _i18n → 言語別ノード生成
 │   ├── context-manager.ts     ← McContext シングルトン（内部用）
 │   ├── ws-server.ts           ← WebSocket サーバーシングルトン（内部用）
+│   ├── diag.ts                ← ファイルロガー（内部用）
 │   ├── enum-utils.ts          ← _core/enum-utils の再エクスポート（後方互換ラッパー）
 │   ├── _core/                 ← 処理ロジック（英語ポート名・言語非依存）
 │   │   ├── connection.ts      ← 接続系
@@ -57,6 +59,7 @@ mc-flow-template/
 │           ├── ja_JP.json
 │           ├── en_US.json
 │           └── (他 27 言語 ...)
+├── logs/                      ← セッションごとのログファイル（.gitignore 対象）
 └── flows/                     ← 生徒が .flyde ファイルを作る場所
     ├── sample.flyde
     ├── sample2.flyde
@@ -80,6 +83,49 @@ npm run typecheck  # TypeScript 型チェック（tsc --noEmit）
 2. フローを実行（SocketBE が localhost:8080 で起動、コンソールに接続コマンドが表示される）
 3. Minecraft で `/connect localhost:8080`
 4. フローの動作を確認
+
+---
+
+## ロギング
+
+Flyde はノードを別プロセスで実行するため `console.log` が VSCode に届かない。代わりに `_nodes/diag.ts` がファイルへ書き出す。
+
+### ログファイル
+
+セッション（フロー実行）ごとに新しいファイルを生成する：
+
+```
+logs/mc-flow-2026-06-10_14-30-00_1.log
+```
+
+### ログレベル
+
+| レベル | 用途 |
+|---|---|
+| `DEBUG` | 内部状態・イベント詳細（開発時） |
+| `INFO` | ユーザー向けの通常メッセージ（デフォルト） |
+| `WARN` | 予期しない状態・エラーの予兆 |
+| `ERROR` | 処理失敗・未捕捉例外 |
+
+### 設定ファイル
+
+プロジェクトルートの `mc-flow.config.json` でログレベルを変更できる（git 管理対象）：
+
+```json
+{ "logLevel": "INFO" }
+```
+
+ファイルがなければ `INFO` をデフォルトとして使用する。
+
+### ロガーの使い方（内部）
+
+```typescript
+import { diagLog } from './diag'          // _nodes/ 直下から
+import { diagLog } from '../diag'         // _nodes/_core/ から
+
+const log  = (msg: string) => diagLog('INFO',  'prefix', msg)  // ユーザー向け
+const dbg  = (msg: string) => diagLog('DEBUG', 'prefix', msg)  // 内部診断
+```
 
 ---
 
