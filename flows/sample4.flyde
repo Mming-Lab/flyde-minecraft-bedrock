@@ -1,0 +1,21 @@
+imports: {}
+node:
+  instances:
+    - pos:
+        x: -200
+        y: -57
+      id: Note-xcizt8j6
+      inputConfig: {}
+      nodeId: Note
+      config:
+        content: Enter your comment here
+      type: code
+      source:
+        type: package
+        data: "@flyde/nodes"
+  connections: []
+  id: sample4
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}

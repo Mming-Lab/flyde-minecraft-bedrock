@@ -25,7 +25,8 @@ mc-flow-template/
 ├── tsconfig.json              ← "types": ["node"] が必須
 ├── mc-flow.config.json        ← ログレベル設定（git 管理対象）
 ├── _nodes/
-│   ├── index.flyde.ts         ← 全ノード実装 兼 Flyde エディタ用エントリ（唯一の .flyde.ts）
+│   ├── index.flyde.ts         ← 全ノード（フル版）兼 Flyde エディタ用エントリ
+│   ├── index.free.flyde.ts    ← 個人向け無料版（絞ったノードのみ）
 │   ├── _factory.ts            ← localizeNode()：_core ノード + _i18n → 言語別ノード生成
 │   ├── context-manager.ts     ← McContext シングルトン（内部用）
 │   ├── ws-server.ts           ← WebSocket サーバーシングルトン（内部用）
@@ -52,15 +53,25 @@ mc-flow-template/
 │   ├── _i18n/                 ← ノード UI 翻訳（displayName・ポート名・select ラベル）
 │   │   ├── ja_JP.json
 │   │   ├── en_US.json
-│   │   └── (他 27 言語 ...)
+│   │   └── (追加予定 ...)
 │   └── utils/
-│       ├── _catalog.ts        ← ブロック/アイテム/モブ/イベントのカタログデータ（内部用）
+│       ├── _catalog.ts        ← ブロック/アイテム/モブのカタログ（set-lang.js で import 行を書き換え）
 │       └── _maps/             ← Minecraft ID → 各言語名の変換データ（生成物）
 │           ├── ja_JP.json
 │           ├── en_US.json
 │           └── (他 27 言語 ...)
+├── scripts/
+│   ├── build.js               ← esbuild バンドル（--full フラグでフル版）
+│   ├── set-lang.js            ← 言語切替（フルロケール指定: ja_JP, en_US ...）
+│   ├── publish-all.js         ← 全言語 npm publish + zip 生成
+│   └── generate-maps.ts       ← _maps/ 生成スクリプト（.gitignore 対象）
+├── dist/                      ← ビルド出力（.gitignore 対象）
+│   ├── index.free.flyde.js    ← 無料版バンドル（npm 公開用）
+│   └── index.flyde.js         ← フル版バンドル（zip 配布用）
+├── releases/                  ← zip 配布物（.gitignore 対象）
+│   └── mc-flow-full-ja-jp-v*.zip
 ├── logs/                      ← セッションごとのログファイル（.gitignore 対象）
-└── flows/                     ← 生徒が .flyde ファイルを作る場所
+└── flows/                     ← ユーザーが .flyde ファイルを作る場所
     ├── sample.flyde
     ├── sample2.flyde
     └── sample3.flyde
@@ -73,9 +84,15 @@ mc-flow-template/
 ## 開発コマンド・動作確認
 
 ```bash
-npm install        # 依存パッケージのインストール
-npm run typecheck  # TypeScript 型チェック（tsc --noEmit）
+npm install              # 依存パッケージのインストール
+npm run typecheck        # TypeScript 型チェック（tsc --noEmit）
+npm run lang:ja          # 言語を日本語（ja_JP）に切り替え
+npm run lang:en          # 言語を英語（en_US）に切り替え
+npm run build            # 無料版をビルド → dist/index.free.flyde.js
+npm run publish:all      # 全言語の npm publish + zip 生成（→ releases/）
 ```
+
+言語切替は `scripts/set-lang.js` が `index.flyde.ts`・`index.free.flyde.ts`・`_catalog.ts` の3ファイルを書き換える。
 
 ユニットテストなし。動作確認は Minecraft 実機で行う：
 
@@ -178,13 +195,19 @@ export const RunCommand = localizeNode(core.RunCommand, i18n.RunCommand)
 
 ### エントリポイントと言語
 
-`index.flyde.ts` が唯一の実装ファイル。`_i18n/*.json` の import 行を書き換えることで言語が切り替わる。
-
 | ファイル | 役割 |
 |---|---|
-| `index.flyde.ts` | 全ノード実装 兼 Flyde エディタ用エントリ（唯一の `.flyde.ts`） |
+| `index.flyde.ts` | 全ノード（フル版）兼 Flyde エディタ用エントリ |
+| `index.free.flyde.ts` | 個人向け無料版（絞ったノードのみ、npm 公開用） |
 
-言語切替は `npm run lang:ja` / `npm run lang:en` スクリプトで行う（`index.flyde.ts` の i18n import 行を書き換えるだけ）。
+言語切替は `npm run lang:ja` / `npm run lang:en`（または `node scripts/set-lang.js ja_JP`）で行う。  
+`scripts/set-lang.js` が以下の3ファイルを同時に書き換える：
+
+- `index.flyde.ts` の `import i18n from './_i18n/XX.json'`
+- `index.free.flyde.ts` の `import i18n from './_i18n/XX.json'`
+- `_catalog.ts` の `import maps from './_maps/XX.json'` と `const locale = 'XX'`
+
+フルロケール（`ja_JP`, `en_US`, `ko_KR` ...）を直接指定できる。`_i18n/` にファイルを追加すれば `publish-all.js` が自動で対象に含める。
 
 ### ノードの対象層（個人向け / サーバー向け）
 
@@ -197,6 +220,53 @@ export const RunCommand = localizeNode(core.RunCommand, i18n.RunCommand)
 | **対象層** | 個人向け（free）/ サーバー向け（server） |
 
 `_core/` には全ノードを実装し、`index.flyde.ts` が全ノードを export する。
+
+---
+
+## 配布・公開
+
+### 版の構成
+
+| 版 | エントリ | 配布方法 | 内容 |
+|---|---|---|---|
+| 無料版 | `index.free.flyde.ts` | npm（言語別パッケージ） | 個人向けノードのみ |
+| フル版 | `index.flyde.ts` | Gumroad zip（言語別） | 全ノード |
+
+### npm パッケージ名規則
+
+- `ja_JP` → `flyde-minecraft-bedrock-ws`（サフィックスなし、デフォルト）
+- その他 → `flyde-minecraft-bedrock-ws-{locale.toLowerCase().replace('_','-')}`
+
+### publish フロー（`npm run publish:all`）
+
+言語ごとに以下を繰り返す：
+
+1. `set-lang.js {locale}` で言語切替
+2. `build.js` で無料版をビルド → npm publish
+3. `build.js --full` でフル版をビルド → `releases/mc-flow-full-{locale}-v{version}.zip` 生成
+
+zip 内容（ソースなし、完全なプロジェクトテンプレート）：
+
+```
+mc-flow/
+  package.json         flyde.exposes → dist/index.flyde.js
+  dist/
+    index.flyde.js     全ノード minify 済み（_i18n・_maps を内包）
+  flows/
+    *.flyde            サンプルフロー
+  mc-flow.config.json  logLevel: INFO
+```
+
+### _catalog.ts の言語対応
+
+`_catalog.ts` は静的 import を使用。`set-lang.js` が言語切替時に書き換える：
+
+```typescript
+import maps from './_maps/ja_JP.json'  // set-lang.js で書き換え
+const locale = 'ja_JP'                 // 同上
+```
+
+esbuild バンドル時に JSON が JS に埋め込まれるため、配布物に `_maps/*.json` は不要。
 
 ---
 

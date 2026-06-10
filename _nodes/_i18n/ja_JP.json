@@ -218,8 +218,8 @@
     }
   },
   "OnPlayerChat": {
-    "displayName": "チャット受信",
-    "menuDisplayName": "ﾁｬｯﾄ受信",
+    "displayName": "チャット受信時",
+    "menuDisplayName": "ﾁｬｯﾄ受信時",
     "description": "プレイヤーがチャットを送信したときに発火する",
     "inputs": {
       "world": {
@@ -239,8 +239,8 @@
     }
   },
   "OnPlayerJoin": {
-    "displayName": "プレイヤー参加",
-    "menuDisplayName": "ﾌﾟﾚｲﾔｰ参加",
+    "displayName": "プレイヤー参加時",
+    "menuDisplayName": "ﾌﾟﾚｲﾔｰ参加時",
     "description": "プレイヤーがワールドに参加したときに発火する",
     "inputs": {
       "world": {
@@ -256,8 +256,8 @@
     }
   },
   "OnPlayerLeave": {
-    "displayName": "プレイヤー退出",
-    "menuDisplayName": "ﾌﾟﾚｲﾔ退出",
+    "displayName": "プレイヤー退出時",
+    "menuDisplayName": "ﾌﾟﾚｲﾔ退出時",
     "description": "プレイヤーがワールドを退出したときに発火する",
     "inputs": {
       "world": {
@@ -273,8 +273,8 @@
     }
   },
   "OnPlayerTravelled": {
-    "displayName": "プレイヤーが移動",
-    "menuDisplayName": "ﾌﾟﾚｲﾔｰ移動",
+    "displayName": "プレイヤー移動時",
+    "menuDisplayName": "ﾌﾟﾚｲﾔｰ移動時",
     "description": "プレイヤーが移動するたびに発火する",
     "inputs": {
       "world": {
@@ -306,8 +306,8 @@
     }
   },
   "OnPlayerTeleported": {
-    "displayName": "テレポート完了",
-    "menuDisplayName": "ﾃﾚﾎﾟｰﾄ完了",
+    "displayName": "テレポート時",
+    "menuDisplayName": "ﾃﾚﾎﾟｰﾄ時",
     "description": "プレイヤーがテレポートしたときに発火する",
     "inputs": {
       "world": {
@@ -331,8 +331,8 @@
     }
   },
   "OnPlayerTitle": {
-    "displayName": "プレイヤータイトル",
-    "menuDisplayName": "ﾀｲﾄﾙ受信",
+    "displayName": "タイトル受信時",
+    "menuDisplayName": "ﾀｲﾄﾙ受信時",
     "description": "プレイヤーがタイトルを受け取ったときに発火する",
     "inputs": {
       "world": {
@@ -356,8 +356,8 @@
     }
   },
   "OnPlayerMessage": {
-    "displayName": "プレイヤーメッセージ",
-    "menuDisplayName": "ﾒｯｾｰｼﾞ受信",
+    "displayName": "メッセージ受信時",
+    "menuDisplayName": "ﾒｯｾｰｼﾞ受信時",
     "description": "プレイヤーがメッセージを送信したときに発火する",
     "inputs": {
       "world": {
@@ -385,8 +385,8 @@
     }
   },
   "OnPlayerBounced": {
-    "displayName": "バウンス",
-    "menuDisplayName": "ﾊﾞｳﾝｽ",
+    "displayName": "バウンド時",
+    "menuDisplayName": "ﾊﾞｳﾝﾄﾞ時",
     "description": "プレイヤーがスライムブロック等でバウンスしたときに発火する",
     "inputs": {
       "world": {
@@ -410,8 +410,8 @@
     }
   },
   "OnBlockBroken": {
-    "displayName": "ブロック破壊",
-    "menuDisplayName": "ﾌﾞﾛｯｸ破壊",
+    "displayName": "ブロック破壊時",
+    "menuDisplayName": "ﾌﾞﾛｯｸ破壊時",
     "description": "ブロックが破壊されたときに発火する",
     "inputs": {
       "world": {
@@ -439,8 +439,8 @@
     }
   },
   "OnBlockPlaced": {
-    "displayName": "ブロック設置イベント",
-    "menuDisplayName": "ﾌﾞﾛｯｸ設置イベント",
+    "displayName": "ブロック設置時",
+    "menuDisplayName": "ﾌﾞﾛｯｸ設置時",
     "description": "ブロックが設置されたときに発火する",
     "inputs": {
       "world": {
@@ -472,8 +472,8 @@
     }
   },
   "OnItemInteracted": {
-    "displayName": "アイテムを使った",
-    "menuDisplayName": "ｱｲﾃﾑ使用",
+    "displayName": "アイテム使用時",
+    "menuDisplayName": "ｱｲﾃﾑ使用時",
     "description": "プレイヤーがアイテムを使用したときに発火する",
     "inputs": {
       "world": {
@@ -497,8 +497,8 @@
     }
   },
   "OnItemAcquired": {
-    "displayName": "アイテム取得",
-    "menuDisplayName": "ｱｲﾃﾑ取得",
+    "displayName": "アイテム取得時",
+    "menuDisplayName": "ｱｲﾃﾑ取得時",
     "description": "プレイヤーがアイテムを取得したときに発火する",
     "inputs": {
       "world": {
@@ -526,8 +526,8 @@
     }
   },
   "OnItemCrafted": {
-    "displayName": "アイテムをクラフト",
-    "menuDisplayName": "ｸﾗﾌﾄ",
+    "displayName": "クラフト時",
+    "menuDisplayName": "ｸﾗﾌﾄ時",
     "description": "プレイヤーがアイテムをクラフトしたときに発火する",
     "inputs": {
       "world": {
@@ -551,8 +551,8 @@
     }
   },
   "OnItemEquipped": {
-    "displayName": "アイテムを装備",
-    "menuDisplayName": "ｱｲﾃﾑ装備",
+    "displayName": "アイテム装備時",
+    "menuDisplayName": "ｱｲﾃﾑ装備時",
     "description": "プレイヤーがアイテムを装備したときに発火する",
     "inputs": {
       "world": {
@@ -576,8 +576,8 @@
     }
   },
   "OnItemSmelted": {
-    "displayName": "アイテムを精錬",
-    "menuDisplayName": "ｱｲﾃﾑ精錬",
+    "displayName": "精錬時",
+    "menuDisplayName": "精錬時",
     "description": "プレイヤーがアイテムを精錬したときに発火する",
     "inputs": {
       "world": {
@@ -601,8 +601,8 @@
     }
   },
   "OnItemTraded": {
-    "displayName": "アイテムを取引",
-    "menuDisplayName": "ｱｲﾃﾑ取引",
+    "displayName": "取引時",
+    "menuDisplayName": "取引時",
     "description": "プレイヤーが村人とアイテムを取引したときに発火する",
     "inputs": {
       "world": {
@@ -642,8 +642,8 @@
     }
   },
   "OnMobInteracted": {
-    "displayName": "モブと交流",
-    "menuDisplayName": "ﾓﾌﾞ交流",
+    "displayName": "モブ交流時",
+    "menuDisplayName": "ﾓﾌﾞ交流時",
     "description": "プレイヤーがモブと交流したときに発火する",
     "inputs": {
       "world": {
@@ -667,8 +667,8 @@
     }
   },
   "OnTargetBlockHit": {
-    "displayName": "的ブロック命中",
-    "menuDisplayName": "的命中",
+    "displayName": "的命中時",
+    "menuDisplayName": "的命中時",
     "description": "的ブロックに命中したときに発火する",
     "inputs": {
       "world": {
@@ -1701,8 +1701,8 @@
     }
   },
   "SetGameMode": {
-    "displayName": "GMD設定",
-    "menuDisplayName": "GMD設定",
+    "displayName": "ゲームモード設定",
+    "menuDisplayName": "ゲームモード設定",
     "description": "ゲームモードを {{mode}} に設定する",
     "inputs": {
       "trigger": {
@@ -1821,8 +1821,8 @@
     }
   },
   "OnPlayerTransform": {
-    "displayName": "PLY位置変化",
-    "menuDisplayName": "位置変化",
+    "displayName": "プレイヤー位置変化時",
+    "menuDisplayName": "位置変化時",
     "description": "プレイヤーの位置・向きが変化したときに発火する（高頻度）",
     "inputs": {
       "world": {

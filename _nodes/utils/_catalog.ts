@@ -1,21 +1,11 @@
 import { MinecraftBlockTypes, MinecraftItemTypes, MinecraftEntityTypes } from '@minecraft/vanilla-data'
+import maps from './_maps/ja_JP.json'  // set-lang.js で書き換え
 
 export type SelectOption = { value: string; label: string }
 
-// ── ロケール設定 ─────────────────────────────────────────────────
+// ── ロケール設定（set-lang.js が import 行と同時に書き換える）─────────────
 
-const locale = (typeof process !== 'undefined' && process.env.MC_FLOW_LOCALE) || 'ja_JP'
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const maps = (() => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require(`./_maps/${locale}.json`)
-  } catch {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('./_maps/ja_JP.json')
-  }
-})()
+const locale = 'ja_JP'
 
 // ── 全ID一覧の生成 ────────────────────────────────────────────────
 

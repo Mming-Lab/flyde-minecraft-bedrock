@@ -16,9 +16,11 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.js",
     "generate-maps": "cd scripts && npx ts-node --project tsconfig.json generate-maps.ts",
-    "lang:ja": "node scripts/set-lang.js ja",
-    "lang:en": "node scripts/set-lang.js en"
+    "lang:ja": "node scripts/set-lang.js ja_JP",
+    "lang:en": "node scripts/set-lang.js en_US",
+    "publish:all": "node scripts/publish-all.js"
   },
   "peerDependencies": {
     "@flyde/core": "*",
@@ -28,8 +30,10 @@
   "devDependencies": {
     "@flyde/core": "*",
     "@minecraft/vanilla-data": "*",
-    "socket-be": "*",
     "@types/node": "^20.0.0",
+    "archiver": "^8.0.0",
+    "esbuild": "^0.25.0",
+    "socket-be": "*",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
   },
@@ -48,5 +52,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yutari-club/mc-flow-template"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
   }
 }

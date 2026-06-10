@@ -2,38 +2,63 @@
 'use strict'
 
 /**
- * 言語切替スクリプト
- *   npm run lang:ja  → 日本語
- *   npm run lang:en  → 英語
+ * Switch the active locale.
  *
- * _nodes/index.flyde.ts の i18n import 行だけを書き換える。
- * VSCode ウィンドウのリロードで Flyde メニューに反映される。
+ *   node scripts/set-lang.js ja_JP
+ *   node scripts/set-lang.js en_US
+ *   node scripts/set-lang.js ko_KR
+ *
+ * Rewrites:
+ *   _nodes/index.flyde.ts       _i18n/{locale}.json import
+ *   _nodes/index.free.flyde.ts  same
+ *   _nodes/utils/_catalog.ts    _maps/{locale}.json import + locale constant
  */
 
 const fs   = require('fs')
 const path = require('path')
 
-const lang = process.argv[2]
-if (lang !== 'ja' && lang !== 'en') {
-  console.error('Usage: node set-lang.js <ja|en>')
+const to = process.argv[2]
+if (!to || !/^\w+_\w+$/.test(to)) {
+  console.error('Usage: node set-lang.js <locale>')
+  console.error('  e.g. ja_JP, en_US, ko_KR, zh_CN, zh_TW ...')
   process.exit(1)
 }
 
-const entryPath = path.join(__dirname, '../_nodes/index.flyde.ts')
-const content   = fs.readFileSync(entryPath, 'utf8')
+const ROOT = path.join(__dirname, '..')
 
-const from = lang === 'en' ? 'ja_JP' : 'en_US'
-const to   = lang === 'en' ? 'en_US' : 'ja_JP'
-const next = content.replace(
-  `import i18n from './_i18n/${from}.json'`,
-  `import i18n from './_i18n/${to}.json'`,
-)
+// 現在の locale を index.flyde.ts から読む
+const indexPath    = path.join(ROOT, '_nodes/index.flyde.ts')
+const indexContent = fs.readFileSync(indexPath, 'utf8')
+const fromMatch    = indexContent.match(/_i18n\/(\w+)\.json/)
+const from         = fromMatch ? fromMatch[1] : null
 
-if (next === content) {
-  console.log(`既に ${lang === 'en' ? 'English' : '日本語'} です。`)
+if (!from) {
+  console.error('Could not detect current locale from _nodes/index.flyde.ts.')
+  process.exit(1)
+}
+
+if (from === to) {
+  console.log(`Already ${to}.`)
   process.exit(0)
 }
 
-fs.writeFileSync(entryPath, next, 'utf8')
-console.log(`✓ _nodes/index.flyde.ts → ${lang === 'en' ? 'English' : '日本語'}`)
-console.log('VSCode ウィンドウをリロードしてください（Ctrl+Shift+P → "Reload Window"）。')
+function replaceAll(filePath, fromStr, toStr) {
+  if (!fs.existsSync(filePath)) return false
+  const content = fs.readFileSync(filePath, 'utf8')
+  const next    = content.split(fromStr).join(toStr)
+  if (next === content) return false
+  fs.writeFileSync(filePath, next, 'utf8')
+  return true
+}
+
+// index.flyde.ts
+const c1 = replaceAll(path.join(ROOT, '_nodes/index.flyde.ts'),      `_i18n/${from}.json`, `_i18n/${to}.json`)
+// index.free.flyde.ts
+const c2 = replaceAll(path.join(ROOT, '_nodes/index.free.flyde.ts'), `_i18n/${from}.json`, `_i18n/${to}.json`)
+// _catalog.ts（_maps の import 行 + locale 定数を両方書き換え）
+const c3 = replaceAll(path.join(ROOT, '_nodes/utils/_catalog.ts'),   from, to)
+
+if (c1) console.log(`✓ index.flyde.ts       → ${to}`)
+if (c2) console.log(`✓ index.free.flyde.ts  → ${to}`)
+if (c3) console.log(`✓ _catalog.ts          → ${to}`)
+console.log('Reload the VSCode window to apply changes (Ctrl+Shift+P → "Reload Window").')
