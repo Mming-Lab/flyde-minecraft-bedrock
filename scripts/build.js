@@ -37,7 +37,6 @@ esbuild.build({
     '@flyde/core',
     'socket-be',
     '@minecraft/vanilla-data',
-    '@minecraft/math',
   ],
 }).then(() => {
   const size = (fs.statSync(path.join(OUTDIR, outname)).size / 1024).toFixed(1)
