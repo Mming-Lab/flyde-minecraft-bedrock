@@ -568,3 +568,10 @@ node:
     # TC-127
     - {from: {insId: vec3dot-ortho,  pinId: 値}, to: {insId: assert-127a, pinId: 実際値}}
     - {from: {insId: vec3dot-para,   pinId: 値}, to: {insId: assert-127b, pinId: 実際値}}
+  id: TestMath
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}
+  completionOutputs: []
+  description: 数学・座標ノード自動テスト（MC不要、フロー開始で即実行）

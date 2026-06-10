@@ -149,3 +149,10 @@ node:
     # TC-SB05: Assert完了 → RemoveObj → Assert
     - {from: {insId: assert-sb04, pinId: 完了},  to: {insId: remove-obj, pinId: トリガー}}
     - {from: {insId: remove-obj,  pinId: 結果},  to: {insId: assert-sb05, pinId: 実際値}}
+  id: TestScoreboard
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}
+  completionOutputs: []
+  description: スコアボードノードテスト（チャット送信1回で自動実行、送信者名をプレイヤー名に使用）

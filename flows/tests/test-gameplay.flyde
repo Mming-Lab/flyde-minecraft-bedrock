@@ -225,3 +225,10 @@ node:
     - {from: {insId: assert-058,   pinId: 完了}, to: {insId: set-survival,         pinId: トリガー}}
     - {from: {insId: set-survival, pinId: 完了}, to: {insId: get-gamemode-survival, pinId: トリガー}}
     - {from: {insId: get-gamemode-survival, pinId: ゲームモード}, to: {insId: assert-059, pinId: 実際値}}
+  id: TestGameplay
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}
+  completionOutputs: []
+  description: ゲームプレイ系コマンドテスト（チャット送信1回で自動実行）
