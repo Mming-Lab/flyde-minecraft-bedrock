@@ -7,14 +7,27 @@ import { diagLog } from './diag'
 const log = (msg: string) => diagLog('INFO',  'socketbe', msg)
 const dbg = (msg: string) => diagLog('DEBUG', 'flyde-mc',  msg)
 
-let _server: Server | null = null
-let _world: World | null = null
-let _port: number = 8080
+// Flyde がフロー再起動時にモジュールキャッシュをクリアして再 require することがある。
+// _server / _world を process に退避しておき、再ロード後も復元する。
+let _server: Server | null = (process as any).__fmcServer ?? null
+let _world: World | null  = (process as any).__fmcWorld  ?? null
+let _port: number = (process as any).__fmcPort ?? 8080
+
+function syncToProcess() {
+  ;(process as any).__fmcServer = _server
+  ;(process as any).__fmcWorld  = _world
+  ;(process as any).__fmcPort   = _port
+}
 
 // イベントノードが world.server.on() で使う World オブジェクトをシングルトンで保持する。
 // socket-be の World は Flyde の socket.io IPC でシリアライズできないため、
 // Flyde ピン経由では渡さず、この関数経由で取得する。
-export function getCurrentWorld(): World | null { return _world }
+// Flyde が各ノードを別モジュールインスタンスでロードする場合に備え、
+// _world が null なら process.__fmcWorld を遅延チェックする。
+export function getCurrentWorld(): World | null {
+  if (!_world) _world = (process as any).__fmcWorld ?? null
+  return _world
+}
 
 // PID ファイルのパス（ポートごとに分ける）
 function pidFilePath(port: number) {
@@ -48,12 +61,14 @@ function deletePidFile(port: number): void {
 // 同一プロセスで複数インスタンスが起動しないようにシングルトンで管理する
 // onError: EADDRINUSE などの非同期エラーを呼び出し元に通知するコールバック
 export function getServer(port: number = 8080, onError?: (msg: string) => void): Server {
+  if (!_server) _server = (process as any).__fmcServer ?? null  // 別インスタンスが起動済みなら復元
   if (!_server) {
     dbg(`getServer(${port}) called - creating new server (PID=${process.pid}, connected=${process.connected})`)
     _port = port
     killPreviousProcess(port)  // 前回の自プロセスが残留していれば終了させる
     writePidFile(port)
     _server = new Server({ port, disableEncryption: true, webSocketOptions: { host: '0.0.0.0' } })
+    syncToProcess()
     dbg(`Server instance created`)
 
     // サーバーが実際に listen 開始したことを確認するログ
@@ -67,10 +82,12 @@ export function getServer(port: number = 8080, onError?: (msg: string) => void):
     // WorldAdd で _world をセットしてから connection.ts の handler が ワールド.next(true) を流す
     _server.on(ServerEvent.WorldAdd, (signal: any) => {
       _world = signal.world
+      syncToProcess()
       dbg(`WorldAdd fired! world=${typeof signal?.world}`)
     })
     _server.on(ServerEvent.WorldRemove, (signal: any) => {
       _world = null
+      syncToProcess()
       dbg(`WorldRemove fired! code=${signal?.code}`)
     })
 
@@ -83,6 +100,7 @@ export function getServer(port: number = 8080, onError?: (msg: string) => void):
         diagLog('WARN',  'flyde-mc',  `WSS error: ${err.message}`)
         diagLog('ERROR', 'socketbe', `❌ サーバーエラー: ${err.message}`)
         _server = null
+        syncToProcess()
         onError?.(err.message)
       })
       wss.on('connection', (ws: any) => {
@@ -123,6 +141,7 @@ export async function stopServer(): Promise<void> {
   const s = _server
   _server = null
   _world = null
+  syncToProcess()
   deletePidFile(_port)
   try {
     await s.stop()
@@ -132,15 +151,17 @@ export async function stopServer(): Promise<void> {
   }
 }
 
-// Flyde が別プロセスでフローを実行する場合、プロセス終了時にもポートを解放する
-process.once('SIGTERM', () => { diagLog('INFO', 'flyde-mc', 'SIGTERM received'); stopServer().finally(() => process.exit(0)) })
-process.once('SIGINT',  () => { diagLog('INFO', 'flyde-mc', 'SIGINT received');  stopServer().finally(() => process.exit(0)) })
-
-// タブを閉じると fork() の IPC チャンネルが切断され disconnect イベントが発火する。
-// SIGTERM が来ない場合でもここでポートを解放してプロセスを終了する。
-process.once('disconnect', () => { diagLog('INFO', 'flyde-mc', 'disconnect event fired!'); stopServer().finally(() => process.exit(0)) })
-
-// 未キャッチ例外を diagLog に記録（console は Flyde 環境では見えない）
-process.on('uncaughtException', (err: Error) => {
-  diagLog('ERROR', 'flyde-mc', `UNCAUGHT EXCEPTION: ${err.message}\n${err.stack}`)
-})
+// Flyde がフロー再起動時にモジュールキャッシュをクリアして再 require することがある。
+// process オブジェクト自体にフラグを持たせ、同一プロセスで重複登録を防ぐ。
+if (!(process as any).__fmcSignalHandlersRegistered) {
+  ;(process as any).__fmcSignalHandlersRegistered = true
+  process.once('SIGTERM', () => { diagLog('INFO', 'flyde-mc', 'SIGTERM received'); stopServer().finally(() => process.exit(0)) })
+  process.once('SIGINT',  () => { diagLog('INFO', 'flyde-mc', 'SIGINT received');  stopServer().finally(() => process.exit(0)) })
+  // タブを閉じると fork() の IPC チャンネルが切断され disconnect イベントが発火する。
+  // SIGTERM が来ない場合でもここでポートを解放してプロセスを終了する。
+  process.once('disconnect', () => { diagLog('INFO', 'flyde-mc', 'disconnect event fired!'); stopServer().finally(() => process.exit(0)) })
+  // 未キャッチ例外を diagLog に記録（console は Flyde 環境では見えない）
+  process.on('uncaughtException', (err: Error) => {
+    diagLog('ERROR', 'flyde-mc', `UNCAUGHT EXCEPTION: ${err.message}\n${err.stack}`)
+  })
+}

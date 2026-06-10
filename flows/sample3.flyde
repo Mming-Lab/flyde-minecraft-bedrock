@@ -89,40 +89,6 @@ node:
         type: file
         data: ../dist/index.flyde.js
     - pos:
-        x: 399.14076232910156
-        y: -332.34332275390625
-      id: 素手-fallback
-      inputConfig: {}
-      displayName: nullを素手に変換
-      nodeId: CodeExpression
-      config:
-        code:
-          type: string
-          value: inputs.n || '素手'
-        value: "`素手`"
-      type: code
-      source:
-        type: package
-        data: "@flyde/nodes"
-    - pos:
-        x: 831.3511612415314
-        y: -761.4886474609375
-      id: say-cmd
-      inputConfig: {}
-      displayName: 情報表示コマンド実行
-      nodeId: RunCommand
-      config:
-        トリガー:
-          type: boolean
-          value: true
-        コマンド:
-          type: string
-          value: say {{座標}}にいる{{名前}}が{{アイテム}}を使って{{ブロック名称}}を壊した！
-      type: code
-      source:
-        type: file
-        data: ../dist/index.flyde.js
-    - pos:
         x: 221.98749542236328
         y: -301.4399719238281
       id: MinecraftDisconnect-k27f1ltq
@@ -135,7 +101,7 @@ node:
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
         x: -183.69036865234375
         y: -311.7691345214844
@@ -149,7 +115,7 @@ node:
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
         x: 27.03631591796875
         y: -301.6679992675781
@@ -171,8 +137,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 250.55505239963531
-        y: -801.8072357177734
+        x: 300.39626944065094
+        y: -818.1798553466797
       id: ToJa-obal288i
       inputConfig: {}
       nodeId: ToJa
@@ -182,14 +148,14 @@ node:
           value: "{{値}}"
         種別:
           type: select
-          value: ブロック
+          value: block
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
         x: 479.11414206027985
-        y: -463.7156219482422
+        y: -464.7156219482422
       id: ToJa-ptlyzslx
       inputConfig: {}
       nodeId: ToJa
@@ -199,11 +165,11 @@ node:
           value: "{{値}}"
         種別:
           type: select
-          value: ブロック
+          value: item
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
         x: 60.090405657028896
         y: -711.7228317822551
@@ -223,7 +189,7 @@ node:
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
         x: 269.4253364801407
         y: -655.8452911376953
@@ -243,18 +209,17 @@ node:
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
     - pos:
-        x: 497.75901567935944
-        y: -654.3303985595703
-      id: Vector3Op-nk9lsam0
+        x: 524.9276863336563
+        y: -657.0142974853516
+      id: Vector3Op-ljellzgl
       inputConfig: {}
-      displayName: 座標切捨
       nodeId: Vector3Op
       config:
         演算:
           type: select
-          value: 切り捨て
+          value: floor
         x:
           type: number
           value: 0
@@ -285,7 +250,38 @@ node:
       type: code
       source:
         type: file
-        data: ..\_nodes\index.flyde.ts
+        data: ../dist/index.flyde.js
+    - pos:
+        x: 380.4899113923853
+        y: -341.94224557403544
+      id: InlineValue-t5kbuqfm
+      inputConfig: {}
+      nodeId: InlineValue
+      config:
+        value:
+          type: string
+          value: 素手
+      type: code
+      source:
+        type: package
+        data: "@flyde/nodes"
+    - pos:
+        x: 776.2252146791379
+        y: -591.1279449462891
+      id: RunCommand-lm4ku4jl
+      inputConfig: {}
+      nodeId: RunCommand
+      config:
+        トリガー:
+          type: string
+          value: ""
+        コマンド:
+          type: string
+          value: say {{座標}}にいる{{名前}}が{{アイテム}}を使って{{ブロック名称}}を壊した！
+      type: code
+      source:
+        type: file
+        data: ..\_nodes\index.free.flyde.ts
   connections:
     - from:
         insId: mc-connect
@@ -293,12 +289,6 @@ node:
       to:
         insId: block-broken
         pinId: ワールド
-    - from:
-        insId: 素手-fallback
-        pinId: value
-      to:
-        insId: say-cmd
-        pinId: アイテム
     - from:
         insId: Conditional-vjg3r1f2
         pinId: "true"
@@ -318,24 +308,6 @@ node:
         insId: OnPlayerChat-w2pinzqg
         pinId: ワールド
     - from:
-        insId: item-null-check
-        pinId: "false"
-      to:
-        insId: 素手-fallback
-        pinId: __trigger
-    - from:
-        insId: ToJa-obal288i
-        pinId: 日本語名
-      to:
-        insId: say-cmd
-        pinId: ブロック名称
-    - from:
-        insId: ToJa-ptlyzslx
-        pinId: 日本語名
-      to:
-        insId: say-cmd
-        pinId: アイテム
-    - from:
         insId: get-block-id
         pinId: ブロックID
       to:
@@ -347,24 +319,6 @@ node:
       to:
         insId: ToJa-ptlyzslx
         pinId: 値
-    - from:
-        insId: GetFromPlayerSnapshot-tmly7kvv
-        pinId: 名前
-      to:
-        insId: say-cmd
-        pinId: 名前
-    - from:
-        insId: Vector3Op-nk9lsam0
-        pinId: 座標
-      to:
-        insId: say-cmd
-        pinId: 座標
-    - from:
-        insId: GetFromEntity-x5uk8cb1
-        pinId: 座標
-      to:
-        insId: Vector3Op-nk9lsam0
-        pinId: __trigger
     - from:
         insId: block-broken
         pinId: ﾌﾞﾛｯｸ
@@ -395,6 +349,48 @@ node:
       to:
         insId: get-item-id
         pinId: ｱｲﾃﾑ
+    - from:
+        insId: GetFromEntity-x5uk8cb1
+        pinId: 座標
+      to:
+        insId: Vector3Op-ljellzgl
+        pinId: 座標
+    - from:
+        insId: item-null-check
+        pinId: "false"
+      to:
+        insId: InlineValue-t5kbuqfm
+        pinId: __trigger
+    - from:
+        insId: Vector3Op-ljellzgl
+        pinId: 座標
+      to:
+        insId: RunCommand-lm4ku4jl
+        pinId: 座標
+    - from:
+        insId: GetFromPlayerSnapshot-tmly7kvv
+        pinId: 名前
+      to:
+        insId: RunCommand-lm4ku4jl
+        pinId: 名前
+    - from:
+        insId: ToJa-obal288i
+        pinId: 日本語名
+      to:
+        insId: RunCommand-lm4ku4jl
+        pinId: ブロック名称
+    - from:
+        insId: ToJa-ptlyzslx
+        pinId: 日本語名
+      to:
+        insId: RunCommand-lm4ku4jl
+        pinId: アイテム
+    - from:
+        insId: InlineValue-t5kbuqfm
+        pinId: value
+      to:
+        insId: RunCommand-lm4ku4jl
+        pinId: アイテム
   id: BlockBreakInfoFlow
   inputs: {}
   outputs: {}

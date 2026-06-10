@@ -8,10 +8,13 @@ const dbg = (msg: string) => diagLog('DEBUG', 'flyde-mc',    msg)
 
 const STYLE = { color: '#5C5C5C' }
 
-process.on('unhandledRejection', (reason: unknown) => {
-  if (String(reason).includes('fetch')) return
-  console.error('\n[Error]', reason, '\n')
-})
+if (!(process as any).__fmcRejectionHandlerRegistered) {
+  ;(process as any).__fmcRejectionHandlerRegistered = true
+  process.on('unhandledRejection', (reason: unknown) => {
+    if (String(reason).includes('fetch')) return
+    console.error('\n[Error]', reason, '\n')
+  })
+}
 
 let _mcConnectRunning = false
 
