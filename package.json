@@ -1,22 +1,23 @@
 {
   "name": "flyde-minecraft-bedrock-ws",
   "version": "1.0.0",
-  "description": "Flyde nodes for Minecraft Bedrock / Education Edition via WebSocket",
-  "main": "./_nodes/index.flyde.ts",
+  "description": "Flyde nodes for Minecraft Bedrock / Education Edition via WebSocket (Free version)",
+  "main": "./dist/index.free.flyde.js",
   "exports": {
-    ".": "./_nodes/index.flyde.ts"
+    ".": "./dist/index.free.flyde.js"
   },
   "flyde": {
     "exposes": [
-      "_nodes/index.flyde.ts"
+      "dist/index.free.flyde.js"
     ]
   },
   "files": [
-    "_nodes/"
+    "dist/index.free.flyde.js"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "node scripts/build.js",
+    "build:full": "node scripts/build.js --full",
     "generate-maps": "cd scripts && npx ts-node --project tsconfig.json generate-maps.ts",
     "lang:ja": "node scripts/set-lang.js ja_JP",
     "lang:en": "node scripts/set-lang.js en_US",
@@ -48,10 +49,10 @@
     "education",
     "socket-be"
   ],
-  "license": "MIT",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yutari-club/mc-flow-template"
+    "url": "https://github.com/mming-Lab/flyde-minecraft-bedrock-ws"
   },
   "allowScripts": {
     "esbuild@0.25.12": true

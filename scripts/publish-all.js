@@ -115,6 +115,9 @@ function createZip(localeSlug, nameSuffix, version) {
     // mc-flow.config.json (INFO level for distribution)
     archive.append(JSON.stringify({ logLevel: 'INFO' }, null, 2) + '\n', { name: `${DIR}/mc-flow.config.json` })
 
+    // LICENSE-COMMERCIAL.md
+    archive.file(path.join(ROOT, 'LICENSE-COMMERCIAL.md'), { name: `${DIR}/LICENSE.md` })
+
     archive.finalize()
   })
 }
@@ -150,7 +153,7 @@ async function main() {
       pkg.main    = `./${FREE_ENTRY}`
       pkg.exports = { '.': `./${FREE_ENTRY}` }
       pkg.flyde   = { exposes: [FREE_ENTRY] }
-      pkg.files   = ['dist/']
+      pkg.files   = ['dist/index.free.flyde.js']
       fs.writeFileSync(PKG_PATH, JSON.stringify(pkg, null, 2) + '\n', 'utf8')
 
       try {
