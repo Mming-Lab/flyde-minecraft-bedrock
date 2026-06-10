@@ -7,7 +7,7 @@ type LogLevel = keyof typeof LEVELS
 
 function loadLogLevel(): LogLevel {
   try {
-    const config = JSON.parse(readFileSync(join(process.cwd(), 'mc-flow.config.json'), 'utf8'))
+    const config = JSON.parse(readFileSync(join(process.cwd(), 'flyde-mc.config.json'), 'utf8'))
     if (config.logLevel in LEVELS) return config.logLevel as LogLevel
   } catch {}
   return 'INFO'
@@ -21,7 +21,7 @@ mkdirSync(logsDir, { recursive: true })
 function makeLogFileName(): string {
   const now = new Date()
   const stamp = now.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-')
-  return join(logsDir, `mc-flow-${stamp}_1.log`)
+  return join(logsDir, `flyde-mc-${stamp}_1.log`)
 }
 
 const LOG_FILE = makeLogFileName()

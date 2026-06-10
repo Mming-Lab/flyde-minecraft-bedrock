@@ -5,7 +5,7 @@ import { Server, ServerEvent, type World } from 'socket-be'
 import { diagLog } from './diag'
 
 const log = (msg: string) => diagLog('INFO',  'socketbe', msg)
-const dbg = (msg: string) => diagLog('DEBUG', 'mc-flow',  msg)
+const dbg = (msg: string) => diagLog('DEBUG', 'flyde-mc',  msg)
 
 let _server: Server | null = null
 let _world: World | null = null
@@ -18,7 +18,7 @@ export function getCurrentWorld(): World | null { return _world }
 
 // PID ファイルのパス（ポートごとに分ける）
 function pidFilePath(port: number) {
-  return join(tmpdir(), `mc-flow-${port}.pid`)
+  return join(tmpdir(), `flyde-mc-${port}.pid`)
 }
 
 // 前回の自プロセスを PID ファイル経由で終了させる（他アプリには触れない）
@@ -29,7 +29,7 @@ function killPreviousProcess(port: number): void {
     const pid = parseInt(readFileSync(file, 'utf8').trim(), 10)
     if (pid > 0 && pid !== process.pid) {
       process.kill(pid)
-      log(`⚠️ 前回の mc-flow プロセス (PID: ${pid}) を終了しました`)
+      log(`⚠️ 前回の flyde-mc プロセス (PID: ${pid}) を終了しました`)
     }
   } catch {
     // プロセスが既に終了済みなら無視
@@ -80,7 +80,7 @@ export function getServer(port: number = 8080, onError?: (msg: string) => void):
     dbg(`network.wss available: ${!!wss}`)
     if (wss?.on) {
       wss.on('error', (err: Error) => {
-        diagLog('WARN',  'mc-flow',  `WSS error: ${err.message}`)
+        diagLog('WARN',  'flyde-mc',  `WSS error: ${err.message}`)
         diagLog('ERROR', 'socketbe', `❌ サーバーエラー: ${err.message}`)
         _server = null
         onError?.(err.message)
@@ -91,7 +91,7 @@ export function getServer(port: number = 8080, onError?: (msg: string) => void):
           dbg(`WSS: WebSocket closed code=${code} reason=${reason?.toString()}`)
         })
         ws.once('error', (err: Error) => {
-          diagLog('WARN', 'mc-flow', `WSS: WebSocket error: ${err.message}`)
+          diagLog('WARN', 'flyde-mc', `WSS: WebSocket error: ${err.message}`)
         })
         // Minecraft から最初の数メッセージを記録（EncryptionRequired 等の検出用）
         let msgCount = 0
@@ -133,14 +133,14 @@ export async function stopServer(): Promise<void> {
 }
 
 // Flyde が別プロセスでフローを実行する場合、プロセス終了時にもポートを解放する
-process.once('SIGTERM', () => { diagLog('INFO', 'mc-flow', 'SIGTERM received'); stopServer().finally(() => process.exit(0)) })
-process.once('SIGINT',  () => { diagLog('INFO', 'mc-flow', 'SIGINT received');  stopServer().finally(() => process.exit(0)) })
+process.once('SIGTERM', () => { diagLog('INFO', 'flyde-mc', 'SIGTERM received'); stopServer().finally(() => process.exit(0)) })
+process.once('SIGINT',  () => { diagLog('INFO', 'flyde-mc', 'SIGINT received');  stopServer().finally(() => process.exit(0)) })
 
 // タブを閉じると fork() の IPC チャンネルが切断され disconnect イベントが発火する。
 // SIGTERM が来ない場合でもここでポートを解放してプロセスを終了する。
-process.once('disconnect', () => { diagLog('INFO', 'mc-flow', 'disconnect event fired!'); stopServer().finally(() => process.exit(0)) })
+process.once('disconnect', () => { diagLog('INFO', 'flyde-mc', 'disconnect event fired!'); stopServer().finally(() => process.exit(0)) })
 
 // 未キャッチ例外を diagLog に記録（console は Flyde 環境では見えない）
 process.on('uncaughtException', (err: Error) => {
-  diagLog('ERROR', 'mc-flow', `UNCAUGHT EXCEPTION: ${err.message}\n${err.stack}`)
+  diagLog('ERROR', 'flyde-mc', `UNCAUGHT EXCEPTION: ${err.message}\n${err.stack}`)
 })

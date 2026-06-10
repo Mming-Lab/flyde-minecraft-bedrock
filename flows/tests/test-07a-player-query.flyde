@@ -1,0 +1,267 @@
+imports: {}
+node:
+  instances:
+    - pos:
+        x: 50
+        y: 100
+      id: mc-connect
+      inputConfig: {}
+      nodeId: MinecraftConnect
+      config:
+        ポート:
+          type: dynamic
+          value: "{{ポート}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 100
+      id: on-chat
+      inputConfig: {}
+      nodeId: OnPlayerChat
+      config:
+        ワールド:
+          type: dynamic
+          value: "{{ワールド}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 300
+      id: get-local-player
+      inputConfig: {}
+      nodeId: GetLocalPlayer
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 300
+      id: get-from-player
+      inputConfig: {}
+      nodeId: GetFromPlayerSnapshot
+      config:
+        ﾌﾟﾚｲﾔｰ:
+          type: dynamic
+          value: "{{ﾌﾟﾚｲﾔｰ}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 650
+        y: 300
+      id: assert-071
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-071
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        期待値:
+          type: dynamic
+          value: "{{期待値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 500
+      id: get-location
+      inputConfig: {}
+      nodeId: GetPlayerLocation
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 500
+      id: vec-split
+      inputConfig: {}
+      nodeId: Vector3Split
+      config:
+        座標:
+          type: dynamic
+          value: "{{座標}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 650
+        y: 500
+      id: assert-072
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: number
+          value: -64
+        比較:
+          type: select
+          value: gte
+        ID:
+          type: string
+          value: TC-072
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 700
+      id: get-level
+      inputConfig: {}
+      nodeId: GetPlayerLevel
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 700
+      id: assert-079
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: number
+          value: 0
+        比較:
+          type: select
+          value: gte
+        ID:
+          type: string
+          value: TC-079
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 900
+      id: disconnect
+      inputConfig: {}
+      nodeId: MinecraftDisconnect
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+  connections:
+    - from:
+        insId: mc-connect
+        pinId: ワールド
+      to:
+        insId: on-chat
+        pinId: ワールド
+    - from:
+        insId: on-chat
+        pinId: 送信者名
+      to:
+        insId: get-local-player
+        pinId: トリガー
+    - from:
+        insId: on-chat
+        pinId: 送信者名
+      to:
+        insId: assert-071
+        pinId: 期待値
+    - from:
+        insId: get-local-player
+        pinId: プレイヤー
+      to:
+        insId: get-from-player
+        pinId: ﾌﾟﾚｲﾔｰ
+    - from:
+        insId: get-from-player
+        pinId: 名前
+      to:
+        insId: assert-071
+        pinId: 実際値
+    - from:
+        insId: assert-071
+        pinId: 完了
+      to:
+        insId: get-location
+        pinId: トリガー
+    - from:
+        insId: get-location
+        pinId: 座標
+      to:
+        insId: vec-split
+        pinId: 座標
+    - from:
+        insId: vec-split
+        pinId: y
+      to:
+        insId: assert-072
+        pinId: 実際値
+    - from:
+        insId: assert-072
+        pinId: 完了
+      to:
+        insId: get-level
+        pinId: トリガー
+    - from:
+        insId: get-level
+        pinId: レベル
+      to:
+        insId: assert-079
+        pinId: 実際値
+    - from:
+        insId: assert-079
+        pinId: 完了
+      to:
+        insId: disconnect
+        pinId: トリガー
+  id: TestPlayer
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}
+  completionOutputs: []
+  description: プレイヤークエリノードテスト（TC-071/072/079）チャット送信1回で自動実行

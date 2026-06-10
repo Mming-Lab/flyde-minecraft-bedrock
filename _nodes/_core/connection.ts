@@ -4,7 +4,7 @@ import { getServer, stopServer } from '../ws-server'
 import { diagLog } from '../diag'
 
 const log = (msg: string) => diagLog('INFO',  'connection', msg)
-const dbg = (msg: string) => diagLog('DEBUG', 'mc-flow',    msg)
+const dbg = (msg: string) => diagLog('DEBUG', 'flyde-mc',    msg)
 
 const STYLE = { color: '#5C5C5C' }
 
@@ -38,7 +38,7 @@ export const MinecraftConnect: CodeNode = {
     return new Promise<void>((resolve) => {
       try {
         const p = port ?? 8080
-        const server = getServer(p, (msg) => { diagLog('WARN', 'mc-flow', `onError callback: ${msg}`); error.next(msg) })
+        const server = getServer(p, (msg) => { diagLog('WARN', 'flyde-mc', `onError callback: ${msg}`); error.next(msg) })
         dbg(`getServer returned, registering WorldAdd handler`)
         log(`Enter in Minecraft: /connect localhost:${p}`)
         const handler = (signal: any) => {

@@ -1,4 +1,4 @@
-# mc-flow Full Version — Commercial License
+# flyde-minecraft-bedrock Full Version — Commercial License
 
 Copyright (c) 2024 Mming Lab (https://github.com/mming-Lab)
 

@@ -1,0 +1,340 @@
+imports: {}
+node:
+  instances:
+    - pos:
+        x: 50
+        y: 100
+      id: mc-connect
+      inputConfig: {}
+      nodeId: MinecraftConnect
+      config:
+        ポート:
+          type: dynamic
+          value: "{{ポート}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 100
+      id: on-chat
+      inputConfig: {}
+      nodeId: OnPlayerChat
+      config:
+        ワールド:
+          type: dynamic
+          value: "{{ワールド}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 300
+      id: give-item
+      inputConfig: {}
+      nodeId: GiveItem
+      config:
+        アイテムID:
+          type: string
+          value: minecraft:apple
+        個数:
+          type: number
+          value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 300
+      id: assert-076
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: boolean
+          value: true
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-076
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 500
+      id: add-level
+      inputConfig: {}
+      nodeId: AddPlayerLevel
+      config:
+        レベル:
+          type: number
+          value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 500
+      id: assert-080
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: boolean
+          value: true
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-080
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 700
+      id: set-title
+      inputConfig: {}
+      nodeId: SetTitle
+      config:
+        タイトル:
+          type: string
+          value: テスト
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 700
+      id: assert-084
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: boolean
+          value: true
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-084
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 900
+      id: set-action-bar
+      inputConfig: {}
+      nodeId: SetActionBar
+      config:
+        テキスト:
+          type: string
+          value: ACTIONテスト
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 900
+      id: assert-085
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: boolean
+          value: true
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-085
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 50
+        y: 1100
+      id: clear-title
+      inputConfig: {}
+      nodeId: ClearTitle
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 1100
+      id: assert-086
+      inputConfig: {}
+      nodeId: Assert
+      config:
+        期待値:
+          type: boolean
+          value: true
+        比較:
+          type: select
+          value: eq
+        ID:
+          type: string
+          value: TC-086
+        実際値:
+          type: dynamic
+          value: "{{実際値}}"
+        許容差:
+          type: number
+          value: 0.001
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+    - pos:
+        x: 350
+        y: 1300
+      id: disconnect
+      inputConfig: {}
+      nodeId: MinecraftDisconnect
+      config:
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
+      type: code
+      source:
+        type: file
+        data: ../../dist/index.flyde.js
+  connections:
+    - from:
+        insId: mc-connect
+        pinId: ワールド
+      to:
+        insId: on-chat
+        pinId: ワールド
+    - from:
+        insId: on-chat
+        pinId: 送信者名
+      to:
+        insId: give-item
+        pinId: トリガー
+    - from:
+        insId: give-item
+        pinId: 完了
+      to:
+        insId: assert-076
+        pinId: 実際値
+    - from:
+        insId: assert-076
+        pinId: 完了
+      to:
+        insId: add-level
+        pinId: トリガー
+    - from:
+        insId: add-level
+        pinId: 完了
+      to:
+        insId: assert-080
+        pinId: 実際値
+    - from:
+        insId: assert-080
+        pinId: 完了
+      to:
+        insId: set-title
+        pinId: トリガー
+    - from:
+        insId: set-title
+        pinId: 完了
+      to:
+        insId: assert-084
+        pinId: 実際値
+    - from:
+        insId: assert-084
+        pinId: 完了
+      to:
+        insId: set-action-bar
+        pinId: トリガー
+    - from:
+        insId: set-action-bar
+        pinId: 完了
+      to:
+        insId: assert-085
+        pinId: 実際値
+    - from:
+        insId: assert-085
+        pinId: 完了
+      to:
+        insId: clear-title
+        pinId: トリガー
+    - from:
+        insId: clear-title
+        pinId: 完了
+      to:
+        insId: assert-086
+        pinId: 実際値
+    - from:
+        insId: assert-086
+        pinId: 完了
+      to:
+        insId: disconnect
+        pinId: トリガー
+  id: TestPlayerActions
+  inputs: {}
+  outputs: {}
+  inputsPosition: {}
+  outputsPosition: {}
+  completionOutputs: []
+  description: プレイヤーアクションノードテスト（TC-076/080/084/085/086）チャット送信1回で自動実行

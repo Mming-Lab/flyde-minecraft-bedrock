@@ -5,7 +5,7 @@ node:
     - id: vec3op-add
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: add}
@@ -15,7 +15,7 @@ node:
     - id: assert-111
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 5, y: 7, z: 9}}
@@ -27,7 +27,7 @@ node:
     - id: vec3op-sub
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: subtract}
@@ -37,7 +37,7 @@ node:
     - id: assert-112
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 4, y: 5, z: 6}}
@@ -49,7 +49,7 @@ node:
     - id: vec3op-scale
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: scale}
@@ -59,7 +59,7 @@ node:
     - id: assert-113
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 6, y: 12, z: 18}}
@@ -71,7 +71,7 @@ node:
     - id: vec3op-assemble
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: assemble}
@@ -82,7 +82,7 @@ node:
     - id: assert-114
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 10, y: 20, z: 30}}
@@ -94,7 +94,7 @@ node:
     - id: vec3op-floor
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: floor}
@@ -103,7 +103,7 @@ node:
     - id: assert-115
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 1, y: 2, z: 3}}
@@ -115,7 +115,7 @@ node:
     - id: vec3op-filly
       type: code
       nodeId: Vector3Op
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         演算: {type: select, value: fill_y}
@@ -125,7 +125,7 @@ node:
     - id: assert-116
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 5, y: 64, z: 10}}
@@ -137,7 +137,7 @@ node:
     - id: vec3dist
       type: code
       nodeId: Vector3Distance
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標A: {type: json, value: {x: 0, y: 0, z: 0}}
@@ -146,7 +146,7 @@ node:
     - id: assert-117
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 5}
@@ -158,7 +158,7 @@ node:
     - id: vec3tostr
       type: code
       nodeId: Vector3ToString
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標: {type: json, value: {x: 1, y: 64, z: -3}}
@@ -166,7 +166,7 @@ node:
     - id: assert-118
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: string, value: "1 64 -3"}
@@ -178,7 +178,7 @@ node:
     - id: vec3split
       type: code
       nodeId: Vector3Split
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標: {type: json, value: {x: 10, y: 20, z: 30}}
@@ -186,7 +186,7 @@ node:
     - id: assert-119x
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 10}
@@ -196,7 +196,7 @@ node:
     - id: assert-119y
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 20}
@@ -206,7 +206,7 @@ node:
     - id: assert-119z
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 30}
@@ -218,7 +218,7 @@ node:
     - id: clamp-hi
       type: code
       nodeId: ClampNumber
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         値: {type: number, value: 150}
@@ -228,7 +228,7 @@ node:
     - id: assert-120a
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 100}
@@ -240,7 +240,7 @@ node:
     - id: clamp-lo
       type: code
       nodeId: ClampNumber
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         値: {type: number, value: -10}
@@ -250,7 +250,7 @@ node:
     - id: assert-120b
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 0}
@@ -262,7 +262,7 @@ node:
     - id: clamp-in
       type: code
       nodeId: ClampNumber
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         値: {type: number, value: 50}
@@ -272,7 +272,7 @@ node:
     - id: assert-120c
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 50}
@@ -284,7 +284,7 @@ node:
     - id: aabb-create
       type: code
       nodeId: AABBCreate
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         角座標A: {type: json, value: {x: 0, y: 0, z: 0}}
@@ -293,7 +293,7 @@ node:
     - id: assert-121
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値:
@@ -309,7 +309,7 @@ node:
     - id: aabb-in-yes
       type: code
       nodeId: AABBIsInside
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         エリア:
@@ -322,7 +322,7 @@ node:
     - id: assert-122a
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: boolean, value: true}
@@ -334,7 +334,7 @@ node:
     - id: aabb-in-no
       type: code
       nodeId: AABBIsInside
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         エリア:
@@ -347,7 +347,7 @@ node:
     - id: assert-122b
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: boolean, value: false}
@@ -359,7 +359,7 @@ node:
     - id: aabb-translate
       type: code
       nodeId: AABBTranslate
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         エリア:
@@ -372,7 +372,7 @@ node:
     - id: assert-123
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値:
@@ -388,7 +388,7 @@ node:
     - id: aabb-int-yes
       type: code
       nodeId: AABBIntersects
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         エリアA:
@@ -405,7 +405,7 @@ node:
     - id: assert-124a
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: boolean, value: true}
@@ -417,7 +417,7 @@ node:
     - id: aabb-int-no
       type: code
       nodeId: AABBIntersects
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         エリアA:
@@ -434,7 +434,7 @@ node:
     - id: assert-124b
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: boolean, value: false}
@@ -446,7 +446,7 @@ node:
     - id: vec3lerp
       type: code
       nodeId: Vector3Lerp
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標A: {type: json, value: {x: 0, y: 0, z: 0}}
@@ -456,7 +456,7 @@ node:
     - id: assert-125
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 5, y: 0, z: 0}}
@@ -468,7 +468,7 @@ node:
     - id: vec3norm
       type: code
       nodeId: Vector3Normalize
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標: {type: json, value: {x: 3, y: 0, z: 0}}
@@ -476,7 +476,7 @@ node:
     - id: assert-126
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: json, value: {x: 1, y: 0, z: 0}}
@@ -488,7 +488,7 @@ node:
     - id: vec3dot-ortho
       type: code
       nodeId: Vector3Dot
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標A: {type: json, value: {x: 1, y: 0, z: 0}}
@@ -497,7 +497,7 @@ node:
     - id: assert-127a
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 0}
@@ -509,7 +509,7 @@ node:
     - id: vec3dot-para
       type: code
       nodeId: Vector3Dot
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         座標A: {type: json, value: {x: 1, y: 0, z: 0}}
@@ -518,7 +518,7 @@ node:
     - id: assert-127b
       type: code
       nodeId: Assert
-      source: {type: file, data: "../../_nodes/index.flyde.ts"}
+      source: {type: file, data: "../../dist/index.flyde.js"}
       inputConfig: {}
       config:
         期待値: {type: number, value: 1}

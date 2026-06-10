@@ -12,21 +12,21 @@
  *   3. Build full version    → dist/index.flyde.js       → releases/*.zip
  *
  * npm packages:
- *   ja_JP → flyde-minecraft-bedrock-ws          (default, no suffix)
- *   en_US → flyde-minecraft-bedrock-ws-en-us
+ *   ja_JP → flyde-minecraft-bedrock          (default, no suffix)
+ *   en_US → flyde-minecraft-bedrock-en-us
  *
  * zip files:
- *   releases/mc-flow-full-ja-jp-v{version}.zip
- *   releases/mc-flow-full-en-us-v{version}.zip
+ *   releases/flyde-minecraft-bedrock-full-ja-jp-v{version}.zip
+ *   releases/flyde-minecraft-bedrock-full-en-us-v{version}.zip
  *
  * zip contents (complete project template, no source files):
- *   mc-flow/
+ *   flyde-minecraft-bedrock/
  *     package.json         dependencies only, flyde.exposes → dist/
  *     dist/
  *       index.flyde.js     full compiled nodes
  *     flows/
  *       *.flyde            sample flows
- *     mc-flow.config.json  default log level (INFO)
+ *     flyde-mc.config.json  default log level (INFO)
  */
 
 const fs       = require('fs')
@@ -75,14 +75,14 @@ function createZip(localeSlug, nameSuffix, version) {
   return new Promise((resolve, reject) => {
     fs.mkdirSync(RELEASES_DIR, { recursive: true })
 
-    const zipName = `mc-flow-full-${localeSlug}-v${version}.zip`
+    const zipName = `flyde-minecraft-bedrock-full-${localeSlug}-v${version}.zip`
     const zipPath = path.join(RELEASES_DIR, zipName)
-    const DIR     = 'mc-flow'  // directory name inside the zip
+    const DIR     = 'flyde-minecraft-bedrock'  // directory name inside the zip
 
     // package.json for the zip (project template, not npm package)
     const origPkg = JSON.parse(fs.readFileSync(PKG_PATH, 'utf8'))
     const zipPkg  = {
-      name        : `mc-flow${nameSuffix}`,
+      name        : `flyde-minecraft-bedrock${nameSuffix}`,
       version,
       private     : true,
       description : origPkg.description,
@@ -112,8 +112,8 @@ function createZip(localeSlug, nameSuffix, version) {
       .filter(f => f.endsWith('.flyde'))
       .forEach(f => archive.file(path.join(ROOT, 'flows', f), { name: `${DIR}/flows/${f}` }))
 
-    // mc-flow.config.json (INFO level for distribution)
-    archive.append(JSON.stringify({ logLevel: 'INFO' }, null, 2) + '\n', { name: `${DIR}/mc-flow.config.json` })
+    // flyde-mc.config.json (INFO level for distribution)
+    archive.append(JSON.stringify({ logLevel: 'INFO' }, null, 2) + '\n', { name: `${DIR}/flyde-mc.config.json` })
 
     // LICENSE-COMMERCIAL.md
     archive.file(path.join(ROOT, 'LICENSE-COMMERCIAL.md'), { name: `${DIR}/LICENSE.md` })
@@ -131,7 +131,7 @@ async function main() {
 
   console.log('Target locales:')
   langs.forEach(({ locale, localeSlug, nameSuffix }) => {
-    console.log(`  ${locale.padEnd(8)} → npm: ${baseName + nameSuffix}  /  zip: mc-flow-full-${localeSlug}-v${version}.zip`)
+    console.log(`  ${locale.padEnd(8)} → npm: ${baseName + nameSuffix}  /  zip: flyde-minecraft-bedrock-full-${localeSlug}-v${version}.zip`)
   })
   console.log()
 
