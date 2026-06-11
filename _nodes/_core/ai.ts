@@ -46,15 +46,21 @@ export const Gemini: CodeNode = {
     },
   },
   run: async ({ apiKey, model, prompt, systemInstruction, temperature }, { response }) => {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`
+    if (!apiKey) throw new Error('Gemini: apiKey が指定されていません')
+    if (!prompt)  throw new Error('Gemini: prompt が指定されていません')
+
+    const selectedModel = model ? String(model) : 'gemini-2.5-flash'
+    const tempVal = temperature != null ? Number(temperature) : 0.1
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`
     const body: any = {
       contents: [{ parts: [{ text: String(prompt) }] }],
-      generationConfig: { temperature: Number(temperature ?? 0.7) },
+      generationConfig: { temperature: tempVal },
     }
     if (systemInstruction) {
       body.systemInstruction = { parts: [{ text: String(systemInstruction) }] }
     }
-    dbg(`request: model=${model} prompt="${String(prompt).slice(0, 60)}"`)
+    dbg(`request: model=${selectedModel} prompt="${String(prompt).slice(0, 60)}"`)
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
