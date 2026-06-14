@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-15（TC-014/021/022/031/033/035/041/042/054/061/064/077/081 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
+更新日：2026-06-15（TC-014/021/022/031/033/035/041/042/054/061/064/077/081/101/102/151/153 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
 
 ---
 
@@ -254,8 +254,8 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 | ID | ノード | フロー構成 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-101 | Selector（ID 選択） | 自動テスト：Selector(block, minecraft:grass_block) → 値 = "minecraft:grass_block" を確認 | 選択したブロック ID が正しく出力される | □ |
-| TC-102 | LocaleName（ロケール名変換） | 自動テスト：LocaleName("minecraft:grass_block", block) → 日本語名 = "草ブロック" を確認 | ブロック ID が日本語名に変換される | □ |
+| TC-101 | Selector（ID 選択） | 自動テスト：Selector(block, minecraft:grass_block) → 値 = "minecraft:grass_block" を確認 | 選択したブロック ID が正しく出力される | ✓ |
+| TC-102 | LocaleName（ロケール名変換） | 自動テスト：LocaleName("minecraft:grass_block", block) → 日本語名 = "草ブロック" を確認 | ブロック ID が日本語名に変換される | ✓ |
 
 ---
 
@@ -327,9 +327,9 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 | ID | ノード | フロー構成 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-151 | AddScoreboardObjective（追加） | 自動テスト：AddScoreboardObjective("mcflowtest2") → GetFromScoreboardObjective → id = "mcflowtest2" を確認 | スコアボード目標を追加し、ID が正しく返る | □ |
+| TC-151 | AddScoreboardObjective（追加） | 自動テスト：AddScoreboardObjective("mcflowtest2") → GetFromScoreboardObjective → id = "mcflowtest2" を確認 | スコアボード目標を追加し、ID が正しく返る | ✓ |
 | TC-152 | GetScoreboardObjectives（一覧取得） | 自動テスト（test-scoreboard2.flyde）：目標追加後 GetScoreboardObjectives → 目標一覧が返る（implicit） | 例外なく一覧が取得できる | □ |
-| TC-153 | GetScoreboardObjective（単体取得） | 自動テスト：GetScoreboardObjective("mcflowtest2") → id = "mcflowtest2" を確認 | 指定IDの目標が取得できる | □ |
+| TC-153 | GetScoreboardObjective（単体取得） | 自動テスト：GetScoreboardObjective("mcflowtest2") → id = "mcflowtest2" を確認 | 指定IDの目標が取得できる | ✓ |
 | TC-154 | ScoreOperation（スコア操作） | 自動テスト（test-12a-scoreboard-ops.flyde）：set 42 → 新スコア=42（TC-SB02）、add 8 → 50（TC-SB04） | スコアの set/add が正しく動作する | ✓ |
 | TC-155 | GetScores（全スコア取得） | 自動テスト（test-12b-scoreboard-query.flyde）：スコア設定後 GetScores → スコア一覧が返る（implicit） | 例外なく一覧が取得できる | □ |
 | TC-156 | GetScore（単一取得） | 自動テスト（test-12a-scoreboard-ops.flyde）：set 42 後 GetScore → 42（TC-SB03） | スコアが正しく取得できる | ✓ |
