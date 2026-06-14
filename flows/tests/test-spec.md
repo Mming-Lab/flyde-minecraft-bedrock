@@ -133,15 +133,13 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 |---|---|---|---|---|
 | TC-011 | OnPlayerChat（チャット受信時） | MC でチャットメッセージを送信 | 送信者名・内容が MCチャットに表示される（目視確認） | □ |
 | TC-012 | OnPlayerTravelled（プレイヤー移動時） | MC でプレイヤーを歩かせる | Assert(移動距離 > 0) → ログで PASS 確認 | ✓ |
-| TC-013 | OnPlayerTeleported（テレポート時） | チャット送信（RunCommand が自動で `/tp` 実行） | Assert(テレポート原因 neq "") → ログで PASS 確認 | ✗※ |
+| TC-013 | OnPlayerTeleported（テレポート時） | チャット送信（RunCommand が自動で `/tp` 実行） | Assert(テレポート原因 neq "") → ログで PASS 確認 | ✓ |
 | TC-014 | OnPlayerBounced（バウンド時） | MC でスライムブロックの上でジャンプ | Assert(高さ >= 0) → ログで PASS 確認 | □ |
 | TC-015 | OnPlayerJoin（プレイヤー参加時） | 別のプレイヤーがワールドに参加 | プレイヤー名が MCチャットに表示される（目視確認） | □ |
 | TC-016 | OnPlayerLeave（プレイヤー退出時） | 別のプレイヤーがワールドを退出 | プレイヤー名が MCチャットに表示される（目視確認） | □ |
-| TC-017 | OnPlayerTitle（タイトル受信時） | チャット送信（RunCommand が自動で `/title` 実行） | Assert(メッセージ neq "") → ログで PASS 確認 | ✗※ |
-| TC-018 | OnPlayerMessage（メッセージ受信時） | チャット送信（RunCommand が自動で `/tell` 実行） | Assert(メッセージ neq "") → ログで PASS 確認 | ✗※ |
+| TC-017 | OnPlayerTitle（タイトル受信時） | チャット送信（RunCommand が自動で `/title` 実行） | Assert(メッセージ neq "") → ログで PASS 確認 | ✓ |
+| TC-018 | OnPlayerMessage（メッセージ受信時） | チャット送信（RunCommand が自動で `/tell` 実行） | Assert(メッセージ neq "") → ログで PASS 確認 | ✓ |
 | TC-019 | OnPlayerTransform（プレイヤー位置変化時） | MC でプレイヤーを移動させる | Assert(座標.y >= -64) → ログで PASS 確認 | ✓ |
-
-※ TC-013/017/018 は Assert ノードに `neq` 演算子が未実装だったため FAIL（2026-06-14 修正済み）。再テストで PASS 見込み。
 
 ---
 
