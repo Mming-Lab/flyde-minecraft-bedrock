@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-15（TC-014/021/022/031/033/035/041/042 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
+更新日：2026-06-15（TC-014/021/022/031/033/035/041/042/064 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
 
 ---
 
@@ -203,7 +203,7 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 | TC-059 | GetGameMode（Survival確認） | 自動テスト：RunCommand("gamemode survival") → GetGameMode = "Survival" を確認 | Survival 設定後 "Survival" が返る | ✓ |
 | TC-060 | GetTopSolidBlock（最上部ブロック取得） | 自動テスト：GetTopSolidBlock → 座標.y >= -64 を確認 | y 座標が -64 以上（有効範囲内）で返る | ✓ |
 | TC-061 | WorldQuery（ワールド情報取得） | test-06c: チャット送信 → WorldQuery(mob/block/item) × 3 種別を MCチャットに表示 | 各一覧が MCチャットに表示される（目視確認） | □ |
-| TC-064 | FillBlocks（エリア塗りつぶし） | 自動テスト：FillBlocks({0,300,0}〜{0,300,0}, air) → 個数 = 0 または 1 を確認 | fillCount が数値で返る | □ |
+| TC-064 | FillBlocks（エリア塗りつぶし） | 自動テスト：setblock(0,30,0,dirt) → FillBlocks({0,30,0}〜{0,30,0}, air) → 個数 = 1 を確認 | fillCount が数値で返る | ✓ |
 
 ---
 
