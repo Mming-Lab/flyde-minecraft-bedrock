@@ -51,7 +51,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-041 交流種別] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -158,7 +161,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-042 強さ] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file

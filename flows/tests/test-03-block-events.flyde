@@ -43,22 +43,25 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 550
-        y: 300
+        x: 557.3608818054199
+        y: 312.9578514099121
       id: say-021-method
       inputConfig: {}
       nodeId: RunCommand
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-021 破壊方法] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 300
+        x: 655.0688400268555
+        y: 142.92456245422363
       id: get-from-block-021
       inputConfig: {}
       nodeId: GetFromBlockType
@@ -132,14 +135,17 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-022 設置方法] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 600
+        x: 694.9487609863281
+        y: 499.2000427246094
       id: json-022-block
       inputConfig: {}
       nodeId: JSON Stringify
@@ -159,7 +165,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-022 ブロック] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -182,8 +191,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 950
-        y: 550
+        x: 1052.1445922851562
+        y: 579.2845458984375
       id: note-022
       inputConfig: {}
       nodeId: Note

@@ -338,7 +338,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-136 検知] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -382,7 +385,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-137 ブロックID] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -573,7 +579,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-141 アイテムID] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file

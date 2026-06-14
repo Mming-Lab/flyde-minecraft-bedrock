@@ -43,22 +43,25 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 550
-        y: 300
+        x: 565.1019649505615
+        y: 284.76285552978516
       id: say-011-sender
       inputConfig: {}
       nodeId: RunCommand
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-011 送信者名] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 300
+        x: 578.3245134353638
+        y: 426.7331008911133
       id: json-011-msg
       inputConfig: {}
       nodeId: JSON Stringify
@@ -70,15 +73,18 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 850
-        y: 300
+        x: 780.882286131382
+        y: 443.761962890625
       id: say-011-msg
       inputConfig: {}
       nodeId: RunCommand
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-011 メッセージ] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -256,7 +262,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-015 参加者名] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -297,7 +306,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-016 退出者名] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -471,8 +483,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 950
-        y: 250
+        x: 947.3550338745117
+        y: 208.76312255859375
       id: note-011
       inputConfig: {}
       nodeId: Note
@@ -522,7 +534,7 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 648
+        x: 778.6301574707031
         y: 1212
       id: note-016
       inputConfig: {}
@@ -538,8 +550,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1450
+        x: 848.4587554931641
+        y: 1438.29443359375
       id: note-017
       inputConfig: {}
       nodeId: Note
@@ -555,8 +567,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1650
+        x: 832.839111328125
+        y: 1655.115478515625
       id: note-018
       inputConfig: {}
       nodeId: Note

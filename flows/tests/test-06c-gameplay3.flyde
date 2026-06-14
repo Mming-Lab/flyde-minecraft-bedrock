@@ -91,7 +91,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-054 天気] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -153,7 +156,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-061 モブ] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -197,7 +203,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-061 ブロック] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -241,7 +250,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-061 アイテム] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file

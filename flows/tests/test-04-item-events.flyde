@@ -51,14 +51,17 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-031 使用方法] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 50
-        y: 500
+        x: 25.21966552734375
+        y: 501
       id: on-item-acquired
       inputConfig: {}
       nodeId: OnItemAcquired
@@ -226,7 +229,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-034 装備スロット] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -267,7 +273,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-035 燃料] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
@@ -300,22 +309,25 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 550
-        y: 1300
+        x: 572.8526363372803
+        y: 1255.4100341796875
       id: say-036-em
       inputConfig: {}
       nodeId: RunCommand
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-036 EM数] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 1300
+        x: 668.7346725463867
+        y: 1406.2020263671875
       id: get-from-villager-097
       inputConfig: {}
       nodeId: GetFromVillager
@@ -328,8 +340,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 950
-        y: 1300
+        x: 930.7304534912109
+        y: 1302.9197998046875
       id: json-097-name
       inputConfig: {}
       nodeId: JSON Stringify
@@ -341,22 +353,25 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 1150
-        y: 1300
+        x: 1106.2009582519531
+        y: 1256.4830322265625
       id: say-097-name
       inputConfig: {}
       nodeId: RunCommand
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-097 村人名] {{v}}"
+        トリガー:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 250
+        x: 781.6524429321289
+        y: 232.9989013671875
       id: note-031
       inputConfig: {}
       nodeId: Note
@@ -371,8 +386,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 1250
-        y: 850
+        x: 1135.0169982910156
+        y: 730.8775024414062
       id: note-034
       inputConfig: {}
       nodeId: Note
@@ -387,8 +402,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1050
+        x: 1316.9544105529785
+        y: 957.3600463867188
       id: note-035
       inputConfig: {}
       nodeId: Note
@@ -403,8 +418,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1250
+        x: 1330.178565979004
+        y: 1221.770263671875
       id: note-036
       inputConfig: {}
       nodeId: Note

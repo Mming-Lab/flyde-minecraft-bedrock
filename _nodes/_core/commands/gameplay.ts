@@ -10,7 +10,7 @@ export const RunCommand: CodeNode = {
   icon: 'play',
   defaultStyle: STYLE,
   inputs: {
-    trigger:  { description: 'Trigger (optional)' },
+    trigger:  { description: 'Trigger (optional)', defaultValue: true },
     command:  { description: 'Minecraft command to run (without /)' },
   },
   outputs: {

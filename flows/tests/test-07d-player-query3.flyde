@@ -65,7 +65,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-077 タグ一覧] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
@@ -106,7 +109,10 @@ node:
       config:
         コマンド:
           type: string
-          value: "say {{v}}"
+          value: "say [TC-081 アビリティ] {{v}}"
+        トリガー:
+          type: boolean
+          value: true
       type: code
       source:
         type: file
