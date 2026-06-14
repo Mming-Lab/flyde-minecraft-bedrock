@@ -18,13 +18,16 @@ const currentLevel = LEVELS[loadLogLevel()]
 const logsDir = join(process.cwd(), 'logs')
 mkdirSync(logsDir, { recursive: true })
 
-function makeLogFileName(): string {
-  const now = new Date()
-  const stamp = now.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-')
-  return join(logsDir, `flyde-mc-${stamp}_1.log`)
-}
-
-const LOG_FILE = makeLogFileName()
+// モジュールが複数インスタンスでロードされても同一ファイルに書き続けるよう
+// セッション開始時のファイルパスを process に退避して共有する
+const LOG_FILE: string = (() => {
+  if (!(process as any).__fmcLogFile) {
+    const now = new Date()
+    const stamp = now.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-')
+    ;(process as any).__fmcLogFile = join(logsDir, `flyde-mc-${stamp}_1.log`)
+  }
+  return (process as any).__fmcLogFile
+})()
 
 export function diagLog(level: LogLevel, prefix: string, msg: string): void {
   if (LEVELS[level] < currentLevel) return

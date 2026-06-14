@@ -1,6 +1,5 @@
 import { CodeNode } from '@flyde/core'
 import { getCurrentContext } from '../../context-manager'
-import { getCurrentWorld } from '../../ws-server'
 
 const STYLE = { color: '#8F6D40' }
 
@@ -261,8 +260,8 @@ export const BroadcastCommand: CodeNode = {
   },
   outputs: { done: { description: 'Emits true when broadcast completes' } },
   run: async ({ command }, { done }) => {
-    const world = getCurrentWorld()!
-    await world.server.broadcastCommand(String(command))
+    const { world } = getCurrentContext()
+    await world.runCommand(String(command))
     done.next(true)
   },
 }
@@ -279,8 +278,8 @@ export const BroadcastMessage: CodeNode = {
   },
   outputs: { done: { description: 'Emits true when broadcast completes' } },
   run: async ({ message }, { done }) => {
-    const world = getCurrentWorld()!
-    await world.server.broadcastMessage(String(message))
+    const { world } = getCurrentContext()
+    await world.sendMessage(String(message))
     done.next(true)
   },
 }
