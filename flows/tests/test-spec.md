@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-15（TC-014 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
+更新日：2026-06-15（TC-014/021/022 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
 
 ---
 
@@ -150,8 +150,8 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 | ID | ノード | 操作 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-021 | OnBlockBroken（ブロック破壊時） | MC でブロックを壊す | 破壊方法が MCチャットに表示される | □ |
-| TC-022 | OnBlockPlaced（ブロック設置時） | MC でブロックを置く | 設置方法とブロック名が MCチャットに表示される | □ |
+| TC-021 | OnBlockBroken（ブロック破壊時） | MC でブロックを壊す | 破壊方法が MCチャットに表示される | ✓ |
+| TC-022 | OnBlockPlaced（ブロック設置時） | MC でブロックを置く | 設置方法とブロック名が MCチャットに表示される | ✓ |
 
 ---
 
