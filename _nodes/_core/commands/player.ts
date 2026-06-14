@@ -54,8 +54,11 @@ export const GetPlayerTags: CodeNode = {
   },
   outputs: { tags: { description: 'Array of tag strings attached to the player' } },
   run: async (_, { tags }) => {
-    const { player } = getCurrentContext()
-    tags.next(await player.getTags())
+    const { world, player } = getCurrentContext()
+    // socket-be の getTags() はタグが0個のとき match() が null を返し TypeError になるため直接実装する
+    const res = await world.runCommand(`tag "${player.name}" list`)
+    const matches = res.statusMessage.match(/§a.*?§r/g) ?? []
+    tags.next(matches.map((s: string) => s.replace(/§a|§r/g, '')))
   },
 }
 
