@@ -20,6 +20,7 @@ export const Assert: CodeNode = {
       editorTypeData: {
         options: [
           { label: 'Equal (===)',          value: 'eq'     },
+          { label: 'Not equal (!==)',      value: 'neq'    },
           { label: 'Deep equal (JSON)',    value: 'deep'   },
           { label: 'Less than (<)',        value: 'lt'     },
           { label: 'Greater than (>)',     value: 'gt'     },
@@ -44,6 +45,7 @@ export const Assert: CodeNode = {
 
     let ok = false
     if      (opStr === 'eq')     ok = actual === expected
+    else if (opStr === 'neq')    ok = actual !== expected
     else if (opStr === 'deep')   ok = JSON.stringify(actual) === JSON.stringify(expected)
     else if (opStr === 'lt')     ok = Number(actual) <  Number(expected)
     else if (opStr === 'gt')     ok = Number(actual) >  Number(expected)

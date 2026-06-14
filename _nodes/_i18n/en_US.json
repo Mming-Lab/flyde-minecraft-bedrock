@@ -2321,6 +2321,7 @@
         "description": "Comparison operator",
         "options": {
           "eq":     "Equal (===)",
+          "neq":    "Not equal (!==)",
           "deep":   "Deep equal (JSON)",
           "lt":     "Less than (<)",
           "gt":     "Greater than (>)",

@@ -39,6 +39,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -53,6 +56,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -218,6 +224,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -246,6 +255,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -393,8 +405,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 650
-        y: 1900
+        x: 639.3098297119141
+        y: 2016.0982666015625
       id: assert-019
       inputConfig: {}
       nodeId: Assert
@@ -453,8 +465,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1050
+        x: 664.0000839233398
+        y: 969.286865234375
       id: note-015
       inputConfig: {}
       nodeId: Note
@@ -470,8 +482,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 650
-        y: 1250
+        x: 648.2352600097656
+        y: 1212.8812255859375
       id: note-016
       inputConfig: {}
       nodeId: Note
