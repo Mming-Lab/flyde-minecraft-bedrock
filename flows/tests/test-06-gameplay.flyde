@@ -34,11 +34,11 @@ node:
         y: 300
       id: set-noon
       inputConfig: {}
-      nodeId: SetTimeOfDay
+      nodeId: RunCommand
       config:
-        時刻:
-          type: number
-          value: 6000
+        コマンド:
+          type: string
+          value: time set 6000
         トリガー:
           type: dynamic
           value: "{{トリガー}}"
@@ -134,17 +134,14 @@ node:
         y: 700
       id: set-rain
       inputConfig: {}
-      nodeId: SetWeather
+      nodeId: RunCommand
       config:
-        天気:
-          type: select
-          value: Rain
+        コマンド:
+          type: string
+          value: weather rain
         トリガー:
           type: dynamic
           value: "{{トリガー}}"
-        継続時間:
-          type: number
-          value: 600
       type: code
       source:
         type: file
@@ -194,17 +191,14 @@ node:
         y: 900
       id: set-clear
       inputConfig: {}
-      nodeId: SetWeather
+      nodeId: RunCommand
       config:
-        天気:
-          type: select
-          value: Clear
+        コマンド:
+          type: string
+          value: weather clear
         トリガー:
           type: dynamic
           value: "{{トリガー}}"
-        継続時間:
-          type: number
-          value: 600
       type: code
       source:
         type: file
@@ -254,11 +248,11 @@ node:
         y: 1100
       id: set-creative
       inputConfig: {}
-      nodeId: SetGameMode
+      nodeId: RunCommand
       config:
-        GMD:
-          type: select
-          value: Creative
+        コマンド:
+          type: string
+          value: gamemode creative
         トリガー:
           type: dynamic
           value: "{{トリガー}}"
@@ -311,11 +305,11 @@ node:
         y: 1300
       id: set-survival
       inputConfig: {}
-      nodeId: SetGameMode
+      nodeId: RunCommand
       config:
-        GMD:
-          type: select
-          value: Survival
+        コマンド:
+          type: string
+          value: gamemode survival
         トリガー:
           type: dynamic
           value: "{{トリガー}}"

@@ -355,6 +355,20 @@ export const RunCommand: CodeNode = {
   - `player` / `block` / `item` / `mob` / `villager` / `fuel` / `payment_a` / `payment_b`
 - `_i18n/` で日本語名に翻訳（全角 5 文字以内）
 
+### コマンドノードの実装指針
+
+**個別コマンドノードは `CommandResult<T>` に追加データ T がある場合にのみ作成する。**
+
+socket-be のコマンド API は `Promise<CommandResult<T>>` を返す（`CommandResult<T> = { statusCode, statusMessage } & T`）。  
+T={} のコマンドは「完了した／例外が出なかった」という情報しか持たず、個別ノード化する価値がない。
+
+| 方針 | 対象 | 例 |
+|---|---|---|
+| 個別ノードを作る | T にデータフィールドがある | `GetGameTime`（data）、`FillBlocks`（fillCount）、`GetPlayerLocation`（position）など |
+| RunCommand で代用 | T = {}（追加データなし） | `weather rain`、`time set 6000`、`gamemode creative` など |
+
+また、1ワールド前提のため `server.broadcastCommand()` は使用しない。Minecraft コマンドの実行は常に `world.runCommand()` を使う。
+
 ### ノード種別ごとの規則
 
 | 種別 | 出力ポート | コンテキスト |
@@ -423,6 +437,7 @@ icon: 'plug'             // 接続系
 
 ### ノード追加時の手順
 
+0. `CommandResult<T>` に追加データ T があるか確認する。T={} の場合は個別ノードを作らず、ユーザーに RunCommand でコマンドを直接設定してもらう
 1. `_core/` 内の追加先ファイルを選ぶ
    - スナップショット情報取得 → `_core/utils/info.ts`
    - ID・イベント値選択 → `_core/utils/selectors.ts`

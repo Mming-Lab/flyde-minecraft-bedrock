@@ -39,6 +39,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -107,6 +110,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -121,6 +127,9 @@ node:
         メッセージ:
           type: dynamic
           value: "{{メッセージ}}"
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file

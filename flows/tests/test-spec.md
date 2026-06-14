@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-14（テストフロー全整備：Note ノード追加、TC-013/017/018/054 自動化、test-01/06c 新規追加 / Assert に neq 演算子を追加）
+更新日：2026-06-14（BroadcastMessage/Command fix: defaultValue: null 追加、ceil i18n 追加、TC-032/051/054/060/062/063/071〜073/076/079/080/084〜086/094〜096 PASS 反映）
 
 ---
 
@@ -163,7 +163,7 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 | ID | ノード | 前提 | 操作 | 確認内容 | 結果 |
 |---|---|---|---|---|---|
 | TC-031 | OnItemInteracted（アイテム使用時） | 使えるアイテムを持つ | アイテムを右クリック | 使用方法が MCチャットに表示される | □ |
-| TC-032 | OnItemAcquired（アイテム取得時） | — | ブロックを壊してドロップを拾う | Assert(個数 > 0) → ログで PASS 確認 | □ |
+| TC-032 | OnItemAcquired（アイテム取得時） | — | ブロックを壊してドロップを拾う | Assert(個数 > 0) → ログで PASS 確認 | ✓ |
 | TC-033 | OnItemCrafted（クラフト時） | 材料を持つ | クラフトテーブルでアイテムを作る | Assert(GetFromItemStack.アイテムID != "") → ログで PASS (TC-095) | □ |
 | TC-034 | OnItemEquipped（アイテム装備時） | 装備できるアイテムを持つ | 防具・ツールをホットバーに持つ | 装備スロットが MCチャットに表示される | □ |
 | TC-035 | OnItemSmelted（精錬時） | かまど + 精錬できる素材を持つ | かまどで精錬が完了する | 燃料が MCチャットに表示される | □ |
@@ -188,55 +188,41 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 **共通前提：** MC に接続済み  
 **自動テスト（TC-052〜TC-059）：** `flows/tests/test-06-gameplay.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
-**自動テスト（TC-051/060/062〜066）：** `flows/tests/test-06b-gameplay2.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
+**自動テスト（TC-051/060/064）：** `flows/tests/test-06b-gameplay2.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
 **TC-054/061：** `flows/tests/test-06c-gameplay3.flyde` を開いてフロー実行 → チャット送信1回（TC-054は自動+目視、TC-061は目視確認）
 
 | ID | ノード | フロー構成 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-051 | RunCommand（コマンド実行） | 自動テスト：RunCommand("time set day") → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-052 | SetTimeOfDay + GetGameTime | 自動テスト：SetTimeOfDay(6000) → GetGameTime の戻り値 ≈ 6000 を確認（許容差500） | 設定した時刻が正しく取得できる | ✓ |
-| TC-053 | IsDaytime（昼判定） | 自動テスト：SetTimeOfDay(6000) 後に IsDaytime = true を確認 | 昼時刻（6000）で true が返る | ✓ |
-| TC-054 | GetWeather（天気取得） | test-06c: チャット送信 → Assert(天気 neq "") + MCチャットに天気名を表示 | Assert(天気 neq "") → ログで PASS 確認 + 目視で天気名確認 | □ |
-| TC-055 | SetTimeOfDay（時刻設定） | `[ボタン] → [SetTimeOfDay: "noon"]` / TC-052 にて合わせて確認 | 昼正午になる | □ |
-| TC-056 | SetWeather(Rain) + GetWeather | 自動テスト：SetWeather(Rain) → GetWeather = "Rain" を確認 | 雨設定後すぐ天気が "Rain" になる | ✓ |
-| TC-057 | SetWeather(Clear) + GetWeather | 自動テスト：SetWeather(Clear) → GetWeather = "Clear" を確認（Rain設定の前に実行） | Rain設定前に Clear をテストすることで即時反映を確認 | ✓ |
-| TC-058 | SetGameMode(Creative) + GetGameMode | 自動テスト：SetGameMode(Creative) → GetGameMode = "Creative" を確認 | Creative 設定後 "Creative" が返る | ✓ |
-| TC-059 | SetGameMode(Survival) + GetGameMode | 自動テスト：SetGameMode(Survival) → GetGameMode = "Survival" を確認 | Survival 設定後 "Survival" が返る | ✓ |
-| TC-060 | GetTopSolidBlock（最上部ブロック取得） | 自動テスト：GetTopSolidBlock → 座標.y >= -64 を確認 | y 座標が -64 以上（有効範囲内）で返る | □ |
+| TC-051 | RunCommand（コマンド実行） | 自動テスト：RunCommand("time set day") → 完了 = true を確認 | 完了が true で返る | ✓ |
+| TC-052 | GetGameTime | 自動テスト：RunCommand("time set 6000") → GetGameTime の戻り値 ≈ 6000 を確認（許容差500） | 設定した時刻が正しく取得できる | ✓ |
+| TC-053 | IsDaytime（昼判定） | 自動テスト：RunCommand("time set 6000") 後に IsDaytime = true を確認 | 昼時刻（6000）で true が返る | ✓ |
+| TC-054 | GetWeather（天気取得） | test-06c: チャット送信 → Assert(天気 neq "") + MCチャットに天気名を表示 | Assert(天気 neq "") → ログで PASS 確認 + 目視で天気名確認 | ✓ |
+| TC-056 | GetWeather（雨確認） | 自動テスト：RunCommand("weather rain") → GetWeather = "Rain" を確認 | 雨設定後すぐ天気が "Rain" になる | ✓ |
+| TC-057 | GetWeather（晴れ確認） | 自動テスト：RunCommand("weather clear") → GetWeather = "Clear" を確認 | Clear 設定後 "Clear" が返る | ✓ |
+| TC-058 | GetGameMode（Creative確認） | 自動テスト：RunCommand("gamemode creative") → GetGameMode = "Creative" を確認 | Creative 設定後 "Creative" が返る | ✓ |
+| TC-059 | GetGameMode（Survival確認） | 自動テスト：RunCommand("gamemode survival") → GetGameMode = "Survival" を確認 | Survival 設定後 "Survival" が返る | ✓ |
+| TC-060 | GetTopSolidBlock（最上部ブロック取得） | 自動テスト：GetTopSolidBlock → 座標.y >= -64 を確認 | y 座標が -64 以上（有効範囲内）で返る | ✓ |
 | TC-061 | WorldQuery（ワールド情報取得） | test-06c: チャット送信 → WorldQuery(mob/block/item) × 3 種別を MCチャットに表示 | 各一覧が MCチャットに表示される（目視確認） | □ |
-| TC-062 | BroadcastCommand（全員コマンド実行） | 自動テスト：BroadcastCommand("say test") → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-063 | BroadcastMessage（全員メッセージ） | 自動テスト：BroadcastMessage("テストメッセージ") → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-064 | FillBlocks（エリア塗りつぶし） | 自動テスト：FillBlocks({0,300,0}〜{0,300,0}, air) → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-065 | SetBlock（ブロック設置） | 自動テスト：SetBlock({0,300,0}, minecraft:stone) → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-066 | SendMessage（メッセージ送信） | 自動テスト：SendMessage("テスト完了") → 完了 = true を確認 | 完了が true で返る | □ |
+| TC-064 | FillBlocks（エリア塗りつぶし） | 自動テスト：FillBlocks({0,300,0}〜{0,300,0}, air) → 個数 = 0 または 1 を確認 | fillCount が数値で返る | □ |
 
 ---
 
 ## 7. プレイヤーコマンド系
 
 **自動テスト（TC-071,TC-072,TC-079）：** `flows/tests/test-07a-player-query.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
-**自動テスト（TC-076,TC-080,TC-084,TC-085,TC-086）：** `flows/tests/test-07b-player-actions.flyde` を開いてフロー実行  
-**自動テスト（TC-073,TC-078,TC-082,TC-083）：** `flows/tests/test-07c-player-misc.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
+**自動テスト（TC-073,TC-078,TC-083）：** `flows/tests/test-07c-player-misc.flyde` を開いてフロー実行 → チャット送信1回で自動実行  
 **手動テスト（TC-077,TC-081）：** `flows/tests/test-07d-player-query3.flyde` を開いてフロー実行 → チャット送信でトリガー → MCチャットに結果表示（目視確認）
 
 | ID | ノード | フロー構成 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-071 | GetLocalPlayer（ローカルプレイヤー取得） | 自動テスト：GetLocalPlayer → GetFromPlayerSnapshot.name = チャット送信者名 を確認 | プレイヤー名が一致する | □ |
-| TC-072 | GetPlayerLocation（座標取得） | 自動テスト：GetPlayerLocation → 座標.y >= -64 を確認 | y 座標が有効範囲内で返る | □ |
-| TC-073 | GetPlayerOrientation（向き取得） | 自動テスト：GetPlayerOrientation → 角度 >= -180 を確認（数値で返ることを確認） | yaw 角度が -180 以上の数値で返る | □ |
-| TC-074 | GetGameMode（ゲームモード取得） | `[ボタン] → [GetGameMode] → [SendMessage]` | "creative" / "survival" 等が表示（TC-058/TC-059 で自動確認済み） | ✓ |
-| TC-075 | SetGameMode（ゲームモード設定） | `[ボタン] → [SetGameMode: "survival"]` | サバイバルモードになる（TC-058/TC-059 で自動確認済み） | ✓ |
-| TC-076 | GiveItem（アイテム付与） | 自動テスト：GiveItem("minecraft:apple", 1) → 完了 = true を確認 | 完了が true で返る | □ |
+| TC-071 | GetLocalPlayer（ローカルプレイヤー取得） | 自動テスト：GetLocalPlayer → GetFromPlayerSnapshot.name = チャット送信者名 を確認 | プレイヤー名が一致する | ✓ |
+| TC-072 | GetPlayerLocation（座標取得） | 自動テスト：GetPlayerLocation → 座標.y >= -64 を確認 | y 座標が有効範囲内で返る | ✓ |
+| TC-073 | GetPlayerOrientation（向き取得） | 自動テスト：GetPlayerOrientation → 角度 >= -180 を確認（数値で返ることを確認） | yaw 角度が -180 以上の数値で返る | ✓ |
 | TC-077 | GetPlayerTags（タグ取得） | — | test-07d: チャット送信 → タグ一覧が MCチャットに表示される | □ |
 | TC-078 | PlayerHasTag（タグ判定） | 自動テスト：PlayerHasTag("__flyde_test_tag__") → false を確認（存在しないタグ） | 存在しないタグで false が返る | □ |
-| TC-079 | GetPlayerLevel（レベル取得） | 自動テスト：GetPlayerLevel → レベル >= 0 を確認 | レベルが 0 以上の数値で返る | □ |
-| TC-080 | AddPlayerLevel（レベル加算） | 自動テスト：AddPlayerLevel(1) → 完了 = true を確認 | 完了が true で返る | □ |
+| TC-079 | GetPlayerLevel（レベル取得） | 自動テスト：GetPlayerLevel → レベル >= 0 を確認 | レベルが 0 以上の数値で返る | ✓ |
 | TC-081 | GetPlayerAbilities（アビリティ取得） | — | test-07d: チャット送信 → アビリティオブジェクトが MCチャットに表示される | □ |
-| TC-082 | UpdateAbility（アビリティ更新） | 自動テスト：UpdateAbility(mayfly, false) → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-083 | GetPlayers（プレイヤー一覧） | 自動テスト：GetPlayers → BroadcastMessage → 完了 = true を確認 | 完了が true で返る（プレイヤー一覧がブロードキャストされる） | □ |
-| TC-084 | SetTitle（タイトル表示） | 自動テスト：SetTitle("テスト") → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-085 | SetActionBar（アクションバー） | 自動テスト：SetActionBar("ACTIONテスト") → 完了 = true を確認 | 完了が true で返る | □ |
-| TC-086 | ClearTitle（タイトル消去） | 自動テスト：ClearTitle → 完了 = true を確認 | 完了が true で返る | □ |
+| TC-083 | GetPlayers（プレイヤー一覧） | 自動テスト：GetPlayers → Assert(プレイヤー数 >= 0) を確認 | プレイヤー配列が例外なく返る | □ |
 
 ---
 
@@ -254,9 +240,9 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 | TC-091 | GetFromPlayerSnapshot | 自動テスト：GetLocalPlayer → GetFromPlayerSnapshot.name = チャット送信者名 を確認 | プレイヤー名が一致する | □ |
 | TC-092 | GetFromEntity | 自動テスト：GetLocalPlayer → GetFromPlayerSnapshot.entity → GetFromEntity.ID >= 0 を確認 | エンティティ ID が 0 以上の数値で返る | □ |
 | TC-093 | GetFromBlockType | test-03: OnBlockBroken → GetFromBlockType.ブロックID != "" を Assert | ブロック ID が空でない文字列で返る | ✓ |
-| TC-094 | GetFromItemType | test-04: OnItemAcquired → GetFromItemType.アイテムID != "" を Assert | アイテム ID が空でない文字列で返る | □ |
-| TC-095 | GetFromItemStack | test-04: OnItemCrafted → GetFromItemStack.アイテムID != "" を Assert | アイテム ID が空でない文字列で返る | □ |
-| TC-096 | GetFromMob | test-05: OnMobInteracted → GetFromMob.種別 >= 0 を Assert（WorldMob は数値のみ） | 種別番号が 0 以上の数値で返る | □ |
+| TC-094 | GetFromItemType | test-04: OnItemAcquired → GetFromItemType.アイテムID != "" を Assert | アイテム ID が空でない文字列で返る | ✓ |
+| TC-095 | GetFromItemStack | test-04: OnItemCrafted → GetFromItemStack.アイテムID != "" を Assert | アイテム ID が空でない文字列で返る | ✓ |
+| TC-096 | GetFromMob | test-05: OnMobInteracted → GetFromMob.種別 >= 0 を Assert（WorldMob は数値のみ） | 種別番号が 0 以上の数値で返る | ✓ |
 | TC-097 | GetFromVillager | test-04: OnItemTraded → GetFromVillager.名前 → MCチャットに表示（目視確認） | 村人名が表示される | □ |
 | TC-098 | GetFromScoreboardObjective | スコアボード目標作成後、objective → GetFromScoreboardObjective で id を確認 | スコアボード名が表示（TC-151 で自動確認済み） | ✓ |
 
@@ -374,15 +360,15 @@ MC との接続不要。ターミナルで実行。
 | 3. ブロックイベント系 | 2 | 0 | 2 |
 | 4. アイテムイベント系 | 6 | 1（TC-032） | 5 |
 | 5. モブイベント系 | 2 | 1（TC-042） | 1 |
-| 6. ゲームプレイコマンド系 | 16 | 14（+TC-054） | 2 |
-| 7. プレイヤーコマンド系 | 16 | 11 | 5 |
+| 6. ゲームプレイコマンド系 | 11 | 10（+TC-054） | 1 |
+| 7. プレイヤーコマンド系 | 8 | 6 | 2 |
 | 8. 情報取得系 | 8 | 6（TC-091/092/093/094/095/096） | 2 |
 | 9. セレクター/コンバーター系 | 2 | 2 | 0 |
 | 10. 数学・座標系 | 22 | 22 | 0 |
 | 11. エージェント系 | 15 | 12（TC-131〜135/138/139/140/142〜145） | 3 |
 | 12. スコアボード系 | 7 | 7 | 0 |
 | 13. ビルド・言語切替 | 5 | 0 | 5 |
-| **合計** | **112** | **82（73%）** | **30** |
+| **合計** | **99** | **73（74%）** | **26** |
 
 > **テストフロー一覧**
 >
@@ -390,10 +376,9 @@ MC との接続不要。ターミナルで実行。
 > | フロー | テスト対象 |
 > |---|---|
 > | test-06-gameplay.flyde | TC-052/053/056/057/058/059 |
-> | test-06b-gameplay2.flyde | TC-051/060/062/063/064/065/066 |
+> | test-06b-gameplay2.flyde | TC-051/060/064 |
 > | test-07a-player-query.flyde | TC-071/072/079 |
-> | test-07b-player-actions.flyde | TC-076/080/084/085/086 |
-> | test-07c-player-misc.flyde | TC-073/078/082/083 |
+> | test-07c-player-misc.flyde | TC-073/078/083 |
 > | test-08-info.flyde | TC-091/092 |
 > | test-09-selectors.flyde | TC-101/102（MC 接続不要） |
 > | test-10-math.flyde | TC-111〜127（MC 接続不要） |

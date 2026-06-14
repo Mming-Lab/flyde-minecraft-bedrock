@@ -115,52 +115,6 @@ node:
     - pos:
         x: 50
         y: 700
-      id: update-ability
-      inputConfig: {}
-      nodeId: UpdateAbility
-      config:
-        アビリティ:
-          type: select
-          value: mayfly
-        値:
-          type: boolean
-          value: false
-        トリガー:
-          type: dynamic
-          value: "{{トリガー}}"
-      type: code
-      source:
-        type: file
-        data: ../../dist/index.flyde.js
-    - pos:
-        x: 350
-        y: 700
-      id: assert-082
-      inputConfig: {}
-      nodeId: Assert
-      config:
-        期待値:
-          type: boolean
-          value: true
-        比較:
-          type: select
-          value: eq
-        ID:
-          type: string
-          value: TC-082
-        実際値:
-          type: dynamic
-          value: "{{実際値}}"
-        許容差:
-          type: number
-          value: 0.001
-      type: code
-      source:
-        type: file
-        data: ../../dist/index.flyde.js
-    - pos:
-        x: 50
-        y: 900
       id: get-players
       inputConfig: {}
       nodeId: GetPlayers
@@ -174,34 +128,17 @@ node:
         data: ../../dist/index.flyde.js
     - pos:
         x: 350
-        y: 900
-      id: broadcast-players
-      inputConfig: {}
-      nodeId: BroadcastMessage
-      config:
-        メッセージ:
-          type: dynamic
-          value: "{{メッセージ}}"
-        トリガー:
-          type: dynamic
-          value: "{{トリガー}}"
-      type: code
-      source:
-        type: file
-        data: ../../dist/index.flyde.js
-    - pos:
-        x: 650
-        y: 900
+        y: 700
       id: assert-083
       inputConfig: {}
       nodeId: Assert
       config:
         期待値:
-          type: boolean
-          value: true
+          type: json
+          value: null
         比較:
           type: select
-          value: eq
+          value: neq
         ID:
           type: string
           value: TC-083
@@ -217,7 +154,7 @@ node:
         data: ../../dist/index.flyde.js
     - pos:
         x: 350
-        y: 1100
+        y: 900
       id: disconnect
       inputConfig: {}
       nodeId: MinecraftDisconnect
@@ -264,29 +201,11 @@ node:
         insId: assert-078
         pinId: 完了
       to:
-        insId: update-ability
-        pinId: トリガー
-    - from:
-        insId: update-ability
-        pinId: 完了
-      to:
-        insId: assert-082
-        pinId: 実際値
-    - from:
-        insId: assert-082
-        pinId: 完了
-      to:
         insId: get-players
         pinId: トリガー
     - from:
         insId: get-players
         pinId: プレイヤー一覧
-      to:
-        insId: broadcast-players
-        pinId: メッセージ
-    - from:
-        insId: broadcast-players
-        pinId: 完了
       to:
         insId: assert-083
         pinId: 実際値
@@ -302,4 +221,4 @@ node:
   inputsPosition: {}
   outputsPosition: {}
   completionOutputs: []
-  description: プレイヤー系追加テスト（TC-073/078/082/083）チャット送信1回で自動実行
+  description: プレイヤー系追加テスト（TC-073/078/083）チャット送信1回で自動実行

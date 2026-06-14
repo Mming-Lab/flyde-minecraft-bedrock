@@ -49,18 +49,12 @@ export const GetGameTime  = ln(cmdGameplay.GetGameTime,  n.GetGameTime)
 export const IsDaytime    = ln(cmdGameplay.IsDaytime,    n.IsDaytime)
 export const GetWeather   = ln(cmdGameplay.GetWeather,   n.GetWeather)
 export const FillBlocks   = ln(cmdGameplay.FillBlocks,   n.FillBlocks)
-export const SendMessage  = ln(cmdGameplay.SendMessage,  n.SendMessage)
-export const SetTimeOfDay = ln(cmdGameplay.SetTimeOfDay, n.SetTimeOfDay)
-export const SetWeather   = ln(cmdGameplay.SetWeather,   n.SetWeather)
-export const SetBlock     = ln(cmdGameplay.SetBlock,     n.SetBlock)
 
 // Player commands
 export const GetPlayerLocation    = ln(cmdPlayer.GetPlayerLocation,    n.GetPlayerLocation)
 export const GetPlayerOrientation = ln(cmdPlayer.GetPlayerOrientation, n.GetPlayerOrientation)
-export const GiveItem             = ln(cmdPlayer.GiveItem,             n.GiveItem)
 export const GetGameMode    = ln(cmdPlayer.GetGameMode,    n.GetGameMode)
 export const GetLocalPlayer = ln(cmdPlayer.GetLocalPlayer, n.GetLocalPlayer)
-export const SetGameMode    = ln(cmdPlayer.SetGameMode,    n.SetGameMode)
 
 // Info
 export const GetFromEntity         = ln(info.GetFromEntity,         n.GetFromEntity)
