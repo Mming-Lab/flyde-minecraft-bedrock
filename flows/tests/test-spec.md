@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-15（TC-014/021/022/031/033/035 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
+更新日：2026-06-15（TC-014/021/022/031/033/035/041/042 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
 
 ---
 
@@ -179,8 +179,8 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 | ID | ノード | 前提 | 操作 | 確認内容 | 結果 |
 |---|---|---|---|---|---|
-| TC-041 | OnMobInteracted（モブ交流時） | 動物（ウシ・ニワトリ等）の近く | モブを右クリック | 交流種別が MCチャットに表示される | □ |
-| TC-042 | OnTargetBlockHit（的命中時） | 的ブロックを設置する | 矢を的に当てる | Assert(強さ 0〜15) → ログで PASS 確認 | □ |
+| TC-041 | OnMobInteracted（モブ交流時） | 動物（ウシ・ニワトリ等）の近く | モブを右クリック | 交流種別が MCチャットに表示される | ✓ |
+| TC-042 | OnTargetBlockHit（的命中時） | 的ブロックを設置する | 矢を的に当てる | Assert(強さ 0〜15) → ログで PASS 確認 | ✓ |
 
 ---
 
