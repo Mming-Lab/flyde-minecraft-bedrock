@@ -1842,43 +1842,6 @@
       }
     }
   },
-  "AgentInspect": {
-    "displayName": "Agent Inspect",
-    "menuDisplayName": "AG Inspect",
-    "description": "Inspect {{type}} {{direction}}",
-    "inputs": {
-      "trigger": {
-        "name": "trigger",
-        "description": "Trigger (optional)"
-      },
-      "type": {
-        "name": "type",
-        "description": "What to inspect",
-        "options": {
-          "block": "Block ID",
-          "data": "Data value"
-        }
-      },
-      "direction": {
-        "name": "direction",
-        "description": "Direction to inspect",
-        "options": {
-          "forward": "Forward",
-          "back": "Back",
-          "left": "Left",
-          "right": "Right",
-          "up": "Up",
-          "down": "Down"
-        }
-      }
-    },
-    "outputs": {
-      "value": {
-        "name": "value",
-        "description": "Block ID (string) or data value (number)"
-      }
-    }
-  },
   "Vector3Lerp": {
     "displayName": "Vector3 Lerp",
     "menuDisplayName": "Vec3Lerp",

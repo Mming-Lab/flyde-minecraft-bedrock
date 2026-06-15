@@ -117,7 +117,6 @@ export const AgentMoveItem    = ln(agents.AgentMoveItem,    n.AgentMoveItem)
 export const AgentSetItem     = ln(agents.AgentSetItem,     n.AgentSetItem)
 export const AgentCollect        = ln(agents.AgentCollect,        n.AgentCollect)
 export const AgentDetect         = ln(agents.AgentDetect,         n.AgentDetect)
-export const AgentInspect        = ln(agents.AgentInspect,        n.AgentInspect)
 
 // Scoreboard
 export const GetScoreboardObjectives   = ln(scoreboard.GetScoreboardObjectives,   n.GetScoreboardObjectives)

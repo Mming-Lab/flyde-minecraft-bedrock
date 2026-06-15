@@ -311,45 +311,4 @@ export const AgentDetect: CodeNode = {
   },
 }
 
-export const AgentInspect: CodeNode = {
-  id: 'AgentInspect',
-  displayName: 'AgentInspect',
-  menuDisplayName: 'AgentInspect',
-  description: '指定方向のブロックIDまたはデータ値を調べる',
-  icon: 'robot',
-  defaultStyle: STYLE,
-  inputs: {
-    trigger: { description: 'Trigger (optional)' },
-    type: {
-      description: 'Inspection type',
-      defaultValue: 'block',
-      editorType: 'select',
-      editorTypeData: {
-        options: [
-          { label: 'Block ID',    value: 'block' },
-          { label: 'Data value',  value: 'data' },
-        ],
-      },
-    },
-    direction: {
-      description: 'Direction to inspect',
-      defaultValue: 'forward',
-      editorType: 'select',
-      editorTypeData: { options: DIR_OPTS },
-    },
-  },
-  outputs: {
-    value: { description: 'Block ID string (block) or data number (data)' },
-  },
-  run: async ({ type, direction }, { value }) => {
-    const { world } = getCurrentContext()
-    await world.getOrCreateAgent()
-    const cmd = String(type) === 'data'
-      ? `agent inspectdata ${direction}`
-      : `agent inspect ${direction}`
-    const res = await world.runCommand(cmd) as any
-    const v = res.block ?? res.blockId ?? res.data ?? res.value ?? null
-    value.next(v)
-  },
-}
 

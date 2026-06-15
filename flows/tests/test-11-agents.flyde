@@ -362,71 +362,18 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 50
-        y: 1300
-      id: agent-inspect
-      inputConfig: {}
-      nodeId: AgentInspect
-      config:
-        種別:
-          type: select
-          value: block
-        方向:
-          type: select
-          value: forward
-        トリガー:
-          type: dynamic
-          value: "{{トリガー}}"
-      type: code
-      source:
-        type: file
-        data: ../../dist/index.flyde.js
-    - pos:
-        x: 350
-        y: 1300
-      id: json-137-inspect
-      inputConfig: {}
-      nodeId: JSON Stringify
-      config:
-        object:
-          type: dynamic
-      type: code
-      source:
-        type: package
-        data: "@flyde/nodes"
-    - pos:
-        x: 550
-        y: 1300
-      id: say-137-inspect
-      inputConfig: {}
-      nodeId: RunCommand
-      config:
-        コマンド:
-          type: string
-          value: say [TC-137 ブロックID] {{v}}
-        トリガー:
-          type: boolean
-          value: true
-      type: code
-      source:
-        type: file
-        data: ../../dist/index.flyde.js
-    - pos:
         x: 955.331787109375
         y: 1148.406005859375
-      id: note-tc136-137
+      id: note-tc136
       inputConfig: {}
       nodeId: Note
       config:
         content: |-
-          # TC-136: AgentDetect / TC-137: AgentInspect（目視確認）
+          # TC-136: AgentDetect（目視確認）
           **TC-136:** AgentDetect(ブロック,前) → 検知結果を MC チャットに表示
           - `true`=前方にブロックあり / `false`=ブロックなし
 
-          **TC-137:** AgentInspect(ブロックID,前) → 前方ブロックの ID を MC チャットに表示
-          - 例: `minecraft:stone`
-
-          **目視確認:** MC チャットに検知結果とブロック ID が表示されること
+          **目視確認:** MC チャットに検知結果が表示されること
           ※ エージェントの前方にブロックを置いておくと分かりやすい
       type: code
       source:
@@ -763,24 +710,6 @@ node:
         insId: say-136-detect
         pinId: 完了
       to:
-        insId: agent-inspect
-        pinId: トリガー
-    - from:
-        insId: agent-inspect
-        pinId: 値
-      to:
-        insId: json-137-inspect
-        pinId: object
-    - from:
-        insId: json-137-inspect
-        pinId: json
-      to:
-        insId: say-137-inspect
-        pinId: v
-    - from:
-        insId: say-137-inspect
-        pinId: 完了
-      to:
         insId: agent-set-item
         pinId: トリガー
     - from:
@@ -860,7 +789,6 @@ node:
     TC-134: AgentTurn(左) → 完了=true（目視: エージェントが左回転）
     TC-135: AgentAction(攻撃, 前) → 完了=true
     TC-136: AgentDetect(ブロック, 前) → MCチャットに検知結果
-    TC-137: AgentInspect(ブロックID, 前) → MCチャットにブロックID
     TC-138: AgentSetItem(スロット1, stone, 5個) → 完了=true
     ※ TC-139/140/141 は削除（WS経由でエージェントインベントリ値取得不可）
     TC-142: AgentMoveItem(1→2, 1個) → 完了=true

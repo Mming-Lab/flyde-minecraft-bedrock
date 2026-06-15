@@ -1841,43 +1841,6 @@
       }
     }
   },
-  "AgentInspect": {
-    "displayName": "AG調査",
-    "menuDisplayName": "AG調査",
-    "description": "{{direction}}方向の{{type}}を調査する",
-    "inputs": {
-      "trigger": {
-        "name": "トリガー",
-        "description": "トリガー（任意）"
-      },
-      "type": {
-        "name": "種別",
-        "description": "調査する内容",
-        "options": {
-          "block": "ブロックID",
-          "data": "データ値"
-        }
-      },
-      "direction": {
-        "name": "方向",
-        "description": "調査する方向",
-        "options": {
-          "forward": "前",
-          "back": "後",
-          "left": "左",
-          "right": "右",
-          "up": "上",
-          "down": "下"
-        }
-      }
-    },
-    "outputs": {
-      "value": {
-        "name": "値",
-        "description": "ブロックID（文字列）またはデータ値（数値）"
-      }
-    }
-  },
   "Vector3Lerp": {
     "displayName": "座標補間",
     "menuDisplayName": "座標補間",
