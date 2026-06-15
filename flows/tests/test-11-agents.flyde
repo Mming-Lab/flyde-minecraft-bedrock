@@ -2,8 +2,8 @@ imports: {}
 node:
   instances:
     - pos:
-        x: 50
-        y: 100
+        x: -355.7967529296875
+        y: 130.2865161895752
       id: mc-connect
       inputConfig: {}
       nodeId: MinecraftConnect
@@ -30,8 +30,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 700
-        y: 30
+        x: 1142.0071630477905
+        y: 373.29886627197266
       id: note-overview
       inputConfig: {}
       nodeId: Note
@@ -64,8 +64,8 @@ node:
         type: package
         data: "@flyde/nodes"
     - pos:
-        x: 50
-        y: 300
+        x: 77.38239288330078
+        y: 298.9269104003906
       id: agent-tp
       inputConfig: {}
       nodeId: AgentTeleport
@@ -73,12 +73,15 @@ node:
         トリガー:
           type: dynamic
           value: "{{トリガー}}"
+        座標:
+          type: string
+          value: ""
       type: code
       source:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 350
+        x: 387.0950012207031
         y: 300
       id: assert-131
       inputConfig: {}
@@ -118,8 +121,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 950
-        y: 300
+        x: 940.7822208404541
+        y: 290.9155578613281
       id: vec-split-132
       inputConfig: {}
       nodeId: Vector3Split
@@ -132,8 +135,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 1250
-        y: 300
+        x: 792.0799865722656
+        y: 382.6044616699219
       id: assert-132
       inputConfig: {}
       nodeId: Assert
@@ -167,6 +170,9 @@ node:
         方向:
           type: select
           value: forward
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -207,6 +213,9 @@ node:
         方向:
           type: select
           value: left
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -250,6 +259,9 @@ node:
         方向:
           type: select
           value: forward
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -281,8 +293,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 700
-        y: 600
+        x: 758.9492492675781
+        y: 624.845458984375
       id: note-tc133-135
       inputConfig: {}
       nodeId: Note
@@ -312,6 +324,9 @@ node:
         方向:
           type: select
           value: forward
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -338,7 +353,7 @@ node:
       config:
         コマンド:
           type: string
-          value: "say [TC-136 検知] {{v}}"
+          value: say [TC-136 検知] {{v}}
         トリガー:
           type: boolean
           value: true
@@ -359,6 +374,9 @@ node:
         方向:
           type: select
           value: forward
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -385,7 +403,7 @@ node:
       config:
         コマンド:
           type: string
-          value: "say [TC-137 ブロックID] {{v}}"
+          value: say [TC-137 ブロックID] {{v}}
         トリガー:
           type: boolean
           value: true
@@ -394,8 +412,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 700
-        y: 1150
+        x: 955.331787109375
+        y: 1148.406005859375
       id: note-tc136-137
       inputConfig: {}
       nodeId: Note
@@ -433,6 +451,9 @@ node:
         データ値:
           type: number
           value: 0
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -473,6 +494,9 @@ node:
         スロット:
           type: number
           value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -485,11 +509,11 @@ node:
       nodeId: Assert
       config:
         期待値:
-          type: number
-          value: 0
+          type: boolean
+          value: true
         比較:
           type: select
-          value: gt
+          value: eq
         ID:
           type: string
           value: TC-139
@@ -513,6 +537,9 @@ node:
         スロット:
           type: number
           value: 2
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -525,11 +552,11 @@ node:
       nodeId: Assert
       config:
         期待値:
-          type: number
-          value: 0
+          type: boolean
+          value: true
         比較:
           type: select
-          value: gte
+          value: eq
         ID:
           type: string
           value: TC-140
@@ -553,6 +580,9 @@ node:
         スロット:
           type: number
           value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -579,7 +609,7 @@ node:
       config:
         コマンド:
           type: string
-          value: "say [TC-141 アイテムID] {{v}}"
+          value: say [TC-141 アイテムID] {{v}}
         トリガー:
           type: boolean
           value: true
@@ -588,8 +618,8 @@ node:
         type: file
         data: ../../dist/index.flyde.js
     - pos:
-        x: 700
-        y: 2050
+        x: 843.2865600585938
+        y: 1963.78759765625
       id: note-tc141
       inputConfig: {}
       nodeId: Note
@@ -621,6 +651,9 @@ node:
         個数:
           type: number
           value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -664,6 +697,9 @@ node:
         スロット:
           type: number
           value: 2
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -710,6 +746,9 @@ node:
         個数:
           type: number
           value: 1
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -753,6 +792,9 @@ node:
         方向:
           type: select
           value: forward
+        トリガー:
+          type: dynamic
+          value: "{{トリガー}}"
       type: code
       source:
         type: file
@@ -827,17 +869,35 @@ node:
         insId: assert-133
         pinId: 実際値
     - from:
+        insId: assert-133
+        pinId: 完了
+      to:
+        insId: agent-turn-left
+        pinId: トリガー
+    - from:
         insId: agent-turn-left
         pinId: 完了
       to:
         insId: assert-134
         pinId: 実際値
     - from:
+        insId: assert-134
+        pinId: 完了
+      to:
+        insId: agent-action-attack
+        pinId: トリガー
+    - from:
         insId: agent-action-attack
         pinId: 完了
       to:
         insId: assert-135
         pinId: 実際値
+    - from:
+        insId: assert-135
+        pinId: 完了
+      to:
+        insId: agent-detect
+        pinId: トリガー
     - from:
         insId: agent-detect
         pinId: 検知
@@ -851,6 +911,12 @@ node:
         insId: say-136-detect
         pinId: v
     - from:
+        insId: say-136-detect
+        pinId: 完了
+      to:
+        insId: agent-inspect
+        pinId: トリガー
+    - from:
         insId: agent-inspect
         pinId: 値
       to:
@@ -863,29 +929,35 @@ node:
         insId: say-137-inspect
         pinId: v
     - from:
+        insId: say-137-inspect
+        pinId: 完了
+      to:
+        insId: agent-set-item
+        pinId: トリガー
+    - from:
         insId: agent-set-item
         pinId: 完了
       to:
         insId: assert-138
         pinId: 実際値
     - from:
+        insId: assert-138
+        pinId: 完了
+      to:
         insId: agent-get-count
-        pinId: 個数
-      to:
+        pinId: トリガー
+    - from:
         insId: assert-139
-        pinId: 実際値
-    - from:
+        pinId: 完了
+      to:
         insId: agent-get-space
-        pinId: 空き
-      to:
-        insId: assert-140
-        pinId: 実際値
+        pinId: トリガー
     - from:
-        insId: agent-get-detail
-        pinId: アイテムID
+        insId: assert-140
+        pinId: 完了
       to:
-        insId: json-141-detail
-        pinId: object
+        insId: agent-get-detail
+        pinId: トリガー
     - from:
         insId: json-141-detail
         pinId: json
@@ -893,11 +965,23 @@ node:
         insId: say-141-detail
         pinId: v
     - from:
+        insId: say-141-detail
+        pinId: 完了
+      to:
+        insId: agent-move-item
+        pinId: トリガー
+    - from:
         insId: agent-move-item
         pinId: 完了
       to:
         insId: assert-142
         pinId: 実際値
+    - from:
+        insId: assert-142
+        pinId: 完了
+      to:
+        insId: agent-place-block
+        pinId: トリガー
     - from:
         insId: agent-place-block
         pinId: 完了
@@ -905,17 +989,53 @@ node:
         insId: assert-143
         pinId: 実際値
     - from:
+        insId: assert-143
+        pinId: 完了
+      to:
+        insId: agent-drop-item
+        pinId: トリガー
+    - from:
         insId: agent-drop-item
         pinId: 完了
       to:
         insId: assert-144
         pinId: 実際値
     - from:
+        insId: assert-144
+        pinId: 完了
+      to:
+        insId: agent-action-destroy
+        pinId: トリガー
+    - from:
         insId: agent-action-destroy
         pinId: 完了
       to:
         insId: assert-145
         pinId: 実際値
+    - from:
+        insId: assert-132
+        pinId: 完了
+      to:
+        insId: agent-move-fwd
+        pinId: トリガー
+    - from:
+        insId: agent-get-count
+        pinId: 完了
+      to:
+        insId: assert-139
+        pinId: 実際値
+    - from:
+        insId: agent-get-space
+        pinId: 完了
+      to:
+        insId: assert-140
+        pinId: 実際値
+    - from:
+        insId: agent-get-detail
+        pinId: 完了
+      to:
+        insId: json-141-detail
+        pinId: object
   id: TestAgents
   inputs: {}
   outputs: {}

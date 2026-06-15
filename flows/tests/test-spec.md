@@ -1,7 +1,7 @@
 # テスト仕様書
 
 対象：フル版（`index.flyde.ts`）全ノード  
-更新日：2026-06-15（TC-014/021/022/031/033/035/041/042/054/061/064/077/081/101/102/151/153 PASS 反映、BroadcastMessage → JSONStringify+RunCommand 移行）
+更新日：2026-06-15（TC-131〜145 全 PASS 反映、TC-139/140/141 を WS 経由数値取得不可の動作に更新）
 
 ---
 
@@ -131,7 +131,7 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 
 | ID | ノード | 操作 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-011 | OnPlayerChat（チャット受信時） | MC でチャットメッセージを送信 | 送信者名・内容が MCチャットに表示される（目視確認） | □ |
+| TC-011 | OnPlayerChat（チャット受信時） | MC でチャットメッセージを送信 | 送信者名・内容が MCチャットに表示される（目視確認） | ✓ |
 | TC-012 | OnPlayerTravelled（プレイヤー移動時） | MC でプレイヤーを歩かせる | Assert(移動距離 > 0) → ログで PASS 確認 | ✓ |
 | TC-013 | OnPlayerTeleported（テレポート時） | チャット送信（RunCommand が自動で `/tp` 実行） | Assert(テレポート原因 neq "") → ログで PASS 確認 | ✓ |
 | TC-014 | OnPlayerBounced（バウンド時） | MC でスライムブロックの上でジャンプ | Assert(高さ >= 0) → ログで PASS 確認 | ✓ |
@@ -297,25 +297,25 @@ npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
 **共通前提：** Education Edition モードを有効化（エージェントが存在しなければ自動作成される）  
 **1回目：** チャット送信 → TC-131/132 が自動実行（AgentTP → GetAgentLocation）  
 **2回目：** フロー再起動 → TC-133〜145 が起動時に自動実行（前回のコンテキストを process から再利用）  
-**TC-131〜135/138〜140/142〜145 はログで PASS/FAIL を確認、TC-136/137/141 はMCチャットに表示**
+**TC-131〜135/138〜140/142〜145 はログで PASS/FAIL を確認、TC-136/137/141 はMCチャットに表示（TC-141 は完了=true が表示、WS経由での詳細値取得不可）**
 
 | ID | ノード | 操作 | 確認内容 | 結果 |
 |---|---|---|---|---|
-| TC-131 | AgentTeleport（テレポート） | チャット送信でトリガー | Assert(完了 = true) → ログで PASS 確認 | □ |
-| TC-132 | GetAgentLocation（位置取得） | TC-131 の完了後に自動実行 | Assert(座標.y >= -64) → ログで PASS 確認 | □ |
-| TC-133 | AgentMove（移動） | TC-132 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | □ |
-| TC-134 | AgentTurn（回転） | TC-133 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | □ |
-| TC-135 | AgentAction（攻撃） | TC-134 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | □ |
-| TC-136 | AgentDetect（障害物検知） | TC-135 の完了後に自動実行 | 検知結果（true/false）が MCチャットに表示（目視確認） | □ |
-| TC-137 | AgentInspect（ブロック調査） | TC-136 の完了後に自動実行 | 前方ブロックIDが MCチャットに表示（目視確認） | □ |
-| TC-138 | AgentSetItem（アイテムセット） | TC-137 の完了後に自動実行 | Assert(完了 = true)、スロット1に minecraft:stone 5個 | □ |
-| TC-139 | AgentGetItemCount（アイテム個数取得） | TC-138 の完了後に自動実行 | Assert(個数 > 0) → ログで PASS 確認 | □ |
-| TC-140 | AgentGetItemSpace（空きスペース取得） | TC-139 の完了後に自動実行 | Assert(空き >= 0) → ログで PASS 確認 | □ |
-| TC-141 | AgentGetItemDetail（アイテム詳細） | TC-140 の完了後に自動実行 | スロット1のアイテムIDが MCチャットに表示（目視確認） | □ |
-| TC-142 | AgentMoveItem（アイテム移動） | TC-141 の完了後に自動実行 | Assert(完了 = true)、スロット1→2に移動 | □ |
-| TC-143 | AgentPlaceBlock（ブロック設置） | TC-142 の完了後に自動実行 | Assert(完了 = true)、スロット2のブロックを前に設置 | □ |
-| TC-144 | AgentDropItem（アイテムドロップ） | TC-143 の完了後に自動実行 | Assert(完了 = true)、スロット1から前にドロップ | □ |
-| TC-145 | AgentAction（ブロック破壊） | TC-144 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認後 MinecraftDisconnect | □ |
+| TC-131 | AgentTeleport（テレポート） | チャット送信でトリガー | Assert(完了 = true) → ログで PASS 確認 | ✓ |
+| TC-132 | GetAgentLocation（位置取得） | TC-131 の完了後に自動実行 | Assert(座標.y >= -64) → ログで PASS 確認 | ✓ |
+| TC-133 | AgentMove（移動） | TC-132 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | ✓ |
+| TC-134 | AgentTurn（回転） | TC-133 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | ✓ |
+| TC-135 | AgentAction（攻撃） | TC-134 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認 | ✓ |
+| TC-136 | AgentDetect（障害物検知） | TC-135 の完了後に自動実行 | 検知結果（true/false）が MCチャットに表示（目視確認） | ✓ |
+| TC-137 | AgentInspect（ブロック調査） | TC-136 の完了後に自動実行 | 前方ブロックIDが MCチャットに表示（目視確認） | ✓ |
+| TC-138 | AgentSetItem（アイテムセット） | TC-137 の完了後に自動実行 | Assert(完了 = true)、スロット1に minecraft:stone 5個 | ✓ |
+| TC-139 | AgentGetItemCount（アイテム個数表示） | TC-138 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認（※WS経由での数値取得不可。結果はゲーム内に表示） | ✓ |
+| TC-140 | AgentGetItemSpace（空きスペース表示） | TC-139 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認（※WS経由での数値取得不可） | ✓ |
+| TC-141 | AgentGetItemDetail（アイテム詳細表示） | TC-140 の完了後に自動実行 | 完了=true が MCチャット表示（※WS経由での詳細取得不可。MakeCode はゲーム内APIで取得可） | ✓ |
+| TC-142 | AgentMoveItem（アイテム移動） | TC-141 の完了後に自動実行 | Assert(完了 = true)、スロット1→2に移動 | ✓ |
+| TC-143 | AgentPlaceBlock（ブロック設置） | TC-142 の完了後に自動実行 | Assert(完了 = true)、スロット2のブロックを前に設置 | ✓ |
+| TC-144 | AgentDropItem（アイテムドロップ） | TC-143 の完了後に自動実行 | Assert(完了 = true)、スロット1から前にドロップ | ✓ |
+| TC-145 | AgentAction（ブロック破壊） | TC-144 の完了後に自動実行 | Assert(完了 = true) → ログで PASS 確認後 MinecraftDisconnect | ✓ |
 
 ---
 

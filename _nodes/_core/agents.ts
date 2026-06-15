@@ -1,5 +1,6 @@
 import { CodeNode } from '@flyde/core'
 import { getCurrentContext } from '../context-manager'
+import { diagLog } from '../diag'
 
 const STYLE = { color: '#D83B01' }
 
@@ -45,6 +46,7 @@ export const AgentMove: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     direction: {
       description: 'Direction to move',
       defaultValue: 'forward',
@@ -69,6 +71,7 @@ export const AgentTurn: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     direction: {
       description: 'Turn direction (left or right)',
       defaultValue: 'left',
@@ -114,6 +117,7 @@ export const AgentAction: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     action: {
       description: 'Action to perform',
       defaultValue: 'attack',
@@ -157,6 +161,7 @@ export const AgentPlaceBlock: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     direction: {
       description: 'Direction to place block',
       defaultValue: 'forward',
@@ -182,6 +187,7 @@ export const AgentDropItem: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     direction: {
       description: 'Direction to drop item',
       defaultValue: 'forward',
@@ -208,6 +214,7 @@ export const AgentMoveItem: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     from_slot: { description: 'Source slot (1–27)', defaultValue: 1 },
     to_slot:   { description: 'Destination slot (1–27)', defaultValue: 2 },
     amount:    { description: 'Number of items to move', defaultValue: 1 },
@@ -229,6 +236,7 @@ export const AgentSetItem: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     slot:    { description: 'Inventory slot (1–27)', defaultValue: 1 },
     item_id: { description: 'Item ID (e.g. minecraft:diamond)' },
     amount:  { description: 'Item count', defaultValue: 1 },
@@ -251,6 +259,7 @@ export const AgentCollect: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     item_id: { description: 'Item ID to collect (e.g. minecraft:diamond)' },
   },
   outputs: { done: {} },
@@ -270,6 +279,7 @@ export const AgentDetect: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     type: {
       description: 'Detection type',
       defaultValue: 'block',
@@ -310,6 +320,7 @@ export const AgentInspect: CodeNode = {
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     type: {
       description: 'Inspection type',
       defaultValue: 'block',
@@ -343,24 +354,28 @@ export const AgentInspect: CodeNode = {
   },
 }
 
+// Education Edition の WS API はアイテムクエリ結果をレスポンスに含めず statusCode のみ返す。
+// getItemCount/Space/Detail はゲーム内表示専用コマンドとして done のみ出力する。
 export const AgentGetItemCount: CodeNode = {
   id: 'AgentGetItemCount',
   displayName: 'AgentGetItemCount',
   menuDisplayName: 'AgentGetItemCount',
-  description: '指定スロットのアイテム個数を取得する',
+  description: '指定スロットのアイテム個数をゲーム内に表示する（WS経由で値取得不可）',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
   },
   outputs: {
-    count: { description: 'Number of items in the slot' },
+    done: { description: 'Fires true when command executed (result shown in-game)' },
   },
-  run: async ({ slot }, { count }) => {
+  run: async ({ slot }, { done }) => {
     const { world } = getCurrentContext()
     await world.getOrCreateAgent()
     const res = await world.runCommand(`agent getitemcount ${Number(slot)}`) as any
-    count.next(res.count ?? res.itemCount ?? 0)
+    diagLog('DEBUG', 'AgentGetItemCount', `raw response: ${JSON.stringify(res)}`)
+    done.next(true)
   },
 }
 
@@ -368,20 +383,22 @@ export const AgentGetItemSpace: CodeNode = {
   id: 'AgentGetItemSpace',
   displayName: 'AgentGetItemSpace',
   menuDisplayName: 'AgentGetItemSpace',
-  description: '指定スロットの残り収納可能数を取得する',
+  description: '指定スロットの残り空きをゲーム内に表示する（WS経由で値取得不可）',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
   },
   outputs: {
-    space: { description: 'Remaining space in the slot' },
+    done: { description: 'Fires true when command executed (result shown in-game)' },
   },
-  run: async ({ slot }, { space }) => {
+  run: async ({ slot }, { done }) => {
     const { world } = getCurrentContext()
     await world.getOrCreateAgent()
     const res = await world.runCommand(`agent getitemspace ${Number(slot)}`) as any
-    space.next(res.space ?? res.itemSpace ?? 0)
+    diagLog('DEBUG', 'AgentGetItemSpace', `raw response: ${JSON.stringify(res)}`)
+    done.next(true)
   },
 }
 
@@ -389,19 +406,21 @@ export const AgentGetItemDetail: CodeNode = {
   id: 'AgentGetItemDetail',
   displayName: 'AgentGetItemDetail',
   menuDisplayName: 'AgentGetItemDetail',
-  description: '指定スロットのアイテムIDを取得する',
+  description: '指定スロットのアイテム詳細をゲーム内に表示する（WS経由で値取得不可）',
   icon: 'robot',
   defaultStyle: STYLE,
   inputs: {
+    trigger: { description: 'Trigger (optional)' },
     slot: { description: 'Inventory slot (1–27)', defaultValue: 1 },
   },
   outputs: {
-    item_id: { description: 'Item ID in the slot (e.g. minecraft:diamond). null if empty' },
+    done: { description: 'Fires true when command executed (result shown in-game)' },
   },
-  run: async ({ slot }, { item_id }) => {
+  run: async ({ slot }, { done }) => {
     const { world } = getCurrentContext()
     await world.getOrCreateAgent()
     const res = await world.runCommand(`agent getitemdetail ${Number(slot)}`) as any
-    item_id.next(res.item ?? res.id ?? null)
+    diagLog('DEBUG', 'AgentGetItemDetail', `raw response: ${JSON.stringify(res)}`)
+    done.next(true)
   },
 }

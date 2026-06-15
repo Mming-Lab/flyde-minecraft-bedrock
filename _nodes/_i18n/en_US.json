@@ -1543,6 +1543,10 @@
     "menuDisplayName": "AgentMove",
     "description": "Move the agent {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "direction": {
         "name": "direction",
         "description": "Direction to move",
@@ -1568,6 +1572,10 @@
     "menuDisplayName": "AgentTurn",
     "description": "Turn the agent {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "direction": {
         "name": "direction",
         "description": "Direction to turn",
@@ -1610,6 +1618,10 @@
     "menuDisplayName": "AgentAction",
     "description": "Agent performs {{action}} (direction: {{direction}})",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "action": {
         "name": "action",
         "description": "Action to perform",
@@ -1645,6 +1657,10 @@
     "menuDisplayName": "AgentPlace",
     "description": "Place block from slot {{slot}} toward {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "direction": {
         "name": "direction",
         "description": "Direction to place",
@@ -1674,6 +1690,10 @@
     "menuDisplayName": "AgentDrop",
     "description": "Drop item from slot {{slot}} toward {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "direction": {
         "name": "direction",
         "description": "Direction to drop",
@@ -1707,6 +1727,10 @@
     "menuDisplayName": "AgentMoveItem",
     "description": "Move items between slots in the agent's inventory",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "from_slot": {
         "name": "from_slot",
         "description": "Source slot number (1–27)"
@@ -1732,6 +1756,10 @@
     "menuDisplayName": "AgentSetItem",
     "description": "Set an item in the specified agent inventory slot",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "slot": {
         "name": "slot",
         "description": "Slot number to set (1–27)"
@@ -1761,6 +1789,10 @@
     "menuDisplayName": "AgentCollect",
     "description": "Collect a specified item type from around the agent",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "item_id": {
         "name": "item_id",
         "description": "Item ID to collect"
@@ -1778,6 +1810,10 @@
     "menuDisplayName": "AG Detect",
     "description": "Detect {{type}} {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "type": {
         "name": "type",
         "description": "What to detect",
@@ -1811,6 +1847,10 @@
     "menuDisplayName": "AG Inspect",
     "description": "Inspect {{type}} {{direction}}",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "type": {
         "name": "type",
         "description": "What to inspect",
@@ -1840,53 +1880,65 @@
     }
   },
   "AgentGetItemCount": {
-    "displayName": "Agent Item Count",
+    "displayName": "AG Show Item Count",
     "menuDisplayName": "AG ItemCount",
-    "description": "Get the number of items in slot {{slot}}",
+    "description": "Show item count in slot {{slot}} in-game (WS cannot retrieve the value)",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "slot": {
         "name": "slot",
         "description": "Inventory slot (1–27)"
       }
     },
     "outputs": {
-      "count": {
-        "name": "count",
-        "description": "Number of items in the slot"
+      "done": {
+        "name": "done",
+        "description": "Fires true when command executed (result shown in-game)"
       }
     }
   },
   "AgentGetItemSpace": {
-    "displayName": "Agent Item Space",
+    "displayName": "AG Show Item Space",
     "menuDisplayName": "AG ItemSpace",
-    "description": "Get the remaining space in slot {{slot}}",
+    "description": "Show remaining space in slot {{slot}} in-game (WS cannot retrieve the value)",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "slot": {
         "name": "slot",
         "description": "Inventory slot (1–27)"
       }
     },
     "outputs": {
-      "space": {
-        "name": "space",
-        "description": "Remaining space in the slot"
+      "done": {
+        "name": "done",
+        "description": "Fires true when command executed (result shown in-game)"
       }
     }
   },
   "AgentGetItemDetail": {
-    "displayName": "Agent Item Detail",
+    "displayName": "AG Show Item Detail",
     "menuDisplayName": "AG ItemDetail",
-    "description": "Get the item ID stored in slot {{slot}}",
+    "description": "Show item detail in slot {{slot}} in-game (WS cannot retrieve the value)",
     "inputs": {
+      "trigger": {
+        "name": "trigger",
+        "description": "Trigger (optional)"
+      },
       "slot": {
         "name": "slot",
         "description": "Inventory slot (1–27)"
       }
     },
     "outputs": {
-      "item_id": {
-        "name": "item_id",
-        "description": "Item ID in the slot (e.g. minecraft:diamond). null if empty"
+      "done": {
+        "name": "done",
+        "description": "Fires true when command executed (result shown in-game)"
       }
     }
   },
