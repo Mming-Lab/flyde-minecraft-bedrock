@@ -14,7 +14,7 @@ git add README.md USAGE.md LICENSE.md .gitignore
 git commit -m "docs: 初回公開"
 ```
 
-`dist/` は置かない（ビルド済みJSは zip 化して GitHub Release にのみ含める。リポジトリ直下には置かない）。
+`build/` は置かない（ビルド済みJSは zip 化して GitHub Release にのみ含める。リポジトリ直下には置かない）。
 
 ## 2. GitHub に public リポジトリを作成
 

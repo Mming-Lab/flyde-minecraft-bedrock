@@ -18,56 +18,19 @@
 
 ## テスト実行手順
 
-### A. npm link テスト（推奨）
+### A. リポジトリ直接テスト（推奨・日常の開発確認）
 
-npm 版・zip 版ともに `dist/` を使う構成に統一されているため、`npm link` で同じ環境が再現できる。
-
-#### 1. ビルド
+`flyde-minecraft-bedrock` リポジトリ自体を VSCode で開いて確認する。`flows/tests/*.flyde` は `../build/index.flyde.js` を直接参照しており、`node_modules`／`dist` を含まないパスなのでローカルファイルスキャンで検出される。npm link 等は不要。
 
 ```bash
 # flyde-minecraft-bedrock リポジトリで実行
-npm run build:full   # dist/index.flyde.js を生成
+npm run build:full   # build/index.flyde.js を生成
 ```
 
-#### 2. テスト環境を作成
-
-```bash
-# flyde-minecraft-bedrock をグローバルにリンク登録
-cd flyde-minecraft-bedrock
-npm link
-
-# テスト用フォルダを作成
-mkdir flyde-mc-test
-cd flyde-mc-test
 ```
-
-`flyde-mc-test/package.json` を作成：
-
-```json
-{
-  "name": "flyde-mc-test",
-  "version": "1.0.0",
-  "dependencies": {
-    "flyde-minecraft-bedrock": "*"
-  }
-}
-```
-
-```bash
-# リンクを接続 + テストフローをコピー
-npm link flyde-minecraft-bedrock
-mkdir -p flows/tests
-copy ..\flyde-minecraft-bedrock\flows\tests\*.flyde flows\tests\
-```
-
-#### 3. VSCode でテスト環境を開く
-
-```
-flyde-mc-test/ を VSCode で開く
+flyde-minecraft-bedrock/ を VSCode で開く（すでに開いていればそのまま）
 flows/tests/test-XX-*.flyde を開いてフロー実行
 ```
-
-#### 4. Minecraft に接続してテスト実行
 
 1. フローを実行（SocketBE が localhost:8080 で起動）
 2. Minecraft で `/connect localhost:8080`
@@ -76,18 +39,35 @@ flows/tests/test-XX-*.flyde を開いてフロー実行
 
 ---
 
-### B. npm pack テスト（リリース前最終確認）
+### B. zip配布シミュレーションテスト（リリース前最終確認）
 
-実際に publish される `.tgz` をインストールしてテストする：
+実際の配布物（zip展開後の構成）を再現してテストする。**`node_modules` 経由（npm依存）にすると Flyde 拡張のバグでノードメニューに表示されなくなるため、zipの中身をそのままワークスペースルートとして開く**のがポイント。
 
 ```bash
 cd flyde-minecraft-bedrock
-npm run build:full
-npm pack   # → flyde-minecraft-bedrock-x.x.x.tgz を生成
-
-cd flyde-mc-test
-npm install ../flyde-minecraft-bedrock/flyde-minecraft-bedrock-x.x.x.tgz
+npm run publish:all   # releases/flyde-minecraft-bedrock-full-ja-jp-v{version}.zip を生成
 ```
+
+```bash
+# 別フォルダに展開して確認用フォルダにする
+mkdir flyde-mc-test
+cd flyde-mc-test
+# releases/flyde-minecraft-bedrock-full-ja-jp-v{version}.zip を展開
+#   → flyde-mc-test/flyde-minecraft-bedrock/ ができる
+
+cd flyde-minecraft-bedrock
+npm install            # package.json の dependencies（@flyde/core 等）をインストール
+mkdir -p flows/tests
+copy ..\..\flyde-minecraft-bedrock-source\flows\tests\*.flyde flows\tests\
+# ※ コピー元は開発リポジトリ側の flows/tests/
+```
+
+```
+flyde-mc-test/flyde-minecraft-bedrock/ を VSCode のワークスペースルートとして開く
+flows/tests/test-XX-*.flyde を開いてフロー実行
+```
+
+ノードメニューに表示されない場合は、`flyde-minecraft-bedrock` フォルダ自体をワークスペースルートとして開いているか（一段上の `flyde-mc-test` を開いていないか）を確認する。
 
 ---
 
@@ -342,8 +322,8 @@ MC との接続不要。ターミナルで実行。
 | ID | テスト内容 | 手順 | 確認内容 | 結果 |
 |---|---|---|---|---|
 | TC-161 | 型チェック | `npm run typecheck` | エラーなしで完了 | □ |
-| TC-162 | 無料版ビルド | `npm run build` | `dist/index.free.flyde.js` が生成される | □ |
-| TC-163 | フル版ビルド | `node scripts/build.js --full` | `dist/index.flyde.js` が生成される | □ |
+| TC-162 | 無料版ビルド | `npm run build` | `build/index.free.flyde.js` が生成される | □ |
+| TC-163 | フル版ビルド | `node scripts/build.js --full` | `build/index.flyde.js` が生成される | □ |
 | TC-164 | 英語切替 | `npm run lang:en` | 3ファイルが en_US に書き換わる / Flyde リロード後ノード名が英語になる | □ |
 | TC-165 | 日本語切替 | `npm run lang:ja` | 3ファイルが ja_JP に書き換わる / Flyde リロード後ノード名が日本語になる | □ |
 

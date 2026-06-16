@@ -14,7 +14,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 100
@@ -28,7 +28,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 300
@@ -45,7 +45,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 300
@@ -62,7 +62,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 650
         y: 300
@@ -88,7 +88,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 500
@@ -102,7 +102,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 500
@@ -128,7 +128,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 700
@@ -145,7 +145,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 700
@@ -159,7 +159,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 650
         y: 700
@@ -185,7 +185,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 900
@@ -202,7 +202,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 900
@@ -216,7 +216,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 650
         y: 900
@@ -242,7 +242,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 1100
@@ -259,7 +259,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 1100
@@ -273,7 +273,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 650
         y: 1100
@@ -299,7 +299,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 50
         y: 1300
@@ -316,7 +316,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 350
         y: 1300
@@ -330,7 +330,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 650
         y: 1300
@@ -356,7 +356,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
     - pos:
         x: 943.275333275117
         y: 1348.3735704898631
@@ -370,7 +370,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../dist/index.flyde.js
+        data: ../../build/index.flyde.js
   connections:
     - from:
         insId: mc-connect
