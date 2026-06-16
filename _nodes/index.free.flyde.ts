@@ -23,8 +23,6 @@ export const MinecraftDisconnect = ln(conn.MinecraftDisconnect, n.MinecraftDisco
 export const OnPlayerChat       = ln(evPlayer.OnPlayerChat,       n.OnPlayerChat)
 export const OnPlayerTravelled  = ln(evPlayer.OnPlayerTravelled,  n.OnPlayerTravelled)
 export const OnPlayerTeleported = ln(evPlayer.OnPlayerTeleported, n.OnPlayerTeleported)
-export const OnPlayerBounced    = ln(evPlayer.OnPlayerBounced,    n.OnPlayerBounced)
-export const OnPlayerTransform  = ln(evPlayer.OnPlayerTransform,  n.OnPlayerTransform)
 
 // Block events
 export const OnBlockBroken = ln(evBlock.OnBlockBroken, n.OnBlockBroken)
@@ -33,10 +31,6 @@ export const OnBlockPlaced = ln(evBlock.OnBlockPlaced, n.OnBlockPlaced)
 // Item events
 export const OnItemInteracted = ln(evItem.OnItemInteracted, n.OnItemInteracted)
 export const OnItemAcquired   = ln(evItem.OnItemAcquired,   n.OnItemAcquired)
-export const OnItemCrafted    = ln(evItem.OnItemCrafted,    n.OnItemCrafted)
-export const OnItemEquipped   = ln(evItem.OnItemEquipped,   n.OnItemEquipped)
-export const OnItemSmelted    = ln(evItem.OnItemSmelted,    n.OnItemSmelted)
-export const OnItemTraded     = ln(evItem.OnItemTraded,     n.OnItemTraded)
 
 // Gameplay commands
 export const RunCommand       = ln(cmdGameplay.RunCommand,       n.RunCommand)
@@ -57,7 +51,6 @@ export const GetFromPlayerSnapshot = ln(info.GetFromPlayerSnapshot, n.GetFromPla
 export const GetFromItemType       = ln(info.GetFromItemType,       n.GetFromItemType)
 export const GetFromItemStack      = ln(info.GetFromItemStack,      n.GetFromItemStack)
 export const GetFromBlockType      = ln(info.GetFromBlockType,      n.GetFromBlockType)
-export const GetFromVillager       = ln(info.GetFromVillager,       n.GetFromVillager)
 
 // Selectors / Converters
 export const Selector   = ln(selectors.Selector,    n.Selector)
