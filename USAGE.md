@@ -31,6 +31,8 @@ Creating a new `.flyde` file anywhere inside the `flyde-minecraft-bedrock` folde
 
 Nodes from `build/index.flyde.js` automatically appear in the node menu, so you can build flows by dragging and dropping them.
 
+For a list of standard nodes provided by Flyde itself (conditionals, list operations, etc.), see [flyde-standard-nodes.md](flyde-standard-nodes.md).
+
 Minimal example:
 
 ```
@@ -41,22 +43,19 @@ MinecraftConnect (port: 8080)
 
 ## 4. Run and connect
 
-1. Run the flow in the Flyde editor (▶ button)
-2. A connection command appears in the console (e.g. `/connect localhost:8080`)
+1. Run the flow in the Flyde editor (▶ Test Flow button)
+2. A connection command appears in the log file (e.g. `/connect localhost:8080`)
 3. Run that command in the Minecraft chat box
 4. Once connected, the flow starts reacting to events in Minecraft
 
-## 5. Common node combinations
+## 5. Example flows
 
-| What you want to do | Nodes to use |
+The [examples/](examples/) folder contains ready-to-try sample flows. Copy them into your `flyde-minecraft-bedrock/flows/` folder to open them. Note: these are currently only available with Japanese node names (`.ja.flyde`); more languages may be added later.
+
+| File | Description |
 |---|---|
-| Run a command when a player chats | `OnPlayerChat` → `RunCommand` |
-| Get a player's position | `GetPlayerLocation` |
-| Fill an area with a block | `FillBlocks` |
-| Calculate distance or arithmetic between coordinates | `Vector3Op` / `Vector3Distance` |
-| Extract a value from a snapshot received via an event | `GetFromEntity` / `GetFromPlayerSnapshot`, etc. |
-
-You can check each node's input/output ports by selecting it in the Flyde editor.
+| [block-info.ja.flyde](examples/block-info.ja.flyde) | Shows the player's name, position, block name, and held item name in chat when a block is placed or broken. Type "dis" in chat to disconnect |
+| [chicken-rain.ja.flyde](examples/chicken-rain.ja.flyde) | Typing "chicken" in chat summons 100 chickens 10 blocks above the player |
 
 ## Troubleshooting
 

@@ -156,16 +156,3 @@
 | `Firecrawl` / `ScrapingBee` | Web スクレイピング |
 | `Tavily` | AI 検索 |
 | `Browser` / `Server` | ブラウザ/サーバー操作 |
-
----
-
-## このプロジェクトで活用できるノード
-
-| ノード | 活用例 |
-|---|---|
-| `Note` | フローにコメント/説明を貼る（教室向け） |
-| `DateOps` | 現在時刻を Unix 時間で取得してゲーム tick に使う |
-| `Interval` | 定期実行（定期的に天気チェック・プレイヤー監視等） |
-| `GetGlobalState` / `SetGlobalState` | フロー間で状態を共有する |
-| `FileSystem` | ログ記録・設定ファイルの読み書き |
-| `Debounce` | 短時間の連続イベントを間引く |

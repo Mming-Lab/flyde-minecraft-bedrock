@@ -2,6 +2,8 @@
 
 # flyde-minecraft-bedrock
 
+![screenshot](assets/images/screenshot.png)
+
 A collection of nodes for controlling Minecraft Education Edition / Bedrock Edition through visual flow-based programming ([Flyde](https://github.com/flydelabs/flyde)).
 
 Just by wiring nodes together, you can build flows that run Minecraft commands or read coordinates/state, triggered by player actions, block events, or item events. Designed for use in programming education classrooms.

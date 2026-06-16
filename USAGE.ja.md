@@ -31,6 +31,8 @@ npm install
 
 `build/index.flyde.js` のノードが自動でノードメニューに表示されるので、ドラッグ＆ドロップでフローを組み立てます。
 
+Flyde 本体が提供する標準ノード（条件分岐・リスト操作など）の一覧は [flyde-standard-nodes.md](flyde-standard-nodes.md) を参照してください。
+
 最小構成の例：
 
 ```
@@ -41,22 +43,19 @@ MinecraftConnect（ポート: 8080）
 
 ## 4. 実行と接続
 
-1. Flyde エディタでフローを実行（▶ボタン）
-2. コンソールに接続用コマンドが表示されます（例：`/connect localhost:8080`）
+1. Flyde エディタでフローを実行（▶Test Flowボタン）
+2. ログファイルに接続用コマンドが表示されます（例：`/connect localhost:8080`）
 3. Minecraft 内のチャット欄でそのコマンドを実行
 4. 接続が完了すると、フローが Minecraft 内のイベントに反応し始めます
 
-## 5. よくあるノードの組み合わせ
+## 5. サンプルフロー
 
-| やりたいこと | 使うノード |
+[examples/](examples/) フォルダに、すぐ試せる完成済みのサンプルフロー（日本語版）を置いています。`flyde-minecraft-bedrock/flows/` フォルダにコピーして開いてください。
+
+| ファイル | 内容 |
 |---|---|
-| プレイヤーが発言したらコマンドを実行する | `OnPlayerChat` → `RunCommand` |
-| プレイヤーの座標を取得する | `GetPlayerLocation` |
-| 指定範囲をブロックで塗りつぶす | `FillBlocks` |
-| 座標同士の距離や四則演算をする | `Vector3Op` / `Vector3Distance` |
-| イベントで受け取ったスナップショットから値を取り出す | `GetFromEntity` / `GetFromPlayerSnapshot` など |
-
-各ノードの入出力ポートの説明は、Flyde エディタ上でノードを選択すると確認できます。
+| [block-info.ja.flyde](examples/block-info.ja.flyde) | ブロックを設置・破壊したときにプレイヤー名・座標・ブロック名・所持アイテム名をチャットに表示する。チャットで「dis」と入力すると切断する |
+| [chicken-rain.ja.flyde](examples/chicken-rain.ja.flyde) | チャットで「chicken」と入力すると、プレイヤーの10ブロック上にニワトリを100羽召喚する |
 
 ## トラブルシューティング
 

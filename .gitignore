@@ -2,3 +2,10 @@
 Thumbs.db
 node_modules/
 *.log
+logs/
+
+# ローカル動作確認用（サンプルflowをVSCode+Flydeで開いて試すための一式）
+build/
+package.json
+package-lock.json
+flyde-mc.config.json

@@ -2,6 +2,8 @@
 
 # flyde-minecraft-bedrock
 
+![screenshot](assets/images/screenshot.png)
+
 Minecraft Education Edition / Bedrock Edition を、ビジュアルフロープログラミング（[Flyde](https://github.com/flydelabs/flyde)）で操作するためのノード集です。
 
 ノードをワイヤーで繋ぐだけで、プレイヤーの行動やブロック・アイテムのイベントをきっかけに Minecraft 内でコマンドを実行したり、座標・状態を取得したりするフローを作れます。プログラミング教育の教室での利用を想定しています。
