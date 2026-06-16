@@ -1,63 +1,65 @@
+🇺🇸 English | [🇯🇵 日本語](README.ja.md)
+
 # flyde-minecraft-bedrock
 
-Minecraft Education Edition / Bedrock Edition を、ビジュアルフロープログラミング（[Flyde](https://github.com/flydelabs/flyde)）で操作するためのノード集です。
+A collection of nodes for controlling Minecraft Education Edition / Bedrock Edition through visual flow-based programming ([Flyde](https://github.com/flydelabs/flyde)).
 
-ノードをワイヤーで繋ぐだけで、プレイヤーの行動やブロック・アイテムのイベントをきっかけに Minecraft 内でコマンドを実行したり、座標・状態を取得したりするフローを作れます。プログラミング教育の教室での利用を想定しています。
+Just by wiring nodes together, you can build flows that run Minecraft commands or read coordinates/state, triggered by player actions, block events, or item events. Designed for use in programming education classrooms.
 
-## 無料版と有料版
+## Free Edition vs Full Edition
 
-このリポジトリは**無料版（個人利用向け）**のビルド済みノードと使い方を公開しています。ソースコード自体は非公開です。
+This repository publishes the built nodes and usage guide for the **Free Edition (personal use)**. The source code itself is not public.
 
-| | 無料版 | フル版（有料） |
+| | Free Edition | Full Edition (paid) |
 |---|---|---|
-| 内容 | 個人向けノードのみ（接続・イベント・基本コマンド・座標演算など） | 全ノード（エージェント操作・スコアボードなどを含む） |
-| ライセンス | [PolyForm Noncommercial 1.0.0](LICENSE.md)（非商用利用のみ） | 商用ライセンス（1ライセンス1名様、再配布不可） |
-| 配布形式 | zip（ベータ公開中） | zip（購入者向け） |
+| Contents | Personal-use nodes only (connection, events, basic commands, vector math, etc.) | All nodes (including agent control, scoreboard, etc.) |
+| License | [PolyForm Noncommercial 1.0.0](LICENSE.md) (non-commercial use only) | Commercial license (1 license per person, no redistribution) |
+| Distribution | zip (beta) | zip (for purchasers) |
 
-## 購入
+## Purchase
 
-~~[Gumroad（フル版）](#)（準備中）~~
-~~[BOOTH（フル版）](#)（準備中）~~
+~~[Gumroad (Full Edition)](#) (coming soon)~~
+~~[BOOTH (Full Edition)](#) (coming soon)~~
 
-現在公開しているのは無料版のベータ版（v1.0.0-beta.1）のみです。有料版（フル版）はまだ公開しておらず、動作確認・テストが完了し次第、販売を開始する予定です。
+Currently only the Free Edition beta (v1.0.0-beta.1) is published. The paid Full Edition has not been released yet and will go on sale once testing and verification are complete.
 
-## インストール
+## Installation
 
-> npm公開は準備中です。現在は下記のzipでのインストールをご利用ください。
+This is distributed as a zip file (not via npm — see [USAGE.md](USAGE.md) for why).
 
-1. [Releases](#) から最新の zip をダウンロード（準備中）
-2. 任意のフォルダに展開
-3. VSCode で展開したフォルダを開く
-4. `flows/` 内の `.flyde` ファイルを開く、または新規作成する
+Download the latest zip from [Releases](#) (coming soon). See [USAGE.md](USAGE.md) for setup steps.
 
-`package.json` の設定により、Flyde エディタのノードメニューに自動で表示されます。この zip インストール方法はフル版（購入後）でも同じ手順です。
+## Included nodes (Free Edition)
 
-## 含まれるノード（無料版）
+- **Connection**: Connect/disconnect to a Minecraft server
+- **Player events**: Chat, movement, teleport
+- **Block events**: Place, break
+- **Item events**: Use, acquire
+- **Gameplay commands**: Run command, time, weather, fill area
+- **Player commands**: Get position, orientation, game mode
+- **Info extraction**: Pull values from entity / player / item / block snapshots
+- **Selectors / converters**: Build selector strings, convert locale names
+- **Vector math**: Vector operations, stringify, split
 
-- **接続**：Minecraft サーバーへの接続・切断
-- **プレイヤーイベント**：チャット・移動・テレポート・バウンド・変身
-- **ブロックイベント**：設置・破壊
-- **アイテムイベント**：使用・入手・クラフト・装備・精錬・取引
-- **ゲームプレイコマンド**：コマンド実行・時刻・天気・エリア塗りつぶし
-- **プレイヤーコマンド**：座標・向き・ゲームモード取得
-- **情報取得**：エンティティ・プレイヤー・アイテム・ブロック・村人のスナップショットから値を取り出す
-- **変換・選択**：セレクター文字列の組み立て、ロケール名変換
-- **座標演算**：ベクトル演算・文字列化・分解
+See [USAGE.md](USAGE.md) for detailed usage instructions.
 
-詳しい使い方は [USAGE.md](USAGE.md) を参照してください。
+## Full Edition exclusive categories (paid)
 
-## フル版限定カテゴリ（有料）
+- **Agent control**: Move, mine, place, and handle items with a programmable agent
+- **Scoreboard**: Score/variable management
+- **Tag management**: Get/check player tags
+- **Mob events**: Mob interaction, target block hit detection
+- **Additional player events**: Bounce, transform (per-tick position/rotation change detection)
+- **Additional item events**: Craft, equip, smelt, trade
+- **Additional player features**: Join/leave events, title display, message notifications, XP level/equipment status, online player list
+- **Additional info extraction**: Pull values from scoreboard objectives, mob/villager snapshots, and world info
+- **Additional vector math**: Distance, clamp, AABB, lerp, normalize, dot product
 
-- **エージェント操作**：プログラム可能なエージェントの移動・採掘・設置・アイテム操作
-- **スコアボード**：得点・変数管理（ゲーム制作・自動採点に活用）
-- **追加イベント**：参加・退出・タイトル表示・メッセージ・モブインタラクトなど
-- **追加コマンド・座標演算**：タグ・経験値・装備、AABB（当たり判定）・ベクトル演算など
+## Requirements
 
-## 動作環境
+- Minecraft Education Edition or Bedrock Edition (with WebSocket connections enabled)
+- [Flyde](https://github.com/flydelabs/flyde) (VSCode extension)
 
-- Minecraft Education Edition または Bedrock Edition（WebSocket 接続が有効なもの）
-- [Flyde](https://github.com/flydelabs/flyde) (VSCode拡張)
+## License
 
-## ライセンス
-
-[PolyForm Noncommercial License 1.0.0](LICENSE.md) — 非商用目的での利用に限り無料です。改造・再配布・販売は禁止されています。
+[PolyForm Noncommercial License 1.0.0](LICENSE.md) — Free for non-commercial use only. Modification, redistribution, and resale are prohibited.

@@ -1,65 +1,71 @@
-# 使い方
+🇺🇸 English | [🇯🇵 日本語](USAGE.ja.md)
 
-## 1. 準備するもの
+# Usage
+
+## 1. Requirements
 
 - [VSCode](https://code.visualstudio.com/)
-- VSCode拡張機能「[Flyde](https://marketplace.visualstudio.com/items?itemName=flyde.flyde-vscode)」
-- Node.js（npm が使えること）
-- Minecraft Education Edition または Bedrock Edition（WebSocket 接続が有効なもの）
+- VSCode extension "[Flyde](https://marketplace.visualstudio.com/items?itemName=flyde.flyde-vscode)"
+- Node.js (with npm available)
+- Minecraft Education Edition or Bedrock Edition (with WebSocket connections enabled)
 
-## 2. プロジェクトの準備（zipインストール）
+## 2. Project setup (zip installation)
 
-現在ベータ版のため、zipファイルでの配布のみです（この手順はフル版購入後も共通です）。
+Distributed as a zip file only — not via npm. This is intentional: the Flyde VSCode extension (as of v1.0.45) only shows nodes in the node menu when they're detected by scanning files directly inside the open workspace. Nodes installed as an npm dependency (i.e. living under `node_modules/`) are never shown, due to a limitation in the extension itself. So **open the extracted folder itself as your VSCode workspace root** — don't nest it inside another project folder.
 
-1. zip をダウンロードして展開
-2. VSCode で展開したフォルダを開く
-3. ターミナルで依存パッケージをインストール
+1. Download and extract the zip — this gives you a `flyde-minecraft-bedrock` folder
+2. Open a terminal inside that folder and install its dependencies
 
 ```bash
+cd flyde-minecraft-bedrock
 npm install
 ```
 
-## 3. フローファイルを作る
+3. Open the `flyde-minecraft-bedrock` folder itself in VSCode (File > Open Folder)
 
-VSCode で `.flyde` ファイルを新規作成すると、Flyde エディタが起動します。
+This is the same procedure for the Full Edition (after purchase).
 
-`package.json` の設定により、ノードメニューに自動で表示されるので、ドラッグ＆ドロップでフローを組み立てます。
+## 3. Create a flow file
 
-最小構成の例：
+Creating a new `.flyde` file anywhere inside the `flyde-minecraft-bedrock` folder (e.g. in `flows/`) launches the Flyde editor.
+
+Nodes from `build/index.flyde.js` automatically appear in the node menu, so you can build flows by dragging and dropping them.
+
+Minimal example:
 
 ```
-MinecraftConnect（ポート: 8080）
-   └─ done → OnPlayerChat（player接続後に有効）
-              └─ message → RunCommand（command: "say Hello!"）
+MinecraftConnect (port: 8080)
+   └─ done → OnPlayerChat (active once a player is connected)
+              └─ message → RunCommand (command: "say Hello!")
 ```
 
-## 4. 実行と接続
+## 4. Run and connect
 
-1. Flyde エディタでフローを実行（▶ボタン）
-2. コンソールに接続用コマンドが表示されます（例：`/connect localhost:8080`）
-3. Minecraft 内のチャット欄でそのコマンドを実行
-4. 接続が完了すると、フローが Minecraft 内のイベントに反応し始めます
+1. Run the flow in the Flyde editor (▶ button)
+2. A connection command appears in the console (e.g. `/connect localhost:8080`)
+3. Run that command in the Minecraft chat box
+4. Once connected, the flow starts reacting to events in Minecraft
 
-## 5. よくあるノードの組み合わせ
+## 5. Common node combinations
 
-| やりたいこと | 使うノード |
+| What you want to do | Nodes to use |
 |---|---|
-| プレイヤーが発言したらコマンドを実行する | `OnPlayerChat` → `RunCommand` |
-| プレイヤーの座標を取得する | `GetPlayerLocation` |
-| 指定範囲をブロックで塗りつぶす | `FillBlocks` |
-| 座標同士の距離や四則演算をする | `Vector3Op` / `Vector3Distance` |
-| イベントで受け取ったスナップショットから値を取り出す | `GetFromEntity` / `GetFromPlayerSnapshot` など |
+| Run a command when a player chats | `OnPlayerChat` → `RunCommand` |
+| Get a player's position | `GetPlayerLocation` |
+| Fill an area with a block | `FillBlocks` |
+| Calculate distance or arithmetic between coordinates | `Vector3Op` / `Vector3Distance` |
+| Extract a value from a snapshot received via an event | `GetFromEntity` / `GetFromPlayerSnapshot`, etc. |
 
-各ノードの入出力ポートの説明は、Flyde エディタ上でノードを選択すると確認できます。
+You can check each node's input/output ports by selecting it in the Flyde editor.
 
-## トラブルシューティング
+## Troubleshooting
 
-- **ノードメニューに表示されない**：`npm install` を実行済みか、`dist/` フォルダにビルド済みJSが存在するか確認してください。
-- **接続できない**：Minecraft 側でチート（コマンド）が有効になっているか、ポート番号が一致しているか確認してください。
-- **フローが反応しない**：イベント系ノード（`On~`）は接続後に発生したイベントにのみ反応します。フロー実行 → Minecraft 接続の順序を確認してください。
+- **Node doesn't appear in the menu**: Make sure you opened the `flyde-minecraft-bedrock` folder itself as the VSCode workspace root (not a parent folder containing it), that you ran `npm install` inside it, and that `flyde-minecraft-bedrock/build/` contains the built JS file.
+- **Can't connect**: Check that cheats (commands) are enabled in Minecraft and that the port number matches.
+- **Flow doesn't react**: Event nodes (`On~`) only react to events that occur after connecting. Make sure you ran the flow before connecting to Minecraft.
 
-## ライセンスについて
+## About the license
 
-このパッケージは [PolyForm Noncommercial License 1.0.0](LICENSE.md) のもとで提供されています。非商用目的（個人の学習・趣味など）であれば無料で利用できます。プログラミング教室など営利目的の教育事業での利用は商用利用に該当するため、フル機能版（有料）をご利用ください。
+This package is provided under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). It's free to use for non-commercial purposes (personal learning, hobby use, etc.). Use in for-profit educational businesses, such as programming schools, counts as commercial use, so please use the Full Edition (paid) for that.
 
-商用利用やエージェント操作・スコアボードなどを含むフル機能版は、~~[Gumroad](#)~~ / ~~[BOOTH](#)~~（準備中）にて販売予定です。
+The Full Edition, which includes commercial use rights and features like agent control and scoreboard, will be sold via ~~[Gumroad](#)~~ / ~~[BOOTH](#)~~ (coming soon).
