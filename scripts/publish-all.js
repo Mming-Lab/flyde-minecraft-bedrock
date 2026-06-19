@@ -221,13 +221,13 @@ async function main() {
     }
 
     // 4. upload free-beta zips to the public site repo
-    try {
-      uploadFreeRelease(version, freeZipPaths)
-      console.log(`\n✓ uploaded free-beta zips to ${SITE_REPO} (v${version})`)
-    } catch (err) {
-      console.error(`\n✗ gh release upload failed (repo may not exist yet, or release v${version} already exists)`)
-      console.error(err.message)
-    }
+    // try {
+    //   uploadFreeRelease(version, freeZipPaths)
+    //   console.log(`\n✓ uploaded free-beta zips to ${SITE_REPO} (v${version})`)
+    // } catch (err) {
+    //   console.error(`\n✗ gh release upload failed (repo may not exist yet, or release v${version} already exists)`)
+    //   console.error(err.message)
+    // }
   } finally {
     // restore to default locale
     console.log(`\n${'='.repeat(50)}`)

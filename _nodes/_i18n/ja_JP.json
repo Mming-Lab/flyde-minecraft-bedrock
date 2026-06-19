@@ -729,7 +729,8 @@
     },
     "outputs": {
       "value": {
-        "name": "値"
+        "name": "値",
+        "description": "取得した時刻の値"
       }
     }
   },
@@ -1963,13 +1964,13 @@
         "name": "比較",
         "description": "比較の種類",
         "options": {
-          "eq":     "一致 (===)",
-          "neq":    "不一致 (!==)",
-          "deep":   "深い一致",
-          "lt":     "より小さい (<)",
-          "gt":     "より大きい (>)",
-          "lte":    "以下 (≤)",
-          "gte":    "以上 (≥)",
+          "eq": "一致 (===)",
+          "neq": "不一致 (!==)",
+          "deep": "深い一致",
+          "lt": "より小さい (<)",
+          "gt": "より大きい (>)",
+          "lte": "以下 (≤)",
+          "gte": "以上 (≥)",
           "approx": "近似 (±許容差)"
         }
       },
@@ -2010,10 +2011,10 @@
         "name": "モデル",
         "description": "使用する Gemini モデル",
         "options": {
-          "gemini-2.5-flash":     "Gemini 2.5 Flash（推奨）",
-          "gemini-2.5-pro":       "Gemini 2.5 Pro",
-          "gemini-2.0-flash":     "Gemini 2.0 Flash",
-          "gemini-2.0-flash-lite":"Gemini 2.0 Flash Lite"
+          "gemini-2.5-flash": "Gemini 2.5 Flash（推奨）",
+          "gemini-2.5-pro": "Gemini 2.5 Pro",
+          "gemini-2.0-flash": "Gemini 2.0 Flash",
+          "gemini-2.0-flash-lite": "Gemini 2.0 Flash Lite"
         }
       },
       "prompt": {

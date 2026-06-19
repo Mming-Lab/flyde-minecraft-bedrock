@@ -28,13 +28,11 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-/**
- * 条件式中のポート名識別子のみをローカル名に置換する。
- * シングルクォートで囲まれたselect値（例: 'TravelMethod'）は対象外。
- */
+// FlydeのevaluateConditionはconfigのキー（翻訳後のローカル名）をevalスコープに渡すため、
+// conditionの識別子もローカル名に合わせる必要がある。
+// シングルクォート内のselect値（例: 'block'）は対象外。
 function rewriteCondition(cond: string, enToLocal: Record<string, string>): string {
   for (const [en, local] of Object.entries(enToLocal)) {
-    // 前後がシングルクォートでない単語境界のみ置換
     cond = cond.replace(new RegExp(`(?<!')\\b${escapeRegex(en)}\\b(?!')`, 'g'), local)
   }
   return cond
@@ -87,8 +85,6 @@ function localizeInputDefs(
       }
     }
 
-    // condition 式内のポート名（識別子）のみ英語 → ローカルに書き換え。
-    // 引用符内のselect値（例: 'TravelMethod'）は書き換えない。
     if (pin.condition) {
       localPin.condition = rewriteCondition(pin.condition, enToLocal)
     }
