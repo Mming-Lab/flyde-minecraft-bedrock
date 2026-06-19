@@ -160,9 +160,9 @@ node:
       inputConfig: {}
       nodeId: GetFromItemStack
       config:
-        ｱｲﾃﾑ:
+        所持ｱｲﾃﾑ:
           type: dynamic
-          value: "{{ｱｲﾃﾑ}}"
+          value: "{{所持ｱｲﾃﾑ}}"
       type: code
       source:
         type: file
@@ -504,10 +504,10 @@ node:
         pinId: 実際値
     - from:
         insId: on-item-crafted
-        pinId: ｱｲﾃﾑ
+        pinId: 所持ｱｲﾃﾑ
       to:
         insId: get-from-item-stack-095
-        pinId: ｱｲﾃﾑ
+        pinId: 所持ｱｲﾃﾑ
     - from:
         insId: get-from-item-stack-095
         pinId: アイテムID
