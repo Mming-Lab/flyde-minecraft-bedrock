@@ -290,16 +290,16 @@ npm でサードパーティノードを配布してユーザーが `npm install
 
 ### zip ファイル名規則
 
-- `releases/flyde-minecraft-bedrock-free-beta-{localeSlug}-v{version}.zip`
+- `releases/flyde-minecraft-bedrock-free-{localeSlug}-v{version}.zip`
 - `releases/flyde-minecraft-bedrock-full-{localeSlug}-v{version}.zip`
-- `localeSlug` は `ja_JP` → `ja-jp` のように小文字・ハイフン区切りに変換したもの
+- `localeSlug` はロケール識別子そのまま（例: `ja_JP`、`en_US`）
 
 ### publish フロー（`npm run publish:all`）
 
 言語ごとに以下を繰り返す（npm publish は行わない）：
 
 1. `set-lang.js {locale}` で言語切替
-2. `build.js` で無料版をビルド → `releases/flyde-minecraft-bedrock-free-beta-{locale}-v{version}.zip` 生成
+2. `build.js` で無料版をビルド → `releases/flyde-minecraft-bedrock-free-{locale}-v{version}.zip` 生成
 3. `build.js --full` でフル版をビルド → `releases/flyde-minecraft-bedrock-full-{locale}-v{version}.zip` 生成
 
 全言語処理後、無料版ベータzipのみ `gh release create` で公開サイトリポジトリ（`flyde-minecraft-bedrock-site`）にアップロードする。フル版zipは有料のため `releases/` に置くのみ（手動でGumroad等にアップロード）。

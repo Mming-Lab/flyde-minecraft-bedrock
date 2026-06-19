@@ -13,14 +13,14 @@
  *
  * Per locale (both _maps/ and _i18n/ must exist):
  *   1. Switch locale         (set-lang.js)
- *   2. Build free version    → build/index.free.flyde.js → releases/*free-beta*.zip
+ *   2. Build free version    → build/index.free.flyde.js → releases/*free*.zip
  *   3. Build full version    → build/index.flyde.js      → releases/*full*.zip
  * After all locales:
- *   4. Upload free-beta zips → GitHub Release on the public site repo
+ *   4. Upload free zips → GitHub Release on the public site repo
  *
  * zip files:
- *   releases/flyde-minecraft-bedrock-full-ja-jp-v{version}.zip
- *   releases/flyde-minecraft-bedrock-free-beta-ja-jp-v{version}.zip
+ *   releases/flyde-minecraft-bedrock-full-ja_JP-v{version}.zip
+ *   releases/flyde-minecraft-bedrock-free-ja_JP-v{version}.zip
  *
  * full zip contents (complete project template, no source files):
  *   flyde-minecraft-bedrock/
@@ -31,7 +31,7 @@
  *       *.flyde            sample flows
  *     flyde-mc.config.json  default log level (INFO)
  *
- * free-beta zip contents (same shape, free nodes only, no sample flows yet):
+ * free zip contents (same shape, free nodes only, no sample flows yet):
  *   flyde-minecraft-bedrock/
  *     package.json         dependencies only（参考情報）
  *     build/
@@ -75,8 +75,8 @@ function collectLocales() {
     })
     .map(locale => ({
       locale,
-      localeSlug : locale.toLowerCase().replace('_', '-'),
-      nameSuffix : locale === DEFAULT_LOCALE ? '' : `-${locale.toLowerCase().replace('_', '-')}`,
+      localeSlug : locale,
+      nameSuffix : locale === DEFAULT_LOCALE ? '' : `-${locale}`,
     }))
 }
 
@@ -137,12 +137,12 @@ function createZip(localeSlug, nameSuffix, version) {
   })
 }
 
-// Create zip: free-beta project template (free compiled nodes only)
+// Create zip: free project template (free compiled nodes only)
 function createFreeZip(localeSlug, nameSuffix, version) {
   return new Promise((resolve, reject) => {
     fs.mkdirSync(RELEASES_DIR, { recursive: true })
 
-    const zipName = `flyde-minecraft-bedrock-free-beta-${localeSlug}-v${version}.zip`
+    const zipName = `flyde-minecraft-bedrock-free-${localeSlug}-v${version}.zip`
     const zipPath = path.join(RELEASES_DIR, zipName)
     const DIR     = 'flyde-minecraft-bedrock'
 
@@ -183,7 +183,7 @@ function createFreeZip(localeSlug, nameSuffix, version) {
   })
 }
 
-// Upload free-beta zips to the public site repo as a single GitHub Release
+// Upload free zips to the public site repo as a single GitHub Release
 function uploadFreeRelease(version, zipPaths) {
   const assets = zipPaths.map(p => `"${p}"`).join(' ')
   run(`gh release create v${version} ${assets} --repo ${SITE_REPO} --title "v${version} (beta)" --notes "Free beta build"`)
@@ -196,7 +196,7 @@ async function main() {
 
   console.log('Target locales:')
   langs.forEach(({ locale, localeSlug, nameSuffix }) => {
-    console.log(`  ${locale.padEnd(8)} → zip: flyde-minecraft-bedrock-free-beta-${localeSlug}-v${version}.zip / flyde-minecraft-bedrock-full-${localeSlug}-v${version}.zip`)
+    console.log(`  ${locale.padEnd(8)} → zip: flyde-minecraft-bedrock-free-${localeSlug}-v${version}.zip / flyde-minecraft-bedrock-full-${localeSlug}-v${version}.zip`)
   })
   console.log()
 
@@ -211,7 +211,7 @@ async function main() {
       // 1. switch locale
       run(`node scripts/set-lang.js ${locale}`)
 
-      // 2. build free version → free-beta zip
+      // 2. build free version → free zip
       run('node scripts/build.js')
       freeZipPaths.push(await createFreeZip(localeSlug, nameSuffix, version))
 
@@ -220,10 +220,10 @@ async function main() {
       await createZip(localeSlug, nameSuffix, version)
     }
 
-    // 4. upload free-beta zips to the public site repo
+    // 4. upload free zips to the public site repo
     // try {
     //   uploadFreeRelease(version, freeZipPaths)
-    //   console.log(`\n✓ uploaded free-beta zips to ${SITE_REPO} (v${version})`)
+    //   console.log(`\n✓ uploaded free zips to ${SITE_REPO} (v${version})`)
     // } catch (err) {
     //   console.error(`\n✗ gh release upload failed (repo may not exist yet, or release v${version} already exists)`)
     //   console.error(err.message)

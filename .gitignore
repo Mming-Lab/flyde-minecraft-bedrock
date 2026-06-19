@@ -3,3 +3,4 @@ build/
 releases/
 *.log
 logs/
+scripts/rp/
