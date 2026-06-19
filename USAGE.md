@@ -11,15 +11,15 @@
 
 ## 2. Project setup
 
-1. Download and extract the zip — this gives you a `flyde-minecraft-bedrock` folder
+1. Download and extract the zip — this gives you a `flyde-minecraft-bedrock-nodes` folder
 2. Open a terminal inside that folder and install its dependencies
 
 ```bash
-cd flyde-minecraft-bedrock
+cd flyde-minecraft-bedrock-nodes
 npm install
 ```
 
-3. Open the `flyde-minecraft-bedrock` folder itself in VSCode (File > Open Folder)
+3. Open the `flyde-minecraft-bedrock-nodes` folder itself in VSCode (File > Open Folder)
 
 Flyde automatically scans the open workspace for node files. Nodes from `build/` will appear in the "Local" group in the Flyde editor.
 
@@ -27,7 +27,7 @@ This is the same procedure for the Full Edition (after purchase).
 
 ## 3. Create a flow file
 
-Creating a new `.flyde` file anywhere inside the `flyde-minecraft-bedrock` folder (e.g. in `flows/`) launches the Flyde editor.
+Creating a new `.flyde` file anywhere inside the `flyde-minecraft-bedrock-nodes` folder (e.g. in `flows/`) launches the Flyde editor.
 
 Nodes from `build/index.flyde.js` automatically appear in the node menu, so you can build flows by dragging and dropping them.
 
@@ -50,7 +50,7 @@ MinecraftConnect (port: 8080)
 
 ## 5. Example flows
 
-The [examples/](examples/) folder contains ready-to-try sample flows. Copy them into your `flyde-minecraft-bedrock/flows/` folder to open them. Note: these are currently only available with Japanese node names (`.ja.flyde`); more languages may be added later.
+The [examples/](examples/) folder contains ready-to-try sample flows. Copy them into your `flyde-minecraft-bedrock-nodes/flows/` folder to open them. Note: these are currently only available with Japanese node names (`.ja.flyde`); more languages may be added later.
 
 | File | Description |
 |---|---|
@@ -58,7 +58,7 @@ The [examples/](examples/) folder contains ready-to-try sample flows. Copy them 
 
 ## Troubleshooting
 
-- **Node doesn't appear in the menu**: Make sure you opened the `flyde-minecraft-bedrock` folder itself as the VSCode workspace root (not a parent folder containing it), that you ran `npm install` inside it, and that `flyde-minecraft-bedrock/build/` contains the built JS file.
+- **Node doesn't appear in the menu**: Make sure you opened the `flyde-minecraft-bedrock-nodes` folder itself as the VSCode workspace root (not a parent folder containing it), that you ran `npm install` inside it, and that `flyde-minecraft-bedrock-nodes/build/` contains the built JS file.
 - **Can't connect**: Check that cheats (commands) are enabled in Minecraft and that the port number matches.
 - **Flow doesn't react**: Event nodes (`On~`) only react to events that occur after connecting. Make sure you ran the flow before connecting to Minecraft.
 
