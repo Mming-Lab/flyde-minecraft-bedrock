@@ -5,3 +5,4 @@ node_modules/
 logs/
 scripts/rp/
 flows/*.flyde
+CLAUDE.md
