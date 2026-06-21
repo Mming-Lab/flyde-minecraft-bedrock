@@ -10,7 +10,6 @@
  *
  * Rewrites:
  *   _nodes/index.flyde.ts       _i18n/{locale}.json import
- *   _nodes/index.free.flyde.ts  same
  *   _nodes/utils/_catalog.ts    _maps/{locale}.json import + locale constant
  */
 
@@ -52,13 +51,10 @@ function replaceAll(filePath, fromStr, toStr) {
 }
 
 // index.flyde.ts
-const c1 = replaceAll(path.join(ROOT, '_nodes/index.flyde.ts'),      `_i18n/${from}.json`, `_i18n/${to}.json`)
-// index.free.flyde.ts
-const c2 = replaceAll(path.join(ROOT, '_nodes/index.free.flyde.ts'), `_i18n/${from}.json`, `_i18n/${to}.json`)
+const c1 = replaceAll(path.join(ROOT, '_nodes/index.flyde.ts'),    `_i18n/${from}.json`, `_i18n/${to}.json`)
 // _catalog.ts（_maps の import 行 + locale 定数を両方書き換え）
-const c3 = replaceAll(path.join(ROOT, '_nodes/utils/_catalog.ts'),   from, to)
+const c3 = replaceAll(path.join(ROOT, '_nodes/utils/_catalog.ts'), from, to)
 
-if (c1) console.log(`✓ index.flyde.ts       → ${to}`)
-if (c2) console.log(`✓ index.free.flyde.ts  → ${to}`)
-if (c3) console.log(`✓ _catalog.ts          → ${to}`)
+if (c1) console.log(`✓ index.flyde.ts  → ${to}`)
+if (c3) console.log(`✓ _catalog.ts     → ${to}`)
 console.log('Reload the VSCode window to apply changes (Ctrl+Shift+P → "Reload Window").')

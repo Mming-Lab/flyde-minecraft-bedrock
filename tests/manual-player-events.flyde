@@ -14,7 +14,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 300
@@ -28,7 +28,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 500
@@ -42,7 +42,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 500
@@ -68,7 +68,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 700
@@ -82,7 +82,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 700
@@ -99,7 +99,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 650
         y: 700
@@ -125,7 +125,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 900
@@ -139,7 +139,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 900
@@ -165,7 +165,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 1100
@@ -179,7 +179,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 1300
@@ -193,7 +193,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 1500
@@ -207,7 +207,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 1460.6187744140625
@@ -224,7 +224,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 650
         y: 1500
@@ -250,7 +250,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 1700
@@ -264,7 +264,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 1700
@@ -281,7 +281,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 650
         y: 1700
@@ -307,7 +307,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 50
         y: 1900
@@ -321,7 +321,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 350
         y: 1900
@@ -335,7 +335,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 639
         y: 2016
@@ -361,7 +361,7 @@ node:
       type: code
       source:
         type: file
-        data: ../../build/index.flyde.js
+        data: ../_nodes/index.flyde.ts
     - pos:
         x: 947.3550338745117
         y: 208.76312255859375

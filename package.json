@@ -2,15 +2,11 @@
   "name": "flyde-minecraft-bedrock",
   "version": "1.0.0-beta.1",
   "private": true,
-  "description": "Flyde nodes for Minecraft Bedrock / Education Edition via WebSocket (Free version)",
+  "description": "Flyde nodes for Minecraft Bedrock / Education Edition via WebSocket",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "node scripts/build.js",
-    "build:full": "node scripts/build.js --full",
     "generate-maps": "cd scripts && npx ts-node --project tsconfig.json generate-maps.ts",
-    "lang:ja": "node scripts/set-lang.js ja_JP",
-    "lang:en": "node scripts/set-lang.js en_US",
-    "publish:all": "node scripts/publish-all.js",
+    "lang": "node scripts/set-lang.js",
     "lint:dead-code": "knip"
   },
   "peerDependencies": {
@@ -22,8 +18,6 @@
     "@flyde/core": "*",
     "@minecraft/vanilla-data": "*",
     "@types/node": "^20.0.0",
-    "archiver": "^8.0.0",
-    "esbuild": "^0.25.0",
     "knip": "^6.17.1",
     "socket-be": "*",
     "ts-node": "^10.9.2",
@@ -40,8 +34,5 @@
     "education"
   ],
   "homepage": "https://example.com",
-  "license": "SEE LICENSE IN LICENSE.md",
-  "allowScripts": {
-    "esbuild@0.25.12": true
-  }
+  "license": "SEE LICENSE IN LICENSE.md"
 }

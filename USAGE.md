@@ -11,7 +11,7 @@
 
 ## 2. Project setup
 
-1. Download and extract the zip — this gives you a `flyde-minecraft-bedrock-nodes` folder
+1. Clone this repository (or use GitHub's "Download ZIP")
 2. Open a terminal inside that folder and install its dependencies
 
 ```bash
@@ -22,8 +22,6 @@ npm install
 3. Open the `flyde-minecraft-bedrock-nodes` folder itself in VSCode (File > Open Folder)
 
 Flyde automatically scans the open workspace for node files. Nodes from `build/` will appear in the "Local" group in the Flyde editor.
-
-This is the same procedure for the Full Edition (after purchase).
 
 ## 3. Create a flow file
 
@@ -64,6 +62,4 @@ The [examples/](examples/) folder contains ready-to-try sample flows. Copy them 
 
 ## About the license
 
-This package is provided under the [Prosperity Public License 3.0.0](LICENSE.md). It's free to use indefinitely for non-commercial purposes (personal learning, hobby use, schools, nonprofits, etc.). Commercial use (such as for-profit educational businesses like programming schools) gets a 30-day free trial, after which a paid Patron License (Full Edition) is required.
-
-The Full Edition, which includes commercial use rights and features like agent control and scoreboard, will be sold via ~~[Gumroad](#)~~ / ~~[BOOTH](#)~~ (coming soon).
+This package is provided under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). It's free to use indefinitely for non-commercial purposes (personal learning, hobby use, schools, nonprofits, etc.). For commercial use (such as for-profit educational businesses like programming schools), please contact Mming Lab.

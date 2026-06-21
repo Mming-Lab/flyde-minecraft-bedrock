@@ -30,13 +30,11 @@
 
 ### 事前準備
 
-```bash
-npm run build:full   # 必須：テストフローは build/index.flyde.js を参照する
-```
+`npm install` のみで実行可能（テストフローは `_nodes/index.flyde.ts` を直接参照するため、ビルドは不要）。
 
 ### 全自動テスト
 
-1. VSCode で `flows/tests/run-auto-all.flyde` を開く
+1. VSCode で `tests/run-auto-all.flyde` を開く
 2. Flyde エディタでフローを実行
 3. Minecraft で `/connect localhost:8080`
 4. チャットに任意のメッセージを送信

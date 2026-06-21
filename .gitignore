@@ -1,8 +1,7 @@
 .DS_Store
 Thumbs.db
 node_modules/
-build/
-releases/
 *.log
 logs/
 scripts/rp/
+flows/*.flyde
