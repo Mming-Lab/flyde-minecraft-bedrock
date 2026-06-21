@@ -335,8 +335,9 @@ node:
       nodeId: Note
       config:
         content: |-
-          ブロックの設置/破壊時の情報表示
+          ⚠️ 日本語に切替ていないと正しく表示されません
 
+          ブロックの設置/破壊時の情報表示
           「dis」と入力すると切断します。
       type: code
       source:
