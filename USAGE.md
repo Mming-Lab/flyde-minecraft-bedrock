@@ -33,6 +33,12 @@ npm run lang -- ja_JP
 
 This switches node names, port names, and Minecraft block/item/mob name translations across the project all at once. See the files in [_nodes/_i18n/](_nodes/_i18n/) for the full list of supported locales.
 
+After running the command, the Flyde editor must be reloaded to reflect the new block/item/mob dropdown labels:
+
+```
+Ctrl+Shift+P → Developer: Restart Extension Host
+```
+
 ⚠️ **Switch language before you start building flows.** Port names are baked into each `.flyde` file. If you switch language after building a flow, it's not just the wires that disconnect — each node's configured values (strings, numbers, etc.) are also keyed by the old port name and get orphaned, so you'd need to redo each node's configuration, not just reconnect the wires. Decide on a language before you start.
 
 ## 4. Create a flow file
