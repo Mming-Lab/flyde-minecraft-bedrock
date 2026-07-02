@@ -1,5 +1,6 @@
 import { MinecraftBlockTypes, MinecraftItemTypes, MinecraftEntityTypes } from '@minecraft/vanilla-data'
 import maps from './_maps/ja_JP.json'  // set-lang.js で書き換え
+import makecodeIds from './_makecode-ids.json'  // MakeCode に存在するID（セレクタ選択肢の絞り込み用）
 
 export type SelectOption = { value: string; label: string }
 
@@ -7,10 +8,14 @@ export type SelectOption = { value: string; label: string }
 
 const locale = 'ja_JP'
 
-// ── 全ID一覧の生成 ────────────────────────────────────────────────
+// ── ID一覧の生成 ──────────────────────────────────────────────────
+//
+// ・セレクタの選択肢（BLOCK_ALL 等）は MakeCode 準拠に絞り込む（使わない遺物を隠す）
+// ・逆引きマップ（BLOCK_ID_TO 等）は全ID保持（ToJa がイベントで届く任意IDを日本語化するため）
 
-function toOpts(enumObj: object, nameMap: Record<string, string>): SelectOption[] {
+function toOpts(enumObj: object, nameMap: Record<string, string>, allow?: Set<string>): SelectOption[] {
   return Object.values(enumObj)
+    .filter(id => !allow || allow.has(id as string))
     .map(id => {
       const label = nameMap[id as string]
       return { value: id as string, label: label ?? id, hasJa: label !== undefined }
@@ -23,14 +28,20 @@ function toOpts(enumObj: object, nameMap: Record<string, string>): SelectOption[
     .map(({ value, label }) => ({ value, label }))
 }
 
-export const BLOCK_ALL: SelectOption[] = toOpts(MinecraftBlockTypes, maps.BLOCK ?? {})
-export const ITEM_ALL:  SelectOption[] = toOpts(MinecraftItemTypes,  maps.ITEM  ?? {})
-export const MOB_ALL:   SelectOption[] = toOpts(MinecraftEntityTypes, maps.MOB  ?? {})
+// MakeCode 絞り込みセット
+const BLOCK_ALLOW = new Set<string>(makecodeIds.BLOCK)
+const ITEM_ALLOW  = new Set<string>(makecodeIds.ITEM)
+const MOB_ALLOW   = new Set<string>(makecodeIds.MOB)
 
-// 逆引きマップ（ID → ロケール名）
-export const BLOCK_ID_TO: Record<string, string> = Object.fromEntries(BLOCK_ALL.map(o => [o.value, o.label]))
-export const ITEM_ID_TO:  Record<string, string> = Object.fromEntries(ITEM_ALL.map(o  => [o.value, o.label]))
-export const MOB_ID_TO:   Record<string, string> = Object.fromEntries(MOB_ALL.map(o   => [o.value, o.label]))
+// セレクタ選択肢（MakeCode 絞り込み）
+export const BLOCK_ALL: SelectOption[] = toOpts(MinecraftBlockTypes, maps.BLOCK ?? {}, BLOCK_ALLOW)
+export const ITEM_ALL:  SelectOption[] = toOpts(MinecraftItemTypes,  maps.ITEM  ?? {}, ITEM_ALLOW)
+export const MOB_ALL:   SelectOption[] = toOpts(MinecraftEntityTypes, maps.MOB  ?? {}, MOB_ALLOW)
+
+// 逆引きマップ（ID → ロケール名、全ID保持）
+export const BLOCK_ID_TO: Record<string, string> = Object.fromEntries(toOpts(MinecraftBlockTypes,  maps.BLOCK ?? {}).map(o => [o.value, o.label]))
+export const ITEM_ID_TO:  Record<string, string> = Object.fromEntries(toOpts(MinecraftItemTypes,   maps.ITEM  ?? {}).map(o => [o.value, o.label]))
+export const MOB_ID_TO:   Record<string, string> = Object.fromEntries(toOpts(MinecraftEntityTypes, maps.MOB   ?? {}).map(o => [o.value, o.label]))
 
 // ── ENUM ─────────────────────────────────────────────────────────
 
